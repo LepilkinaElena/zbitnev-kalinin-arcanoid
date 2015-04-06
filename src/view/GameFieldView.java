@@ -1,10 +1,10 @@
-﻿package view;
+package view;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.collision.PublishingCollisionManager;
 import model.IngameObject;
 import model.ball.Ball;
 import model.brick.Brick;
@@ -16,6 +16,7 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import view.collision.PublishingCollisionManager;
 
 /**
  * Игровое поле арканоида. Содержит все обекты игры, ответственнен за обновление, рендеринг и

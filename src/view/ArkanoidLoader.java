@@ -1,4 +1,5 @@
-﻿package view;
+package view;
+
 
 import java.awt.Dimension;
 import com.golden.gamedev.GameLoader;

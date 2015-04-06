@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import view.IngameObjectView;
 import model.ball.Ball;
 import model.ball.BallPositionChangedListener;
 import model.collision.CollidedObject;
