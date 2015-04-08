@@ -21,7 +21,7 @@ import view.PublishingSprite;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public abstract class IngameObject implements Cloneable, PositionChangeListener, SpeedChangeListener {
+public abstract class IngameObject implements Cloneable {
     
     protected Boolean _isDestroyed = false;
     
@@ -31,9 +31,7 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
     protected HashMap<Class<?>, BehaviourContainer> _specialColBehaviours 
 		= new HashMap<>();
 	protected GameField _field = null;
-	protected ArrayList<PositionChangeListener> _positionListeners = new ArrayList<>();
-	protected ArrayList<SpeedChangeListener> _speedListeners = new ArrayList<>();
-	protected ArrayList<GenericEventListener> _geneventListeners = new ArrayList<>();
+
 
 	/**
 	 * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой размер.
@@ -89,7 +87,7 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 	 */
 	public Speed2D getSpeed() {
 
-		return (Speed2D) _speed.clone();
+		return (Speed2D) sprite.getSpeed().clone();
 	}
 	
 	/**
@@ -97,11 +95,7 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 	 * @param speed Новая скорость.
 	 */
 	public void setSpeed(Speed2D speed) {
-
-		this._speed = speed;
-		for (SpeedChangeListener l : _speedListeners) {
-			l.speedChanged(this._speed);
-		}
+            sprite.setSpeed(speed);
 	}
 	
 	/**
@@ -110,7 +104,7 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 	 */
 	public Point2D.Float getPosition() {
 
-		return (Point2D.Float) _position.clone();
+		return (Point2D.Float) sprite.getPosition().clone();
 	}
 	
 	/**
@@ -118,27 +112,9 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 	 * @param pos Новая позиция.
 	 */
 	public void setPosition(Point2D.Float pos) {
-
-	    if (pos == null) {
-	        throw new NullPointerException();
-	    }
-		_position = pos;
-		for (PositionChangeListener l : _positionListeners) {
-			l.positionChanged(this._position);
-		}
+            sprite.setPosition(pos);
 	}
 	
-	/**
-	 * Задает размер объекта в пикселях.
-	 * @param dim
-	 */
-	public void setSize(Dimension dim) {
-	    
-	    if (dim == null) {
-	        throw new NullPointerException();
-	    }
-	    _size = dim;
-	}
 	
 	/**
 	 * Возвращает размер объекта в пикселях.
@@ -146,26 +122,17 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 	 */
 	public Dimension getSize() {
 	    
-	    return (Dimension) _size.clone();
+	    return (Dimension) sprite.getSize().clone();
 	}
 	
-	/**
-	 * Сдвинуть объект.
-	 * @param delta Величина изменения позиции
-	 */
-	public void move(Point2D.Float delta) {
-		
-		this.setPosition(new Point2D.Float(this.getPosition().x + delta.x, this.getPosition().y + delta.y));
-	}
-	
-	/**
+	/** 
 	 * Обрабатывает столкновение с другим объектом.
 	 * @param curr Текущий объект
 	 * @param other Объект, столкнувшийся с данным.
 	 */
 	public void processCollision(CollidedObject curr, CollidedObject other) {
 
-		// Вызываем специализированные коллизии, если таковые имеются
+            // Вызываем специализированные коллизии, если таковые имеются
 	    boolean foundSpecial = false;
 	    
 	    Iterator i = _specialColBehaviours.entrySet().iterator();
