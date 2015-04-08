@@ -1,6 +1,7 @@
 package view;
 
 import com.golden.gamedev.object.Sprite;
+import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import model.Speed2D;
 
@@ -39,5 +40,9 @@ public class PublishingSprite {
     
     public Point2D.Float getPosition() {
         return new Point2D.Float((float)sprite.getX(), (float)sprite.getY());
+    }
+    
+    public Dimension getSize() {
+        return new Dimension(sprite.getWidth(), sprite.getHeight());
     }
 }
