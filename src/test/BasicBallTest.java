@@ -1,12 +1,11 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
 import model.GameField;
 import model.ball.BasicBall;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
