@@ -57,4 +57,19 @@ public class BehaviourContainer {
         }
         return null;
     }
+    
+    public boolean hasNext(Class<?> className) {
+        ArrayList<CollisionBehaviour> list;
+        Iterator i;
+        if (_specialColBehaviours.containsKey(className)) {
+            list = _specialColBehaviours.get(className);
+            if (_iterators.containsKey(className)) {
+                i = _iterators.get(className);
+            } else {
+                i = list.iterator();
+            }
+            return i.hasNext();
+        }
+        return false;
+    }
 }
