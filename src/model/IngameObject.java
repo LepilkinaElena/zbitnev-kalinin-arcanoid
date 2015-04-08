@@ -10,10 +10,11 @@ import java.util.Map;
 
 import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
-import model.collision.SpecialBehaviours;
+import model.collision.BehaviourContainer;
 import model.interaction.GenericEventListener;
 import model.interaction.PositionChangeListener;
 import model.interaction.SpeedChangeListener;
+import view.PublishingSprite;
 
 /**
  * Класс игрового объекта.
@@ -24,11 +25,10 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
     
     protected Boolean _isDestroyed = false;
     
-	protected Point2D.Float _position = null;
-	protected Dimension _size = null;
-	protected Speed2D _speed = null;
-	protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
-	protected HashMap<Class<?>, SpecialBehaviours> _specialColBehaviours 
+    private PublishingSprite sprite;
+    
+    protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
+    protected HashMap<Class<?>, BehaviourContainer> _specialColBehaviours 
 		= new HashMap<>();
 	protected GameField _field = null;
 	protected ArrayList<PositionChangeListener> _positionListeners = new ArrayList<>();
@@ -170,7 +170,7 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 	    
 	    Iterator i = _specialColBehaviours.entrySet().iterator();
 	    while (i.hasNext()) {
-	        Map.Entry<Class<?>, SpecialBehaviours> entry = (Map.Entry)i.next();
+	        Map.Entry<Class<?>, BehaviourContainer> entry = (Map.Entry)i.next();
 	        if (entry.getValue()._flagCheckDerived) {
 	            if (entry.getKey().isInstance(other.object())) {
 	                foundSpecial = true;
@@ -227,7 +227,7 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 	 * @return Ключ -- класс объектов, значение -- флаги и список поведений, определённых при столкновении 
 	 *         с этим объектом
 	 */
-	public HashMap<Class<?>, SpecialBehaviours> getSpecificCollisionBehaviours() {
+	public HashMap<Class<?>, BehaviourContainer> getSpecificCollisionBehaviours() {
 		
 		return _specialColBehaviours;
 	}
@@ -247,7 +247,7 @@ public abstract class IngameObject implements Cloneable, PositionChangeListener,
 		
 		if (!_specialColBehaviours.containsKey(c)) {
 			
-			SpecialBehaviours newsb = new SpecialBehaviours(cb);
+			BehaviourContainer newsb = new BehaviourContainer(cb);
 			newsb._flagCheckDerived = checkDerived;
 			_specialColBehaviours.put(c, newsb);
 		}
