@@ -1,34 +1,43 @@
 package view;
 
 import com.golden.gamedev.object.Sprite;
+import java.awt.geom.Point2D;
+import model.Speed2D;
 
 /**
  * Спрайт, знающий о том, частью какого игрового объекта (IngameObjectView) он является
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class PublishingSprite extends Sprite {
-	
-    private IngameObjectView _objectView = null;
+public class PublishingSprite {
     
-	/**
-	 * Задать представление игрового объекта, которому принаджелит спрайт
-	 * @param object Игровой объект
-	 */
-	public void setObjectView(IngameObjectView object) {
-	    
-		if (object == null) {
-		    throw new NullPointerException();
-		}
-	    _objectView = object;
-	}
+    private final Sprite sprite;
+    
+    public PublishingSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+    
+    public int getId() {
+        if (sprite != null) {
+            return sprite.getID();
+        }
+        return -1;
+    }
 	
-	/**
-	 * Получить игровой объект, которому принадлежит спрайт.
-	 * @return Игровой объект.
-	 */
-	public IngameObjectView getObjectView() {
-		
-		return _objectView;
-	}
+    public void setSpeed(Speed2D speed) {
+        sprite.setSpeed(speed.x(), speed.y());
+    }
+    
+    public Speed2D getSpeed() {
+        return new Speed2D(sprite.getHorizontalSpeed(), sprite.getVerticalSpeed());
+    }
+    
+    public void setPosition(Point2D.Float point) {
+        sprite.setX(point.x);
+        sprite.setY(point.y);
+    }
+    
+    public Point2D.Float getPosition() {
+        return new Point2D.Float((float)sprite.getX(), (float)sprite.getY());
+    }
 }
