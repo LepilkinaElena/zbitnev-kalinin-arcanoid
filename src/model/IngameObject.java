@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,57 +27,22 @@ public abstract class IngameObject implements Cloneable {
     private PublishingSprite sprite;
     
     protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
-    protected HashMap<Class<?>, BehaviourContainer> _specialColBehaviours 
-		= new HashMap<>();
-	protected GameField _field = null;
-
-
-	/**
-	 * Создает игровой объект, координаты (0, 0), нулевая скорость, нулевой размер.
-	 * @param field Игровое поле.
-	 */
-	public IngameObject(GameField field) {
-		
-	    this(field, new Point2D.Float(0, 0), new Dimension(0, 0));
-	}
+    protected BehaviourContainer _specialColBehaviours = new BehaviourContainer();
+    private ArrayList<GenericEventListener> _geneventListeners = new ArrayList<>();
 	
 	/**
-	 * Создает игровой объект с нулевой скоростью.
-	 * @param field Игровое поле.
-	 * @param pos Позиция объекта.
-	 * @param dim Размеры объекта.
+	 * Создает игровой объект 
 	 */
-	public IngameObject(GameField field, Point2D.Float pos, Dimension dim) {
+	public IngameObject() {
 	    
-	    this(field, pos, dim, new Speed2D(0, 0));
 	}
 	
 	/**
 	 * Создает игровой объект.
-	 * @param field Игровое поле.
-	 * @param pos Позиция объекта.
-	 * @param dim Размеры объекта.
 	 * @param speed Скорость объекта.
 	 */
-	public IngameObject(GameField field, Point2D.Float pos, Dimension dim, Speed2D speed) {
-	    
-	    if (field == null || pos == null || dim == null || speed == null) {
-	        throw new NullPointerException();
-	    }
-	    
-	    this._field = field;
-	    this.setSize(dim);
-        this.setPosition(pos);
+	public IngameObject(Speed2D speed) {
 	    this.setSpeed(speed);
-	}
-	
-	/**
-	 * Возвращает поле, на котором находится объект.
-	 * @return Игровое поле.
-	 */
-	public GameField getField() {
-	    
-	    return this._field;
 	}
 	
 	/**
@@ -87,7 +51,7 @@ public abstract class IngameObject implements Cloneable {
 	 */
 	public Speed2D getSpeed() {
 
-		return (Speed2D) sprite.getSpeed().clone();
+            return (Speed2D) sprite.getSpeed().clone();
 	}
 	
 	/**
@@ -104,7 +68,7 @@ public abstract class IngameObject implements Cloneable {
 	 */
 	public Point2D.Float getPosition() {
 
-		return (Point2D.Float) sprite.getPosition().clone();
+            return (Point2D.Float) sprite.getPosition().clone();
 	}
 	
 	/**
@@ -113,8 +77,7 @@ public abstract class IngameObject implements Cloneable {
 	 */
 	public void setPosition(Point2D.Float pos) {
             sprite.setPosition(pos);
-	}
-	
+	}	
 	
 	/**
 	 * Возвращает размер объекта в пикселях.
@@ -127,76 +90,38 @@ public abstract class IngameObject implements Cloneable {
 	
 	/** 
 	 * Обрабатывает столкновение с другим объектом.
-	 * @param curr Текущий объект
-	 * @param other Объект, столкнувшийся с данным.
+	 * @param with Объект, столкнувшийся с данным.
 	 */
-	public void processCollision(CollidedObject curr, CollidedObject other) {
+	protected void processCollision(IngameObject with, BehaviourContainer specialBehaviours) {
 
-            // Вызываем специализированные коллизии, если таковые имеются
-	    boolean foundSpecial = false;
+            specialBehaviours.toStart();
 	    
-	    Iterator i = _specialColBehaviours.entrySet().iterator();
-	    while (i.hasNext()) {
-	        Map.Entry<Class<?>, BehaviourContainer> entry = (Map.Entry)i.next();
-	        if (entry.getValue()._flagCheckDerived) {
-	            if (entry.getKey().isInstance(other.object())) {
-	                foundSpecial = true;
-	                for (CollisionBehaviour cb : entry.getValue()._behaviours) {
-	                    cb.invoke(other, curr);
-	                }
-	            }
-	        } else if (entry.getKey().equals(other.object().getClass())) {
-                foundSpecial = true;
-                for (CollisionBehaviour cb : entry.getValue()._behaviours) {
-                    cb.invoke(other, curr);
-                }
+	    while (specialBehaviours.hasNext(with.getClass())) {
+	        CollisionBehaviour currentBehavior = specialBehaviours.next(with.getClass());
+                currentBehavior.invoke(with);
+	        
+	    }
+	}
+	
+        /** 
+	 * Обрабатывает столкновение с другим объектом.
+	 * @param with Объект, столкнувшийся с данным.
+	 */
+	protected void processCollision(IngameObject with, ArrayList<CollisionBehaviour> defaultBehaviours) {
+            
+            for (CollisionBehaviour behavior : defaultBehaviours) {
+                behavior.invoke(with);
             }
-	    }
-		
-		// Если их нет, тогда вызываем коллизию по умолчанию
-		// Если и она не определена, то ничего не происходит
-	    if (!foundSpecial) {
-    		for (CollisionBehaviour cb : _defaultColBehaviour) {
-    			cb.invoke(other, curr);
-    		}
-	    }
-	}
-	
-	/**
-	 * Получить список поведений по умолчанию при столкновении
-	 * @return Список объектов поведения
-	 */
-	public ArrayList<CollisionBehaviour> getDefaultCollisionBehaviours() {
-		
-		return _defaultColBehaviour;
-	}
-	
-	/**
-	 * Добавить поведение по умолчанию при столкновении
-	 * @param behaviour Добавляемое поведение
-	 */
-	public void addDefaultCollisionBehaviour(CollisionBehaviour behaviour) {
-	
-		_defaultColBehaviour.add(behaviour);
-	}
-	
-	/**
-	 * Удалить поведение по умолчанию при столкновении
-	 * @param behaviour Поведение для удаления
-	 */
-	public void removeDafaultCollisionBehavior(CollisionBehaviour behaviour) {
-		
-		// TODO Method stub
-	}
+        }
 	
 	/**
 	 * Получить словарь специальных поведений при столкновении
 	 * @return Ключ -- класс объектов, значение -- флаги и список поведений, определённых при столкновении 
 	 *         с этим объектом
 	 */
-	public HashMap<Class<?>, BehaviourContainer> getSpecificCollisionBehaviours() {
+	public BehaviourContainer getSpecificCollisionBehaviours() {
 		
-		return _specialColBehaviours;
+		return _specialColBehaviours.clone();
 	}
 	
 	/**
@@ -205,8 +130,8 @@ public abstract class IngameObject implements Cloneable {
 	 * @param cb Поведение, определяемое при столкновении с этим классом объектов
 	 * @param checkDerived Если true, то будут также проверяться наследники класса объектов.
 	 *                     Игнорируется, если для класса уже задано какое-либо поведение.
-	 */
-	public void addSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb, boolean checkDerived) {
+	 TO DO ПЕРЕНЕСТИ В КЛАССЫ*/
+	/*public void addSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb, boolean checkDerived) {
 		
 		if (!c.isInstance(IngameObject.class)) {
 			// TODO: Выброс исключения, ибо нечего
@@ -221,24 +146,24 @@ public abstract class IngameObject implements Cloneable {
 		else {
 			_specialColBehaviours.get(c)._behaviours.add(cb);
 		}
-	}
+	}*/
 	
-	/**
+    /**
      * Добавить специальное поведение при столкновении
      * @param c Класс объектов
      * @param cb Поведение, определяемое при столкновении с этим классом объектов
-     */
-	public void addSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb) {
+     *TO DO/
+	/*public void addSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb) {
 	    
 	    this.addSpecificCollisionBehaviour(c, cb, false);
-	}
+	}*/
 	
 	/**
 	 * Удалить специальное поведение при столкновении
 	 * @param c Класс объектов
 	 * @param cb Поведение, определённое при столкновении с этим классом объектов
-	 */
-	public void removeSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb) {
+	 *TO DO/
+	/*public void removeSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb) {
 		
 		if (!c.isInstance(IngameObject.class)) {
 			// TODO: Выброс исключения, ибо нечего
@@ -250,12 +175,12 @@ public abstract class IngameObject implements Cloneable {
 			    _specialColBehaviours.remove(c);
 			}
 		}
-	}
+	}*/
 	
 	/**
 	 * Очистить список поведений при столкновении по умолчанию
 	 */
-	public void cleanDefaultCollisionBehaviours() {
+	private void cleanDefaultCollisionBehaviours() {
 		
 		_defaultColBehaviour.clear();
 	}
@@ -263,7 +188,7 @@ public abstract class IngameObject implements Cloneable {
 	/**
 	 * Очистить списки специальных поведений при столкновении для всех классов объектов
 	 */
-	public void cleanAllSpecificCollisionBehaviours() {
+	protected void cleanAllSpecificCollisionBehaviours() {
 		
 		_specialColBehaviours.clear();
 	}
@@ -272,15 +197,9 @@ public abstract class IngameObject implements Cloneable {
 	 * Очистить список специальных поведений при столкновений для класса объектов
 	 * @param cl Класс объектов, для которых очищается список поведений
 	 */
-	public void cleanSpecificCollisionBehaviours(Class<?> cl) {
+	protected void cleanSpecificCollisionBehaviours(Class<?> cl) {
 		
-		if (!cl.isInstance(IngameObject.class)) {
-			// TODO: Выброс исключения, ибо нечего
-		}
-		
-		if (_specialColBehaviours.containsKey(cl)) {
-			_specialColBehaviours.remove(cl);
-		}
+		_specialColBehaviours.removeBehaviour(cl);
 	}
 	
 	/**
@@ -289,8 +208,6 @@ public abstract class IngameObject implements Cloneable {
 	 */
 	public void destroy() {
 		
-	    this._isDestroyed = true;
-	    this._field.removeObject(this);
 	    for (GenericEventListener l : _geneventListeners) {
 	    	l.destroyed();
 	    }
@@ -305,61 +222,11 @@ public abstract class IngameObject implements Cloneable {
 	    return _isDestroyed;
 	}
 	
-	//-------------------------------------------------------------------------------------------//
-	
-	@Override
-	public void positionChanged(Point2D.Float newpos) {
-		
-	    this._position = newpos;
-	}
-
-	@Override
-	public void speedChanged(Speed2D newspeed) {
-		
-		this._speed = newspeed;
-	}
-	
-	/**
-	 * Добавить слушателя изменения позиции объекта.
-	 * @param l Новый слушатель.
-	 */
-	public void addPositionChangeListener(PositionChangeListener l) {
-		_positionListeners.add(l);
-	}
-	
-	/**
-	 * Удалить слушателя изменения позиции объекта.
-	 * @param l Удаляемый слушатель.
-	 */
-	public void removePositionChangeListener(PositionChangeListener l) {
-		_positionListeners.remove(l);
-	}
-	
-	/**
-	 * Добавить слушателя изменения скорости объекта.
-	 * @param l Новый слушатель.
-	 */
-	public void addSpeedChangeListener(SpeedChangeListener l) {
-		_speedListeners.add(l);
-	}
-	
-	/**
-	 * Удалить слушателя изменения скорости объекта.
-	 * @param l Удаляемый слушатель.
-	 */
-	public void removeSpeedChangeListener(SpeedChangeListener l) {
-		_speedListeners.remove(l);
-	}
-	
 	/**
 	 * Добавить слушателя событий жизни объекта.
 	 * @param l Добавляемый слушатель.
 	 */
 	public void addGenericEventListener(GenericEventListener l) {
-		
-		if (l == null) {
-			return;
-		}
 
 		_geneventListeners.add(l);
 	}
@@ -377,10 +244,7 @@ public abstract class IngameObject implements Cloneable {
 		
 		IngameObject clone = (IngameObject)super.clone();
 		clone._isDestroyed = this._isDestroyed;
-		clone._field = this._field;    // ссылка на поле просто копируется, да
-		clone._position = (Point2D.Float) this._position.clone();
-		clone._size = (Dimension) this._size.clone();
-		clone._speed = (Speed2D) this._speed.clone();
+                clone.sprite = (PublishingSprite) sprite.clone();
 		
 		return clone;
 	}
