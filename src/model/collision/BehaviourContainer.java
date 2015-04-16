@@ -9,6 +9,7 @@ public class BehaviourContainer {
 		= new HashMap<>();
     
     private  HashMap<Class<?>, Iterator> _iterators = new HashMap<>();
+    
     /**
      * Если флаг установлен, то поведение применяется не только при столкновении с объектом данного класса, но и его потомками.
      */
@@ -41,6 +42,16 @@ public class BehaviourContainer {
                 _specialColBehaviours.remove(className);
             }
         }
+    }
+    
+    public void removeBehaviour(Class<?> className) {
+        if (_specialColBehaviours.containsKey(className)) {
+            _specialColBehaviours.get(className).clear();
+        }
+    }
+    
+    public void toStart() {
+        _iterators = new HashMap<>();
     }
     
     public CollisionBehaviour next(Class<?> className) {
