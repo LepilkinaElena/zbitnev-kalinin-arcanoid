@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
@@ -241,12 +243,17 @@ public abstract class IngameObject implements Cloneable {
 	}
 	
 	@Override
-	public Object clone() throws CloneNotSupportedException {
+	public Object clone() {
 		
-		IngameObject clone = (IngameObject)super.clone();
-		clone._isDestroyed = this._isDestroyed;
-                clone.sprite = (PublishingSprite) sprite.clone();
-		
+		IngameObject clone = null;
+        try {
+            clone = (IngameObject)super.clone();
+            clone._isDestroyed = this._isDestroyed;
+            clone.sprite = (PublishingSprite) sprite.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	
 		return clone;
 	}
 }
