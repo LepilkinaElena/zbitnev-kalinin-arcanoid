@@ -1,4 +1,4 @@
-package view;
+package service;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
