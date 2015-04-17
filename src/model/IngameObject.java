@@ -13,7 +13,7 @@ import model.collision.BehaviourContainer;
 import model.interaction.GenericEventListener;
 import model.interaction.PositionChangeListener;
 import model.interaction.SpeedChangeListener;
-import view.PublishingSprite;
+import service.PublishingSprite;
 
 /**
  * Класс игрового объекта.
@@ -33,16 +33,17 @@ public abstract class IngameObject implements Cloneable {
 	/**
 	 * Создает игровой объект 
 	 */
-	public IngameObject() {
-	    
+	public IngameObject(PublishingSprite sprite) {
+	    this.sprite = sprite;
 	}
 	
 	/**
 	 * Создает игровой объект.
 	 * @param speed Скорость объекта.
 	 */
-	public IngameObject(Speed2D speed) {
-	    this.setSpeed(speed);
+	public IngameObject(PublishingSprite sprite, Speed2D speed) {
+	    this(sprite);
+            this.setSpeed(speed);
 	}
 	
 	/**

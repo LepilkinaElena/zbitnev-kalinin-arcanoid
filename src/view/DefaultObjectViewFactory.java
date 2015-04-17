@@ -1,5 +1,6 @@
 package view;
 
+import service.PublishingSprite;
 import java.awt.image.BufferedImage;
 
 import model.ball.BasicBall;

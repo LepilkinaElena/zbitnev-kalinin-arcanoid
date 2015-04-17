@@ -13,7 +13,6 @@ import model.brick.UnbreakableBrick;
 import model.paddle.BasicPaddle;
 import view.GameFieldView;
 import view.IngameObjectView;
-import view.PublishingSprite;
 
 /**
  *
@@ -21,12 +20,12 @@ import view.PublishingSprite;
  */
 public class PublishingSpriteFactory {
     
-    GameFieldView _field;
+    private GameFieldView _field;
     
-    protected BufferedImage _basicBallImage = null;
-    protected BufferedImage _breakableBrickImage = null;
-    protected BufferedImage _unbreakableBrickImage = null;
-    protected BufferedImage _basicPaddleImage = null;
+    private BufferedImage _basicBallImage = null;
+    private BufferedImage _breakableBrickImage = null;
+    private BufferedImage _unbreakableBrickImage = null;
+    private BufferedImage _basicPaddleImage = null;
 
     public PublishingSpriteFactory(GameFieldView field) {
         _field = field;
