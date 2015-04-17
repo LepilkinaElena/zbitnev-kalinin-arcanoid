@@ -2,6 +2,7 @@ package view;
 
 
 
+import service.PublishingSprite;
 import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
@@ -19,7 +20,7 @@ import model.interaction.SpeedChangeListener;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class IngameObjectView {
+public abstract class IngameObjectView {
 
     protected final IngameObject ingameObject;
     
@@ -36,12 +37,4 @@ public class IngameObjectView {
 	    this.ingameObject = obj;
 	    this._sprite       = sprite;
 	}
-        
-        public void addToSpriteGroup(SpriteGroup group) {
-            _sprite.addToSpriteGroup(group);
-        }
-        
-        public void removeFromSpriteGroup(SpriteGroup group) {
-            _sprite.removeFromSpriteGroup(group);
-        }
 }
