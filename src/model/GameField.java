@@ -2,11 +2,9 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 import model.ball.Ball;
 import model.ball.BallPositionChangedListener;

@@ -1,6 +1,7 @@
 package view;
 
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import model.Speed2D;
@@ -56,4 +57,5 @@ public class PublishingSprite implements Cloneable{
         PublishingSprite clone = new PublishingSprite(cloneSprite);
         return clone;
     }
+
 }
