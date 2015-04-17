@@ -16,6 +16,7 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import model.interaction.GenericEventListener;
 import view.collision.PublishingCollisionManager;
 
 /**
@@ -27,84 +28,16 @@ import view.collision.PublishingCollisionManager;
 public class GameFieldView extends PlayField {
 	
 	private ArrayList<IngameObjectView> _objectViews = new ArrayList<>();
-	private ArrayList<CollisionListener> _collisionListners;
+        private SpriteGroup _spriteGroup = new SpriteGroup("objects");
 	
 	public GameFieldView() {
 		
-    	_collisionListners = new ArrayList<>();
-		SpriteGroup balls = new SpriteGroup("balls");
-		SpriteGroup bricks = new SpriteGroup("bricks");
-		SpriteGroup paddles = new SpriteGroup("paddles");
-		this.addGroup(balls);
-		this.addGroup(bricks);
-		this.addGroup(paddles);
+		this.addGroup(this._spriteGroup);
 		
 		// Добавить на поле менеджеры коллизий для обработки столкновений
-		this.addCollisionGroup(balls, paddles, new PublishingCollisionManager());
-		this.addCollisionGroup(balls, bricks, new PublishingCollisionManager());
-		this.addCollisionGroup(balls, balls, new PublishingCollisionManager());
+		this.addCollisionGroup(this._spriteGroup, this._spriteGroup, new PublishingCollisionManager());
 	}
 
-	@Override
-	public void update(long timeElapsed) {
-	    
-	    super.update(timeElapsed);
-	    for (IngameObjectView ov : _objectViews) {
-	        ov.update(timeElapsed);
-	    }
-	    
-	    // Формируем словарь столкновений
-	    CollisionManager[] mgrs = this.getCollisionGroups();
-	    HashMap<CollidedObject, ArrayList<CollidedObject>> collisions = new HashMap<>();
-	    for (int i = 0; i < mgrs.length; i++) {
-	    	
-	    	HashMap<CollidedObject, ArrayList<CollidedObject>> map = 
-	    			((PublishingCollisionManager)mgrs[i]).getCollidedStorage();
-	    	
-	    	// Если словарь столкновений не пуст, формируем один большой словарь столкновений
-	    	if (!map.isEmpty()) {
-	    		attachStorage(collisions, map);
-	    		((PublishingCollisionManager)mgrs[i]).clearCollidedStorage();
-	    	}
-	    }
-	    
-	    // Если столкновения произошли -- посылаем сигнал модели
-	    if (!collisions.isEmpty()) {
-	    	
-	    	collisions = removeCouplingFromStorage(collisions);
-	    	for (CollisionListener l : _collisionListners) {
-	    		l.collisionOccured(collisions);
-	    	}
-	    }
-	}
-
-	/**
-	 * Возвращает группу спрайтов мячей.
-	 * @return Группа спрайтов.
-	 */
-	public SpriteGroup getBallsGroup() {
-	    
-	    return this.getGroup("balls");
-	}
-	
-	/**
-	 * Возвращает группу спрайтов кирпичей.
-	 * @return Группа спрайтов.
-	 */
-	public SpriteGroup getBricksGroup() {
-	    
-	    return this.getGroup("bricks");
-	}
-	
-	/**
-	 * Возвращает группу спрайтов ракеток.
-	 * @return Группа спрайтов.
-	 */
-	public SpriteGroup getPaddlesGroup() {
-	    
-	    return this.getGroup("paddles");
-	}
-	
 	/**
 	 * Добавляет представление объекта на это поле. Этот метод добавляет объект в соответствующую группу спрайтов.
 	 * @param ov Представление.
@@ -112,13 +45,6 @@ public class GameFieldView extends PlayField {
 	public void addObjectView(IngameObjectView ov) {
 	    
 	    _objectViews.add(ov);
-	    if (ov.getIngameObject() instanceof Ball) {
-	        getBallsGroup().add(ov.getSprite());
-	    } else if (ov.getIngameObject() instanceof Brick) {
-	        getBricksGroup().add(ov.getSprite());
-	    } else if (ov.getIngameObject() instanceof Paddle) {
-	        getPaddlesGroup().add(ov.getSprite());
-	    }
 	}
 	
 	/**
@@ -128,14 +54,11 @@ public class GameFieldView extends PlayField {
 	public void removeObjectView(IngameObjectView ov) {
 	    
 	    _objectViews.remove(ov);
-	    if (ov.getIngameObject() instanceof Ball) {
-            getBallsGroup().remove(ov.getSprite());
-        } else if (ov.getIngameObject() instanceof Brick) {
-            getBricksGroup().remove(ov.getSprite());
-        } else if (ov.getIngameObject() instanceof Paddle) {
-            getPaddlesGroup().remove(ov.getSprite());
-        }
 	}
+        
+        public void addToSpriteGroup(Sprite sprite) {
+            _spriteGroup.add(sprite);
+        }
 	
 	/**
 	 * Возвращает список представлений объектов на этом поле.
@@ -213,5 +136,14 @@ public class GameFieldView extends PlayField {
     	}
     	
     	return newst;
+    }
+
+    private class ObjectGenericListener implements GenericEventListener{
+
+        @Override
+        public void destroyed() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        
     }
 }

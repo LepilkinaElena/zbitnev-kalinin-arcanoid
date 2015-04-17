@@ -13,6 +13,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.CollisionGroup;
 import com.golden.gamedev.object.collision.CollisionShape;
+import java.util.Map;
 
 /**
  * Менеджер столкновений, сообщающий о коллизиях между объектами
@@ -25,8 +26,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
 	
 	@Override
 	public void collided(Sprite arg0, Sprite arg1) {
-		// TODO Auto-generated method stub
-
+            Map map = getStorage(); 
 	}
 
 	@Override
