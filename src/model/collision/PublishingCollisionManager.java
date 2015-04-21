@@ -6,7 +6,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.collision.CollidedObject;
 import service.PublishingSprite;
 
 import com.golden.gamedev.object.Sprite;

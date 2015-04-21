@@ -6,9 +6,13 @@
 package service;
 
 import model.GameField;
-import model.IngameObject;
 import model.ball.Ball;
+import model.brick.BreakableBrick;
+import model.paddle.Paddle;
+import view.BallView;
+import view.BreakableBrickView;
 import view.GameFieldView;
+import view.PaddleView;
 
 /**
  *

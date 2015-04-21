@@ -17,7 +17,7 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import model.interaction.GenericEventListener;
-import view.collision.PublishingCollisionManager;
+import model.collision.PublishingCollisionManager;
 
 /**
  * Игровое поле арканоида. Содержит все обекты игры, ответственнен за обновление, рендеринг и

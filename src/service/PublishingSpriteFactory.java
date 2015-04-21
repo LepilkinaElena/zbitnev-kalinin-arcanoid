@@ -7,10 +7,8 @@ package service;
 
 import com.golden.gamedev.object.Sprite;
 import java.awt.image.BufferedImage;
-import model.ball.BasicBall;
 import model.brick.BreakableBrick;
 import model.brick.UnbreakableBrick;
-import model.paddle.BasicPaddle;
 import view.GameFieldView;
 import view.IngameObjectView;
 
