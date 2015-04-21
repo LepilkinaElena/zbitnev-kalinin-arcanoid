@@ -1,4 +1,4 @@
-package view.collision;
+package model.collision;
 
 
 import java.awt.geom.Point2D;
