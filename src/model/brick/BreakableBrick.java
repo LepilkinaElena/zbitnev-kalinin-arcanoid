@@ -3,8 +3,11 @@ package model.brick;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Float;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.GameField;
+import model.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourDestroy;
 
@@ -13,7 +16,7 @@ import model.collision.BehaviourDestroy;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public class BreakableBrick extends Brick {
+public class BreakableBrick extends Brick implements Cloneable{
 
 	public BreakableBrick(GameField field) {
 		
@@ -24,7 +27,6 @@ public class BreakableBrick extends Brick {
 	public BreakableBrick(GameField field, Float pos, Dimension dim, Speed2D speed) {
         
 	    super(field, pos, dim, speed);
-	    this.addDefaultCollisionBehaviour(BehaviourDestroy.getInstance());
     }
 
 
@@ -43,9 +45,13 @@ public class BreakableBrick extends Brick {
 	}
 	
 	@Override
-	public Object clone() throws CloneNotSupportedException {
-	
-		BreakableBrick clone = (BreakableBrick) super.clone();
-		return clone;
+	public Object clone() {
+            BreakableBrick clone = null;
+            try {
+		clone = (BreakableBrick) super.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return clone;
 	}
 }
