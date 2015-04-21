@@ -1,17 +1,9 @@
 package model.collision;
 
-
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import service.PublishingSprite;
-
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
-import com.golden.gamedev.object.collision.CollisionGroup;
-import com.golden.gamedev.object.collision.CollisionShape;
 import java.util.Map;
 import java.util.Set;
 import model.GameField;
@@ -64,7 +56,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
         return (HashMap<IngameObject, ArrayList<IngameObject>>) _storage.clone();
     }
 
-        //-------------------------------------
+    //-------------------------------------
     /**
      * Добавление слушателей события о том, что столкнулись игровые объекты
      *
