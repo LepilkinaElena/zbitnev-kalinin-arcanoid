@@ -35,7 +35,7 @@ public class CollisionBehaviour {
 	 * @param from Активный объект (не изменяется).
 	 * @param to Пассивный объект (изменяет состояние в ответ на столкновение).
 	 */
-	public void invoke(CollidedObject from, CollidedObject to) {
+	public void invoke(IngameObject from) {
 		
 	}
 }
