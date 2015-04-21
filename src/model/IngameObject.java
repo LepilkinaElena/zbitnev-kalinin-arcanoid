@@ -3,18 +3,12 @@ package model;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import model.collision.CollidedObject;
 import model.collision.CollisionBehaviour;
 import model.collision.BehaviourContainer;
 import model.interaction.GenericEventListener;
-import model.interaction.PositionChangeListener;
-import model.interaction.SpeedChangeListener;
 import service.PublishingSprite;
 
 /**
@@ -124,7 +118,7 @@ public abstract class IngameObject implements Cloneable {
 	 */
 	public BehaviourContainer getSpecificCollisionBehaviours() {
 		
-		return _specialColBehaviours.clone();
+		return (BehaviourContainer) _specialColBehaviours.clone();
 	}
 	
 	/**

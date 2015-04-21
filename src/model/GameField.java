@@ -3,12 +3,9 @@ package model;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import model.ball.Ball;
 import model.ball.BallPositionChangedListener;
-import model.collision.CollidedObject;
 
 /**
  * Модель игрового поля.
@@ -83,7 +80,7 @@ public class GameField implements BallPositionChangedListener {
      * @param storage Словарь столкновений, где ключ - столкнувшийся объект, значение - 
      * список объектов, с которыми он столкнулся
      */
-    public void collisionOccured(
+    /*public void collisionOccured(
 			HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
 		
     	// Вместо объектов, от которых принимается эффект (активные)
@@ -109,14 +106,14 @@ public class GameField implements BallPositionChangedListener {
     			obj2.object().processCollision(obj2, obj1copy);
     		}
     	}
-	}
+	}*/
     
     /**
      * Порождает копию словаря коллизии вместе со всеми хранимыми объектами
      * @param storage Словарь коллизии
      * @return Копия словаря коллизии
      */
-    private HashMap<CollidedObject, ArrayList<CollidedObject>> deepCopyStorage(
+    /*private HashMap<CollidedObject, ArrayList<CollidedObject>> deepCopyStorage(
     		HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
     	
     	HashMap<CollidedObject, ArrayList<CollidedObject>> deepcopy = new HashMap<>();
@@ -139,5 +136,5 @@ public class GameField implements BallPositionChangedListener {
     	}
     	
     	return deepcopy;
-    }
+    }*/
 }
