@@ -1,10 +1,5 @@
 package model.interaction;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import model.IngameObject;
-import model.collision.CollidedObject;
 
 
 /**
@@ -16,8 +11,7 @@ public interface CollisionListener {
 
 	/**
 	 * Произошла коллизия между игровыми объектами.
-	 * @param storage Ключ -- столкнувшийся объект, Значение -- список объектов, с которыми он
-	 *                столкнулся.
+	 * @param event событие столкновения игровых объектов.
 	 */
-	void collisionOccured(HashMap<CollidedObject, ArrayList<CollidedObject>> storage);
+	void collisionOccured(CollisionEvent event);
 }
