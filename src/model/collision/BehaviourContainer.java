@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class BehaviourContainer {
+public class BehaviourContainer implements Cloneable{
     private HashMap<Class<?>, ArrayList<CollisionBehaviour>> _specialColBehaviours 
 		= new HashMap<>();
     
@@ -82,5 +82,14 @@ public class BehaviourContainer {
             return i.hasNext();
         }
         return false;
+    }
+    
+    // TO DO ВНИМАНИЕ
+    public Object clone() {
+        return new Object();
+    }
+    
+    public void clear() {
+        _specialColBehaviours.clear();
     }
 }
