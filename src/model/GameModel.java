@@ -1,9 +1,8 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import model.interaction.CollisionEvent;
 
-import model.collision.CollidedObject;
 import model.interaction.CollisionListener;
 
 /**
@@ -16,12 +15,7 @@ public class GameModel implements CollisionListener {
     protected GameField _field = null;
     protected ArrayList<Player> _players = new ArrayList<>();
     
-	@Override
-	public void collisionOccured(
-			HashMap<CollidedObject, ArrayList<CollidedObject>> storage) {
-		
-		_field.collisionOccured(storage);
-	}
+	
 
 	/**
 	 * Назначить игровое поле
@@ -81,4 +75,9 @@ public class GameModel implements CollisionListener {
 	public void update(Object arg) {
 	    
 	}
+
+    @Override
+    public void collisionOccured(CollisionEvent event) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
