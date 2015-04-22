@@ -8,6 +8,7 @@ import model.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourRebound;
+import model.collision.CollisionBehaviour;
 import model.paddle.Paddle;
 import service.PublishingSprite;
 
@@ -20,15 +21,16 @@ public class Ball extends IngameObject implements Cloneable {
 
 	public Ball (PublishingSprite sprite) {
             super(sprite);
+            super.addDefaultBehaviuor(new BehaviourRebound());
         }
         
         public Ball (PublishingSprite sprite, Speed2D speed2D) {
             super(sprite, speed2D);
+            super.addDefaultBehaviuor(new BehaviourRebound());
         }
 	
 	@Override
 	public void setPosition(Point2D.Float pos) {
-	    
 	    super.setPosition(pos);
 	}
 	
@@ -38,4 +40,6 @@ public class Ball extends IngameObject implements Cloneable {
             Ball clone = (Ball) super.clone();
             return clone;
 	}
+        
+        
 }
