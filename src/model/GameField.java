@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.ball.Ball;
-import model.ball.BallPositionChangedListener;
+import model.interaction.GenericEvent;
+import model.interaction.GenericEventListener;
+import view.GameFieldView;
 
 /**
  * Модель игрового поля.
@@ -16,7 +18,7 @@ import model.ball.BallPositionChangedListener;
 public class GameField {
         private HashMap <Integer, IngameObject> _objects;
 	private Dimension _dimensions;
-	
+	private ObjectGenericListener _listener;
 	
     /**
      * Инициализирует поле заданного размера.
@@ -26,6 +28,7 @@ public class GameField {
     	
     	_objects = new HashMap<>();
     	_dimensions = size;
+        _listener = new ObjectGenericListener();
     }
     
 	/**
@@ -40,7 +43,7 @@ public class GameField {
 	 * Убрать объект с поля
 	 * @param object Объект для удаления
 	 */
-	public void removeObject(IngameObject object) {
+	private void removeObject(int object) {
 		_objects.remove(object);
 	}
 	
@@ -56,4 +59,17 @@ public class GameField {
         public IngameObject getObject(int id) {
             return _objects.get(id);
         }
+        
+        public void addListenerToObject(IngameObject object) {
+            object.addGenericEventListener(_listener);
+        }
+        
+       private class ObjectGenericListener implements GenericEventListener{
+
+        @Override
+        public void destroyed(GenericEvent event) {
+            removeObject(event.getElementId());
+        }
+        
+    }
 }
