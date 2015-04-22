@@ -10,6 +10,9 @@ import model.GameField;
 import model.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourDestroy;
+import model.collision.BehaviourPaddleRebound;
+import service.PublishingSprite;
+import test.BehaviourDestroyTest;
 
 /**
  * Модель разрушаемого кирпича.
@@ -18,23 +21,10 @@ import model.collision.BehaviourDestroy;
  */
 public class BreakableBrick extends Brick implements Cloneable{
 
-	public BreakableBrick(GameField field) {
-		
-	    this(field, new Point2D.Float(0, 0), new Dimension(0, 0));
-	}
-	
-
-	public BreakableBrick(GameField field, Float pos, Dimension dim, Speed2D speed) {
-        
-	    super(field, pos, dim, speed);
-    }
-
-
-    public BreakableBrick(GameField field, Float pos, Dimension dim) {
-        
-        this(field, pos, dim, new Speed2D(0, 0));
-    }
-
+	public BreakableBrick (PublishingSprite sprite) {
+            super(sprite);
+            super.addDefaultBehaviuor(new BehaviourDestroy());
+        }
 
     /**
 	 * Разрушает кирпич.
@@ -47,11 +37,7 @@ public class BreakableBrick extends Brick implements Cloneable{
 	@Override
 	public Object clone() {
             BreakableBrick clone = null;
-            try {
-		clone = (BreakableBrick) super.clone();
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            clone = (BreakableBrick) super.clone();
             return clone;
 	}
 }

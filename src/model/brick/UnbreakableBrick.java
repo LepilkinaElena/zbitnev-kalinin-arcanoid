@@ -5,6 +5,8 @@ import java.awt.geom.Point2D.Float;
 
 import model.GameField;
 import model.Speed2D;
+import model.collision.BehaviourDestroy;
+import service.PublishingSprite;
 
 /**
  * Модель неразрушаемого кирпича.
@@ -13,24 +15,13 @@ import model.Speed2D;
  */
 public class UnbreakableBrick extends Brick {
 
-	public UnbreakableBrick(GameField field, Float pos, Dimension dim, Speed2D speed) {
-        
-	    super(field, pos, dim, speed);
-    }
-
-    public UnbreakableBrick(GameField field, Float pos, Dimension dim) {
-        
-        super(field, pos, dim);
-    }
-
-    public UnbreakableBrick(GameField field) {
-		
-        super(field);
-	}
+	public UnbreakableBrick (PublishingSprite sprite) {
+            super(sprite);
+            super.addDefaultBehaviuor(new BehaviourDestroy());
+        }
     
     @Override
-    public Object clone() throws CloneNotSupportedException {
-    	
+    public Object clone() {
     	UnbreakableBrick clone = (UnbreakableBrick) super.clone();
     	return clone;
     }
