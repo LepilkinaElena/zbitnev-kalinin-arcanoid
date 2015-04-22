@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import model.collision.CollisionBehaviour;
 import model.collision.BehaviourContainer;
+import model.interaction.GenericEvent;
 import model.interaction.GenericEventListener;
 import service.PublishingSprite;
 
@@ -209,7 +210,7 @@ public abstract class IngameObject implements Cloneable {
 	public void destroy() {
 		
 	    for (GenericEventListener l : _geneventListeners) {
-	    	l.destroyed();
+	    	l.destroyed(new GenericEvent(this, getId()));
 	    }
 	}
 	
@@ -257,4 +258,6 @@ public abstract class IngameObject implements Cloneable {
         public int getId() {
             return sprite.getId();
         }
+        
+        
 }

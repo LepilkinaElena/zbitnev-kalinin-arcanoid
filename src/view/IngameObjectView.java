@@ -37,4 +37,8 @@ public abstract class IngameObjectView {
 	    this.ingameObject = obj;
 	    this._sprite       = sprite;
 	}
+        
+        public int getId() {
+            return _sprite.getId();
+        }
 }
