@@ -46,7 +46,7 @@ public class GameController {
 	    }
 	    
 	    if (_input.isMousePressed(MouseEvent.BUTTON1)) {
-	        _player.firePaddles();
+	        _player.pushBalls();
 	    }
 
 	    // Управление с клавиатуры.
@@ -59,7 +59,7 @@ public class GameController {
 	    }
 	    
 	    if (_input.isKeyPressed(KeyEvent.VK_SPACE)) {
-	        _player.firePaddles();
+	        _player.pushBalls();
 	    }
 	}
 }

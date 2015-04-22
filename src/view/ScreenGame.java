@@ -4,28 +4,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
 import java.awt.image.BufferedImage;
-
 import model.GameField;
 import model.GameModel;
 import model.Player;
 import model.Speed2D;
-import model.ball.BasicBall;
 import model.brick.BreakableBrick;
 import model.brick.UnbreakableBrick;
-import model.collision.BehaviourDestroy;
-import model.collision.BehaviourPaddleRebound;
+
 import model.collision.BehaviourRebound;
-import model.paddle.BasicPaddle;
-import model.paddle.Paddle;
+
 
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
-import com.golden.gamedev.object.Background;
-import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
 import controller.GameController;

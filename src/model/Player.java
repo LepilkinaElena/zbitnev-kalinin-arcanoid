@@ -12,56 +12,33 @@ import model.paddle.Paddle;
  */
 public class Player {
 
-    protected ArrayList<Paddle> _paddles = new ArrayList<>();
+    protected Paddle _paddle;
     
 	/**
 	 * Инициализировать игрока
 	 * @param paddle Подконтрольная игроку ракетка
 	 */
 	public Player(Paddle paddle) {
-		_paddles.add(paddle);
+            _paddle = paddle;
 	}
 	
 	public Player() {
 		
 	}
-
-	/**
-	 * Получить контролируемые ракетки
-	 * @return Список контролируемых ракеток
-	 */
-	public ArrayList<Paddle> getPaddles() {
-		
-		return (ArrayList<Paddle>) _paddles.clone();
-	}
 	
 	/**
-	 * Добавить ракетку под контроль игрока
+	 * Установить ракетку для контроля игрока
 	 * @param paddle Ракетка для добавления
 	 */
-	public void addPaddle(Paddle paddle) {
-		
-	    if (paddle == null) {
-	        throw new NullPointerException();
-	    }
-	    
-	    _paddles.add(paddle);
-	}
-	
-	/**
-	 * Убрать ракетку из-под контроля игрока
-	 * @param paddle Ракетка
-	 */
-	public void removePaddle(Paddle paddle) {
-		
-	    _paddles.remove(paddle);
+	public void setPaddle(Paddle paddle) {
+	    _paddle = paddle;
 	}
 	
 	/**
 	 * Переместить все свои ракетки в указанную позицию по горизонтали
 	 * @param pos Позиция
 	 */
-	public void setPaddlesPositionX(int x) {
+	public void setPaddlePositionX(int x) {
 		
 	    for (Paddle p : _paddles) {
 	        int actualx;
@@ -81,7 +58,7 @@ public class Player {
 	 * Величину сдвига жёстко задана внутри класса.
 	 * @param dir Направление перемещения
 	 */
-	public void movePaddles(Direction dir) {
+	/*public void movePaddles(Direction dir) {
 		
 	    for (Paddle p : _paddles) {
 	        long delta = Math.round(p.getSize().width / 3.0 * 2.0);
@@ -94,15 +71,12 @@ public class Player {
                 p.move(new Point2D.Float(delta, 0));
             }
         }
-	}
+	}*/
 	
 	/**
 	 * Заставляет подконтрольные ракетки задать скорость мячам.
 	 */
-	public void firePaddles() {
-	    
-	    for (Paddle p : _paddles) {
-	        p.fireBalls();
-	    }
+	public void pushBalls() {
+	     _paddle.pushBalls();
 	}
 }
