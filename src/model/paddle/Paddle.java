@@ -9,6 +9,7 @@ import model.GameField;
 import model.IngameObject;
 import model.Speed2D;
 import model.ball.Ball;
+import model.collision.BehaviourPaddleRebound;
 import service.PublishingSprite;
 
 /**
@@ -23,10 +24,12 @@ public class Paddle extends IngameObject {
 
         public Paddle (PublishingSprite sprite) {
             super(sprite);
+            super.addDefaultBehaviuor(new BehaviourPaddleRebound());
         }
         
         public Paddle (PublishingSprite sprite, Speed2D speed2D) {
             super(sprite, speed2D);
+            super.addDefaultBehaviuor(new BehaviourPaddleRebound());
         }
 
 	/**

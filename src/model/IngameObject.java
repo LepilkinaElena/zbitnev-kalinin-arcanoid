@@ -121,6 +121,9 @@ public abstract class IngameObject implements Cloneable {
 		return (BehaviourContainer) _specialColBehaviours.clone();
 	}
 	
+        protected void addDefaultBehaviuor(CollisionBehaviour cb) {
+            _defaultColBehaviour.add(cb);
+        }
 	/**
 	 * Добавить специальное поведение при столкновении
 	 * @param c Класс объектов
@@ -250,4 +253,8 @@ public abstract class IngameObject implements Cloneable {
 	
 		return clone;
 	}
+        
+        public int getId() {
+            return sprite.getId();
+        }
 }
