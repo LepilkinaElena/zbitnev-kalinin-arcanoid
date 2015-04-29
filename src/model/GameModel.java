@@ -10,10 +10,10 @@ import model.interaction.CollisionListener;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public class GameModel implements CollisionListener {
+public class GameModel {
 
     protected GameField _field = null;
-    protected ArrayList<Player> _players = new ArrayList<>();
+    protected Player _player = new Player();
     
 	
 
@@ -39,33 +39,20 @@ public class GameModel implements CollisionListener {
 	}
 	
 	/**
-	 * Добавить модели нового игрока
+	 * Установить модели нового игрока
 	 * @param player
 	 */
-	public void addPlayer(Player player) {
-		
-		if (player == null) {
-		    throw new NullPointerException();
-		}
-		_players.add(player);
-	}
-	
-	/**
-	 * Убрать игрока из модели
-	 * @param player
-	 */
-	public void removePlayer(Player player) {
-		
-		_players.remove(player);
+	public void setPlayer(Player player) {
+            _player = player;
 	}
 	
 	/**
 	 * Полуить игроков модели
 	 * @return
 	 */
-	public ArrayList<Player> getPlayers() {
+	public Player getPlayer() {
 		
-		return (ArrayList<Player>) _players.clone();
+		return (Player) _player.clone();
 	}
 	
 	/**
@@ -75,9 +62,4 @@ public class GameModel implements CollisionListener {
 	public void update(Object arg) {
 	    
 	}
-
-    @Override
-    public void collisionOccured(CollisionEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
