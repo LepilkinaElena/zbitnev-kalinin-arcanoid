@@ -64,7 +64,7 @@ public class GameField {
             object.addGenericEventListener(_listener);
         }
         
-       private class ObjectGenericListener implements GenericEventListener{
+    private class ObjectGenericListener implements GenericEventListener {
 
         @Override
         public void destroyed(GenericEvent event) {

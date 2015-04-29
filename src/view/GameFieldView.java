@@ -68,6 +68,7 @@ public class GameFieldView extends PlayField {
         public void addListenerToObject(IngameObject object) {
             object.addGenericEventListener(_listener);
         }
+        
     private class ObjectGenericListener implements GenericEventListener{
 
         @Override
