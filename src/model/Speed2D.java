@@ -5,11 +5,18 @@ package model;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class Speed2D implements Cloneable {
+public class Speed2D {
 
 	private double _x;
 	private double _y;
 	
+        /**
+	 * Создаёт экземпляр вектора скорости на декартовой плоскости
+	 */
+	public Speed2D() {
+            this(0,0);
+	}
+        
 	/**
 	 * Создаёт экземпляр вектора скорости на декартовой плоскости
 	 * @param xspeed Компонента вектора по x
@@ -20,10 +27,9 @@ public class Speed2D implements Cloneable {
 		_y = yspeed;
 	}
 	
-	@Override
-	public Object clone() {
+	public Speed2D clone() {
 	    
-        return new Speed2D(_x, _y);
+            return new Speed2D(_x, _y);
 	}
 	
 	@Override
@@ -48,4 +54,14 @@ public class Speed2D implements Cloneable {
 	public Speed2D flipVertical() {
 	    return new Speed2D(_x, -_y);
 	}
+        
+        /**
+     * Вычислить сумму векторов
+     * 
+     * @param other другой вектор скорости
+     * @return результирующий вектор скорости
+     */
+    public Speed2D sum (Speed2D other) {
+        return new Speed2D(this.x() + other.x(), this.y() + other.y());
+    }
 }
