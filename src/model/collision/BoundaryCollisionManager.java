@@ -10,7 +10,7 @@ import com.golden.gamedev.object.collision.CollisionBounds;
 import java.util.ArrayList;
 import java.util.HashMap;
 import model.GameField;
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
 

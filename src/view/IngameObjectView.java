@@ -3,17 +3,8 @@ package view;
 
 
 import service.PublishingSprite;
-import com.golden.gamedev.object.SpriteGroup;
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
-import java.util.ArrayList;
 
-import model.IngameObject;
-import model.Speed2D;
-import model.interaction.GenericEventListener;
-import model.interaction.PositionChangeListener;
-import model.interaction.SpeedChangeListener;
+import model.collisionProcessing.IngameObject;
 
 /**
  * Представление отдельного игрового объекта

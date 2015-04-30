@@ -1,6 +1,6 @@
 package model.collision;
 
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 
 /**
  * Поведение разрушения при столкновении.

@@ -8,7 +8,7 @@ package model.interaction;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 
 /**
  *

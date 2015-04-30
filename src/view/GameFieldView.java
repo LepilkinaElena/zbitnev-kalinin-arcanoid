@@ -9,7 +9,7 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import model.GameField;
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 import model.interaction.GenericEventListener;
 import model.collision.PublishingCollisionManager;
 import model.interaction.GenericEvent;

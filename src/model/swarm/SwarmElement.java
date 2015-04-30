@@ -6,8 +6,9 @@ package model.swarm;
  *
  */
 public class SwarmElement {
-
+/*
     public SwarmElement(CanBeInSwarm obj) {
         
     }
+    */
 }

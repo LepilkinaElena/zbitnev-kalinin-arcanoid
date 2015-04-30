@@ -1,4 +1,4 @@
-package model;
+package model.collisionProcessing;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Speed2D;
 
 import model.collision.CollisionBehaviour;
 import model.collision.BehaviourContainer;
@@ -18,7 +19,7 @@ import service.PublishingSprite;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public abstract class IngameObject implements Cloneable {
+public abstract class IngameObject {
     
     protected Boolean _isDestroyed = false;
     
@@ -92,7 +93,7 @@ public abstract class IngameObject implements Cloneable {
 	 * @param with Объект, столкнувшийся с данным.
          * @param specialBehaviours контейнер со специальными поведениями
 	 */
-	protected void processCollision(IngameObject with, BehaviourContainer specialBehaviours) {
+	private void processCollision(IngameObject with, BehaviourContainer specialBehaviours) {
             Iterator<CollisionBehaviour> iterator = specialBehaviours.iterator(with.getClass());
 	    
 	    while (iterator.hasNext()) {
@@ -105,7 +106,20 @@ public abstract class IngameObject implements Cloneable {
 	 * Обрабатывает столкновение с другим объектом.
 	 * @param with Объект, столкнувшийся с данным.
 	 */
-	protected void processCollision(IngameObject with, ArrayList<CollisionBehaviour> defaultBehaviours) {
+	void processCollision(IngameObject with) {
+            
+            if (!_specialColBehaviours.isEmpty()) {
+                processCollision(with, _specialColBehaviours);
+            } else {
+                processCollision(with, _defaultColBehaviour);
+            }
+        }
+        
+        /** 
+	 * Обрабатывает столкновение с другим объектом.
+	 * @param with Объект, столкнувшийся с данным.
+	 */
+	private void processCollision(IngameObject with, ArrayList<CollisionBehaviour> defaultBehaviours) {
             
             for (CollisionBehaviour behavior : defaultBehaviours) {
                 behavior.invoke(with);
@@ -240,17 +254,10 @@ public abstract class IngameObject implements Cloneable {
 		_geneventListeners.remove(l);
 	}
 	
-	@Override
-	public Object clone() {
+	public IngameObject clone() {
 		
-		IngameObject clone = null;
-        try {
-            clone = (IngameObject)super.clone();
+		IngameObject clone = new IngameObject(sprite.clone());
             clone._isDestroyed = this._isDestroyed;
-            clone.sprite = (PublishingSprite) sprite.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
-        }
 	
 		return clone;
 	}

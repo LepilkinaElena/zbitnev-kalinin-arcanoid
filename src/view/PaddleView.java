@@ -5,7 +5,7 @@
  */
 package view;
 
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 import service.PublishingSprite;
 
 /**

@@ -7,7 +7,7 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import java.util.Map;
 import java.util.Set;
 import model.GameField;
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
 

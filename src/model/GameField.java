@@ -1,5 +1,6 @@
 package model;
 
+import model.collisionProcessing.IngameObject;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
