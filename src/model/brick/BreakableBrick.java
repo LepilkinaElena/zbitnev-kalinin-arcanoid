@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.GameField;
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourDestroy;
 import model.collision.BehaviourPaddleRebound;
@@ -19,7 +19,7 @@ import test.BehaviourDestroyTest;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public class BreakableBrick extends Brick implements Cloneable{
+public class BreakableBrick extends Brick {
 
 	public BreakableBrick (PublishingSprite sprite) {
             super(sprite);
@@ -34,8 +34,7 @@ public class BreakableBrick extends Brick implements Cloneable{
 	    super.destroy();
 	}
 	
-	@Override
-	public Object clone() {
+	public BreakableBrick clone() {
             BreakableBrick clone = null;
             clone = (BreakableBrick) super.clone();
             return clone;

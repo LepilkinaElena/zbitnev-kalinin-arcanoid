@@ -20,8 +20,7 @@ public class UnbreakableBrick extends Brick {
             super.addDefaultBehaviuor(new BehaviourDestroy());
         }
     
-    @Override
-    public Object clone() {
+    public UnbreakableBrick clone() {
     	UnbreakableBrick clone = (UnbreakableBrick) super.clone();
     	return clone;
     }

@@ -6,7 +6,7 @@ import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
 
 import model.GameField;
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.ball.Ball;
 import model.collision.BehaviourPaddleRebound;
@@ -62,8 +62,7 @@ public class Paddle extends IngameObject {
         }
     }
     
-    @Override
-    public Object clone() {
+    public Paddle clone() {
     	
     	Paddle clone = (Paddle) super.clone();
     	return clone;

@@ -11,7 +11,7 @@ import model.Speed2D;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class PublishingSprite implements Cloneable{
+public class PublishingSprite {
     
     private final Sprite sprite;
     
@@ -47,8 +47,7 @@ public class PublishingSprite implements Cloneable{
         return new Dimension(sprite.getWidth(), sprite.getHeight());
     }
     
-    @Override
-    public Object clone() {
+    public PublishingSprite clone() {
         Sprite cloneSprite = new Sprite(sprite.getImage());
         cloneSprite.setX(sprite.getX());
         cloneSprite.setY(sprite.getY());

@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
 import model.GameField;
-import model.IngameObject;
+import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourRebound;
@@ -17,7 +17,7 @@ import service.PublishingSprite;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class Ball extends IngameObject implements Cloneable {
+public class Ball extends IngameObject {
 
 	public Ball (PublishingSprite sprite) {
             super(sprite);
@@ -34,8 +34,7 @@ public class Ball extends IngameObject implements Cloneable {
 	    super.setPosition(pos);
 	}
 	
-	@Override
-	public Object clone()  {
+	public Ball clone()  {
 		
             Ball clone = (Ball) super.clone();
             return clone;
