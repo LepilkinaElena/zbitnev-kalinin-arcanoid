@@ -26,6 +26,11 @@ public class Player {
 		
 	}
 	
+        public Player clone() {
+            Player clonePlaer = new Player((Paddle) _paddle.clone());
+            return clonePlaer;
+        }
+        
 	/**
 	 * Установить ракетку для контроля игрока
 	 * @param paddle Ракетка для добавления
@@ -40,17 +45,15 @@ public class Player {
 	 */
 	public void setPaddlePositionX(int x) {
 		
-	    for (Paddle p : _paddles) {
 	        int actualx;
-	        if (x > p.getField().getSize().width - p.getSize().width) {
-	            actualx = p.getField().getSize().width - p.getSize().width;
+	        if (x > _paddle.getField().getSize().width - _paddle.getSize().width) {
+	            actualx = _paddle.getField().getSize().width - _paddle.getSize().width;
 	        } else if (x < 0) {
 	            actualx = 0;
 	        } else {
 	            actualx = x;
 	        }
-	        p.setPosition(new Point2D.Float(actualx, p.getPosition().y));
-	    }
+	        _paddle.setPosition(new Point2D.Float(actualx, _paddle.getPosition().y));
 	}
 	
 	/**
