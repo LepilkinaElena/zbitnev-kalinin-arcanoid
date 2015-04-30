@@ -3,6 +3,7 @@ package model;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -89,15 +90,14 @@ public abstract class IngameObject implements Cloneable {
 	/** 
 	 * Обрабатывает столкновение с другим объектом.
 	 * @param with Объект, столкнувшийся с данным.
+         * @param specialBehaviours контейнер со специальными поведениями
 	 */
 	protected void processCollision(IngameObject with, BehaviourContainer specialBehaviours) {
-
-            specialBehaviours.toStart();
+            Iterator<CollisionBehaviour> iterator = specialBehaviours.iterator(with.getClass());
 	    
-	    while (specialBehaviours.hasNext(with.getClass())) {
-	        CollisionBehaviour currentBehavior = specialBehaviours.next(with.getClass());
+	    while (iterator.hasNext()) {
+	        CollisionBehaviour currentBehavior = iterator.next();
                 currentBehavior.invoke(with);
-	        
 	    }
 	}
 	

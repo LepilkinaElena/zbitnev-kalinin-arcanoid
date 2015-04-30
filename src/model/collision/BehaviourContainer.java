@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class BehaviourContainer implements Cloneable{
+public class BehaviourContainer implements Cloneable {
     private HashMap<Class<?>, ArrayList<CollisionBehaviour>> _specialColBehaviours 
 		= new HashMap<>();
-    
-    private  HashMap<Class<?>, Iterator> _iterators = new HashMap<>();
     
     /**
      * Если флаг установлен, то поведение применяется не только при столкновении с объектом данного класса, но и его потомками.
      */
-    public boolean _flagCheckDerived = false;
+    //public boolean _flagCheckDerived = false;
     
     public BehaviourContainer() {
         
@@ -50,40 +48,6 @@ public class BehaviourContainer implements Cloneable{
         }
     }
     
-    public void toStart() {
-        _iterators = new HashMap<>();
-    }
-    
-    public CollisionBehaviour next(Class<?> className) {
-        ArrayList<CollisionBehaviour> list;
-        Iterator i;
-        if (_specialColBehaviours.containsKey(className)) {
-            list = _specialColBehaviours.get(className);
-            if (_iterators.containsKey(className)) {
-                i = _iterators.get(className);
-            } else {
-                i = list.iterator();
-            }
-            return (CollisionBehaviour)i.next();
-        }
-        return null;
-    }
-    
-    public boolean hasNext(Class<?> className) {
-        ArrayList<CollisionBehaviour> list;
-        Iterator i;
-        if (_specialColBehaviours.containsKey(className)) {
-            list = _specialColBehaviours.get(className);
-            if (_iterators.containsKey(className)) {
-                i = _iterators.get(className);
-            } else {
-                i = list.iterator();
-            }
-            return i.hasNext();
-        }
-        return false;
-    }
-    
     // TO DO ВНИМАНИЕ
     public Object clone() {
         return new Object();
@@ -91,5 +55,12 @@ public class BehaviourContainer implements Cloneable{
     
     public void clear() {
         _specialColBehaviours.clear();
+    }
+
+    public Iterator<CollisionBehaviour> iterator(Class<?> className) {
+        if (_specialColBehaviours.containsKey(className)) {
+            return new BehaviourIterator(_specialColBehaviours.get(className));
+        }
+        return null;
     }
 }
