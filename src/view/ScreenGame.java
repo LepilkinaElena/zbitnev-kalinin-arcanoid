@@ -62,24 +62,14 @@ public class ScreenGame extends GameObject {
 
 		// Построение уровня
         // TODO: Загрузка уровня из файла (пока уровень захардкоден)
-        Ball newball = factory.createBall();
-        newball.setPosition(new Point2D.Float(40, 160));
-        newball.setSpeed(new Speed2D(0.03, -0.01));
-        BreakableBrick newbrick = factory.createBreakableBrick();
-        newbrick.setPosition(new Point2D.Float(180, 120));
-        BreakableBrick newbrick2 = factory.createBreakableBrick();
-        newbrick2.setPosition(new Point2D.Float(276, 120));
-        UnbreakableBrick newbrick3 = factory.createUnbreakableBrick();
-        newbrick3.setPosition(new Point2D.Float(276, 120));
-        Paddle paddle = factory.createPaddle();
-        paddle.setPosition(new Point2D.Float(0, 584));
+        
 
         // Контроллер и игрок.
-        Player player = new Player(paddle);
-        _controller = new GameController(player, bsInput);
+        
+        //_controller = new GameController(player, bsInput);
 
         // ЭКСПЕРИМЕНТ
-        paddle.addBall(newball);
+       // paddle.addBall(newball);
 
         // Тестирование столкновения множества шаров
         /*BasicBall ball01 = new BasicBall(field, new Point2D.Float((float) 213.3975, 250), 16, new Speed2D(0.043, -0.025));

@@ -1,9 +1,11 @@
 package model;
 
-import java.util.ArrayList;
-import model.interaction.CollisionEvent;
-
-import model.interaction.CollisionListener;
+import java.awt.geom.Point2D;
+import model.ball.Ball;
+import model.brick.BreakableBrick;
+import model.brick.UnbreakableBrick;
+import model.paddle.Paddle;
+import service.IngameObjectFactory;
 
 /**
  * Модель игры.
@@ -62,4 +64,24 @@ public class GameModel {
 	public void update(Object arg) {
 	    
 	}
+        
+    public void initLevel(IngameObjectFactory factory) {
+        Ball newball = factory.createBall();
+        newball.setPosition(new Point2D.Float(40, 160));
+        newball.setSpeed(new Speed2D(0.03, -0.01));
+        newball.initSpecialBehaviours();
+        BreakableBrick newbrick = factory.createBreakableBrick();
+        newbrick.setPosition(new Point2D.Float(180, 120));
+        BreakableBrick newbrick2 = factory.createBreakableBrick();
+        newbrick2.setPosition(new Point2D.Float(276, 120));
+        UnbreakableBrick newbrick3 = factory.createUnbreakableBrick();
+        newbrick3.setPosition(new Point2D.Float(276, 120));
+        newbrick.initSpecialBehaviours();
+        newbrick2.initSpecialBehaviours();
+        Paddle paddle = factory.createPaddle();
+        paddle.initSpecialBehaviours();
+        paddle.setPosition(new Point2D.Float(0, 584));
+        _player = new Player(paddle);
+        paddle.addBall(newball);
+    }
 }
