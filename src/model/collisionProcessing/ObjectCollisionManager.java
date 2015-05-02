@@ -6,9 +6,7 @@
 package model.collisionProcessing;
 
 import com.golden.gamedev.object.CollisionManager;
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
-import com.golden.gamedev.object.collision.CollisionRect;
 import java.awt.geom.Point2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -22,7 +20,6 @@ import model.Boundary;
 import model.GameField;
 import model.Speed2D;
 import model.collision.BoundaryCollisionManager;
-import model.collision.CollisionBehaviour;
 import model.collision.PublishingCollisionManager;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
@@ -98,10 +95,8 @@ public class ObjectCollisionManager {
                     key.processCollision(new Boundary(getAxis(event.side())));
                 } else {
                     ArrayList<IngameObject> objectsClone = new ArrayList<>();
-                    IngameObject cloneKey = (IngameObject) key.clone();
                     for (IngameObject object : storage.get(key)) {
                         objectsClone.add((IngameObject) object.clone());
-                        object.processCollision(cloneKey);
                     }
                     for (IngameObject object : objectsClone) {
                         key.processCollision(object);
@@ -196,7 +191,7 @@ public class ObjectCollisionManager {
         Set keySet = storage.keySet();
         if (keySet.contains(object)) {
             if (storage.get(object) != null) {
-                IngameObject[] valueSprites = (IngameObject[]) storage.get(object);
+                ArrayList<IngameObject> valueSprites = (ArrayList<IngameObject>) storage.get(object);
                 for (IngameObject value : valueSprites) {
                     if (!list.contains(value)) {
                         list.add(value);

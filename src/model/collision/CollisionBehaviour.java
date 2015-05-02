@@ -40,6 +40,6 @@ public class CollisionBehaviour {
      * @param passive
      */
     public void invoke(IngameObject active, IngameObject passive) {
-
+        
     }
 }
