@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.Speed2D;
+import model.ball.Ball;
 import model.collision.BehaviourDestroy;
 import model.collision.BehaviourPaddleRebound;
 import service.PublishingSprite;
@@ -23,7 +24,6 @@ public class BreakableBrick extends Brick {
 
 	public BreakableBrick (PublishingSprite sprite) {
             super(sprite);
-            super.addDefaultBehaviuor(BehaviourDestroy.getInstance());
         }
 
     /**
@@ -39,4 +39,8 @@ public class BreakableBrick extends Brick {
             clone = (BreakableBrick) super.clone();
             return clone;
 	}
+        
+        public void initSpecialBehaviours() {
+            addSpecificCollisionBehaviour(Ball.class, BehaviourDestroy.getInstance());
+        }
 }

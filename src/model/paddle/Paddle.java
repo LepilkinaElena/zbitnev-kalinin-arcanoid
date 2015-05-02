@@ -11,6 +11,7 @@ import model.Speed2D;
 import model.ball.Ball;
 import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourStop;
+import model.collision.CollisionBehaviour;
 import service.PublishingSprite;
 
 /**
@@ -61,6 +62,10 @@ public class Paddle extends IngameObject {
             b.setSpeed(_startedSpeed);
             _balls.remove(b);
         }
+    }
+    
+    public void initSpecialBehaviours() {
+        addSpecificCollisionBehaviour(Ball.class, CollisionBehaviour.getInstance());
     }
     
     public Paddle clone() {

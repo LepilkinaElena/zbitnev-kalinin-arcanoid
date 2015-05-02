@@ -41,5 +41,8 @@ public class Ball extends IngameObject {
             return clone;
 	}
         
-        
+        public void initSpecialBehaviours() {
+            addSpecificCollisionBehaviour(Ball.class, BehaviourRebound.getInstance());
+            addSpecificCollisionBehaviour(Paddle.class, BehaviourPaddleRebound.getInstance());
+        }
 }
