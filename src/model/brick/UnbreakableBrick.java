@@ -6,6 +6,7 @@ import java.awt.geom.Point2D.Float;
 import model.GameField;
 import model.Speed2D;
 import model.collision.BehaviourDestroy;
+import model.collision.CollisionBehaviour;
 import service.PublishingSprite;
 
 /**
@@ -17,7 +18,7 @@ public class UnbreakableBrick extends Brick {
 
 	public UnbreakableBrick (PublishingSprite sprite) {
             super(sprite);
-            super.addDefaultBehaviuor(new BehaviourDestroy());
+            super.addDefaultBehaviuor(CollisionBehaviour.getInstance());
         }
     
     public UnbreakableBrick clone() {

@@ -10,6 +10,7 @@ import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.ball.Ball;
 import model.collision.BehaviourPaddleRebound;
+import model.collision.BehaviourStop;
 import service.PublishingSprite;
 
 /**
@@ -24,12 +25,12 @@ public class Paddle extends IngameObject {
 
         public Paddle (PublishingSprite sprite) {
             super(sprite);
-            super.addDefaultBehaviuor(new BehaviourPaddleRebound());
+            super.addDefaultBehaviuor(BehaviourStop.getInstance());
         }
         
         public Paddle (PublishingSprite sprite, Speed2D speed2D) {
             super(sprite, speed2D);
-            super.addDefaultBehaviuor(new BehaviourPaddleRebound());
+            super.addDefaultBehaviuor(BehaviourStop.getInstance());
         }
 
 	/**

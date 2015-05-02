@@ -23,7 +23,7 @@ public class BreakableBrick extends Brick {
 
 	public BreakableBrick (PublishingSprite sprite) {
             super(sprite);
-            super.addDefaultBehaviuor(new BehaviourDestroy());
+            super.addDefaultBehaviuor(BehaviourDestroy.getInstance());
         }
 
     /**

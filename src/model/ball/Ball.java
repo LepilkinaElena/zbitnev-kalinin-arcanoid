@@ -8,6 +8,7 @@ import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourRebound;
+import model.collision.BehaviourReflect;
 import model.collision.CollisionBehaviour;
 import model.paddle.Paddle;
 import service.PublishingSprite;
@@ -21,12 +22,12 @@ public class Ball extends IngameObject {
 
 	public Ball (PublishingSprite sprite) {
             super(sprite);
-            super.addDefaultBehaviuor(new BehaviourRebound());
+            super.addDefaultBehaviuor(BehaviourReflect.getInstance());
         }
         
         public Ball (PublishingSprite sprite, Speed2D speed2D) {
             super(sprite, speed2D);
-            super.addDefaultBehaviuor(new BehaviourRebound());
+            super.addDefaultBehaviuor(BehaviourReflect.getInstance());
         }
 	
 	@Override
