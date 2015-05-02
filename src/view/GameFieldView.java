@@ -70,15 +70,7 @@ public class GameFieldView extends PlayField {
             object.addGenericEventListener(_listener);
         }
         
-        @Override
-	public void update(long timeElapsed) {
-	    
-	    super.update(timeElapsed);
-            Set<Integer> keys = _objects.keySet();
-	    for (Integer key : keys) {
-	        _objects.get(key).update(timeElapsed);
-	    }
-	}
+    
         
     private class ObjectGenericListener implements GenericEventListener{
 

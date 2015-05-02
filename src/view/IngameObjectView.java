@@ -33,7 +33,5 @@ public abstract class IngameObjectView {
             return _sprite.getId();
         }
 
-    void update(long timeElapsed) {
-        _sprite.update(timeElapsed);
-    }
+
 }

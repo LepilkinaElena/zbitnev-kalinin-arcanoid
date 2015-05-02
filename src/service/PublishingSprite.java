@@ -60,8 +60,4 @@ public class PublishingSprite {
         return clone;
     }
 
-    public void update(long timeElapsed) {
-        sprite.update(timeElapsed);
-    }
-
 }
