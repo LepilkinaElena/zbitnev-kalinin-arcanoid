@@ -13,6 +13,7 @@ import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
+import service.UniqSprite;
 
 /**
  *
@@ -35,7 +36,7 @@ public class BoundaryCollisionManager extends CollisionBounds {
     @Override
     public void collided(Sprite sprite) {
         _storage.clear();
-        _storage.put(_field.getObject(sprite.getID()), null);
+        _storage.put(_field.getObject(((UniqSprite)sprite).getId()), null);
         fireIngameObjectCollided();
     }
 

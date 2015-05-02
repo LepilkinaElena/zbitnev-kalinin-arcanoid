@@ -66,8 +66,7 @@ public class PublishingSpriteFactory {
 
         PublishingSprite publSprite = null;
         if (this.is_valid()) {
-            Sprite sprite = new Sprite(image);
-            int m = sprite.getID();
+            UniqSprite sprite = new UniqSprite(image);
             publSprite = new PublishingSprite(sprite);
             _field.addToSpriteGroup(sprite);
         }

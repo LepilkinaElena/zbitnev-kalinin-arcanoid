@@ -10,6 +10,7 @@ import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
+import service.UniqSprite;
 
 /**
  * Менеджер столкновений, сообщающий о коллизиях между объектами
@@ -47,7 +48,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
                 ArrayList<IngameObject> list = new ArrayList<>();
                 for (Sprite value : valueSprites) {
                     // Добавляется найденный в игровом поле объект
-                    list.add(_field.getObject(value.getID()));
+                    list.add(_field.getObject(((UniqSprite)value).getId()));
                 }
             }
         }

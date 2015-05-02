@@ -16,10 +16,10 @@ import model.Speed2D;
 public class PublishingSprite {
 
     private static int nextid = 0;
-    private final Sprite sprite;
+    private final UniqSprite sprite;
     private final int id;
 
-    public PublishingSprite(Sprite sprite) {
+    public PublishingSprite(UniqSprite sprite) {
         this.sprite = sprite;
         this.id = nextid;
         nextid++;
@@ -27,7 +27,7 @@ public class PublishingSprite {
 
     public int getId() {
         if (sprite != null) {
-            return id;
+            return sprite.getId();
         }
         return -1;
     }
@@ -54,7 +54,7 @@ public class PublishingSprite {
     }
 
     public PublishingSprite clone() {
-        Sprite cloneSprite = new Sprite(sprite.getImage());
+        UniqSprite cloneSprite = new UniqSprite(sprite.getImage());
         cloneSprite.setX(sprite.getX());
         cloneSprite.setY(sprite.getY());
         cloneSprite.setVerticalSpeed(sprite.getVerticalSpeed());
