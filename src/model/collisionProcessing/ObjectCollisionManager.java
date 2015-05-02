@@ -174,11 +174,13 @@ public class ObjectCollisionManager {
     private void formListForElement(IngameObject object, Map storage, ArrayList<IngameObject> list) {
         Set keySet = storage.keySet();
         if (keySet.contains(object)) {
-            IngameObject[] valueSprites = (IngameObject[]) storage.get(object);
-            for (IngameObject value : valueSprites) {
-                if (!list.contains(value)) {
-                    list.add(value);
-                    formListForElement(value, storage, list);
+            if (storage.get(object) != null) {
+                IngameObject[] valueSprites = (IngameObject[]) storage.get(object);
+                for (IngameObject value : valueSprites) {
+                    if (!list.contains(value)) {
+                        list.add(value);
+                        formListForElement(value, storage, list);
+                    }
                 }
             }
         }
