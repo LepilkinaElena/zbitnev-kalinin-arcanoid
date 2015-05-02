@@ -23,7 +23,7 @@ import service.PublishingSprite;
 public class Paddle extends IngameObject {
 
     protected ArrayList<Ball> _balls = new ArrayList<>();
-    protected final Speed2D _startedSpeed = new Speed2D(0.2, 0);
+    protected final Speed2D _startedSpeed = new Speed2D(0, 0.2);
 
     public Paddle(PublishingSprite sprite) {
         super(sprite);

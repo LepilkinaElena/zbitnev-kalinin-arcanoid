@@ -74,7 +74,7 @@ public class GameModel {
 
         Ball newball = factory.createBall();
         newball.setPosition(new Point2D.Float(40, 160));
-        newball.setSpeed(new Speed2D(0.03, -0.01));
+        newball.setSpeed(new Speed2D(0.3, -0.1));
         newball.initSpecialBehaviours();
         BreakableBrick newbrick = factory.createBreakableBrick();
         newbrick.setPosition(new Point2D.Float(180, 120));
@@ -88,7 +88,7 @@ public class GameModel {
         paddle.initSpecialBehaviours();
         paddle.setPosition(new Point2D.Float(0, 584));
         _player = new Player(paddle);
-        paddle.addBall(newball);
+        //paddle.addBall(newball);
         //ObjectCollisionManager manager = new ObjectCollisionManager(_field);
     }
 
