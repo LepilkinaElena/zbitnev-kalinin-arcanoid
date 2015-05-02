@@ -25,6 +25,8 @@ public abstract class IngameObject {
     
     private PublishingSprite sprite;
     
+    private Speed2D.Axis _axis = Speed2D.Axis.X;
+    
     protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
     protected BehaviourContainer _specialColBehaviours = new BehaviourContainer();
     private ArrayList<GenericEventListener> _geneventListeners = new ArrayList<>();
@@ -34,6 +36,7 @@ public abstract class IngameObject {
 	 */
 	public IngameObject(PublishingSprite sprite) {
 	    this.sprite = sprite;
+            setAxis(_axis);
 	}
 	
 	/**
@@ -45,6 +48,9 @@ public abstract class IngameObject {
             this.setSpeed(speed);
 	}
 	
+        protected IngameObject() {
+            this(null);
+        }
 	/**
 	 * Получить скорость.
 	 * @return Текущая скорость.
@@ -54,6 +60,24 @@ public abstract class IngameObject {
             return (Speed2D) sprite.getSpeed().clone();
 	}
 	
+        protected void setAxis(Speed2D.Axis axis) {
+            if (sprite == null) {
+                _axis = axis;
+            } else {
+                if (getSize().getWidth() > getSize().getHeight()) {
+                    _axis = Speed2D.Axis.X;
+                } else if (getSize().getWidth() == getSize().getHeight()) {
+                    _axis = Speed2D.Axis.Z;
+                } else {
+                    _axis = Speed2D.Axis.Y;
+                }
+            }
+        }
+        
+        public Speed2D.Axis getAxis() {
+            return _axis;
+        }
+        
 	/**
 	 * Установить скорость.
 	 * @param speed Новая скорость.
@@ -98,7 +122,7 @@ public abstract class IngameObject {
 	    
 	    while (iterator.hasNext()) {
 	        CollisionBehaviour currentBehavior = iterator.next();
-                currentBehavior.invoke(with);
+                currentBehavior.invoke(this, with);
 	    }
 	}
 	
@@ -122,7 +146,7 @@ public abstract class IngameObject {
 	private void processCollision(IngameObject with, ArrayList<CollisionBehaviour> defaultBehaviours) {
             
             for (CollisionBehaviour behavior : defaultBehaviours) {
-                behavior.invoke(with);
+                behavior.invoke(this, with);
             }
         }
 	
@@ -256,8 +280,15 @@ public abstract class IngameObject {
 	
 	public IngameObject clone() {
 		
-		IngameObject clone = new IngameObject(sprite.clone());
+		IngameObject clone = null;
+        try {
+            clone = (IngameObject) super.clone();
+            clone.sprite = this.sprite.clone();
             clone._isDestroyed = this._isDestroyed;
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
 	
 		return clone;
 	}
