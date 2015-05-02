@@ -12,16 +12,19 @@ import model.Speed2D;
  *
  */
 public class PublishingSprite {
-    
+    private static int nextid = 0;
     private final Sprite sprite;
+    private final int id;
     
     public PublishingSprite(Sprite sprite) {
         this.sprite = sprite;
+        this.id = nextid;
+        nextid++;
     }
     
     public int getId() {
         if (sprite != null) {
-            return sprite.getID();
+            return id;
         }
         return -1;
     }

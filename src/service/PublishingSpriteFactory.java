@@ -17,7 +17,6 @@ import view.IngameObjectView;
  * @author Елена
  */
 public class PublishingSpriteFactory {
-    
     private GameFieldView _field;
     
     private BufferedImage _basicBallImage = null;
@@ -67,7 +66,8 @@ public class PublishingSpriteFactory {
         PublishingSprite publSprite = null;
         if (this.is_valid()) {
             Sprite sprite = new Sprite(image);
-             publSprite = new PublishingSprite(sprite);
+            int m = sprite.getID();
+            publSprite = new PublishingSprite(sprite);
             _field.addToSpriteGroup(sprite);
         }
         return publSprite;
