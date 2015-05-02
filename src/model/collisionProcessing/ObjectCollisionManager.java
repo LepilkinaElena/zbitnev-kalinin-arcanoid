@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import model.Boundary;
 import model.GameField;
 import model.Speed2D;
+import model.Speed2D.Axis;
 import model.collision.BoundaryCollisionManager;
 import model.collision.PublishingCollisionManager;
 import model.interaction.CollisionEvent;
@@ -91,8 +92,12 @@ public class ObjectCollisionManager {
 
                 if (storage.get(key) == null) {
                     //столкновение с границей
-                    key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
-                    key.processCollision(new Boundary(getAxis(event.side())));
+                    if (getAxis(event.side()) == Axis.X && key.getSpeed().y() > 0) {
+                        key.destroy();
+                    } else {
+                        key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
+                        key.processCollision(new Boundary(getAxis(event.side())));
+                    }
                 } else {
                     ArrayList<IngameObject> objectsClone = new ArrayList<>();
                     for (IngameObject object : storage.get(key)) {
