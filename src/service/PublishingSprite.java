@@ -63,4 +63,8 @@ public class PublishingSprite {
         return clone;
     }
 
+    public void removeFromSpriteGroup(SpriteGroup spriteGroup) {
+        spriteGroup.remove(sprite);
+    }
+
 }

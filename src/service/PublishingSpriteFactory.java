@@ -5,12 +5,8 @@
  */
 package service;
 
-import com.golden.gamedev.object.Sprite;
 import java.awt.image.BufferedImage;
-import model.brick.BreakableBrick;
-import model.brick.UnbreakableBrick;
 import view.GameFieldView;
-import view.IngameObjectView;
 
 /**
  *

@@ -1,17 +1,13 @@
 package view;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import model.interaction.CollisionListener;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
-import java.util.Set;
 import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.GenericEventListener;
-import model.collision.PublishingCollisionManager;
 import model.collisionProcessing.ObjectCollisionManager;
 import model.interaction.GenericEvent;
 
@@ -57,6 +53,7 @@ public class GameFieldView extends PlayField {
      * @param ov Представление.
      */
     private void removeObjectView(int ov) {
+        _objects.get(ov).removeFromSpriteGroup(_spriteGroup);
         _objects.remove(ov);
     }
 

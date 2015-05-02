@@ -1,5 +1,6 @@
 package view;
 
+import com.golden.gamedev.object.SpriteGroup;
 import service.PublishingSprite;
 
 import model.collisionProcessing.IngameObject;
@@ -32,6 +33,10 @@ public abstract class IngameObjectView {
 
     public int getId() {
         return _sprite.getId();
+    }
+
+    void removeFromSpriteGroup(SpriteGroup spriteGroup) {
+        _sprite.removeFromSpriteGroup(spriteGroup);
     }
 
 }
