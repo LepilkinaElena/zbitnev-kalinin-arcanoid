@@ -1,15 +1,11 @@
 package model.ball;
 
-import java.awt.Dimension;
 import java.awt.geom.Point2D;
-
-import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourRebound;
 import model.collision.BehaviourReflect;
-import model.collision.CollisionBehaviour;
 import model.paddle.Paddle;
 import service.PublishingSprite;
 

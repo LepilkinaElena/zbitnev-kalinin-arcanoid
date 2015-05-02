@@ -1,10 +1,10 @@
 package model.collision;
 
-import java.awt.geom.Point2D;
-
+import java.awt.Point;
 import model.collisionProcessing.IngameObject;
-import model.ball.Ball;
-import model.paddle.Paddle;
+import java.awt.geom.Point2D;
+import model.Speed2D;
+import model.Speed2D.Axis;
 
 /**
  * Поведение отскока от ракетки при столкновении.
@@ -38,6 +38,47 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
 
     @Override
     public void invoke(IngameObject active, IngameObject passive) {
+        //с управляемым элементом
+        Point2D.Float positionCollision = new Point2D.Float();
+        positionCollision.x = active.getPosition().x + (int)active.getSize().width/2;
+        positionCollision.y = active.getPosition().y + (int)active.getSize().height;
+        Point2D.Float positionMiddleRacket = new Point2D.Float();
+        positionMiddleRacket.x = passive.getPosition().x+(int)passive.getSize().width/2;
+        positionMiddleRacket.y = passive.getPosition().y;
+        double lengthHalfRacket = passive.getSize().width/2.0;
 
+        //Проверка на столкновение с углом элемента        
+        boolean collisionRightConer = positionCollision.x > positionMiddleRacket.x + lengthHalfRacket &&
+                positionMiddleRacket.y < passive.getPosition().y + active.getSize().height/2;
+        boolean collisionLeftConer = positionCollision.x < positionMiddleRacket.x - lengthHalfRacket &&
+                positionMiddleRacket.y < passive.getPosition().y + active.getSize().height/2;
+        // Мячик летит к ракетке к углу элемента
+        if (collisionRightConer && active.getSpeed().x() < 0 || 
+                collisionLeftConer && active.getSpeed().x() > 0) {
+            active.setSpeed (active.getSpeed().reflect(Axis.Z));
+        // Мячик летит вдоль ракетки к углу элемента
+        } else if (collisionRightConer && active.getSpeed().x() > 0 || 
+                collisionLeftConer && active.getSpeed().x() < 0) { 
+            active.setSpeed (active.getSpeed().reflect(Axis.Y));
+        // Мячик летит на угол элемента под прямым углом
+        } else if (collisionRightConer && active.getSpeed().x() == 0) {
+            active.setSpeed(new Speed2D(0.3, -0.3));
+        } else if (collisionLeftConer && active.getSpeed().x() == 0) {
+            active.setSpeed(new Speed2D(-0.3, -0.3));
+        // Мячик попадает на поверхность элемента
+        } else if (positionCollision.x > passive.getPosition().x &&
+                positionCollision.x < passive.getPosition().x + passive.getSize().width) {
+            double lengthSpeedVector = active.getSpeed().value();
+            double distanceToMiddleRacket = positionCollision.x > positionMiddleRacket.x ?
+                    positionCollision.x - positionMiddleRacket.x :
+                    positionMiddleRacket.x - positionCollision.x;
+            double angleNewSpeedVector = Math.acos(distanceToMiddleRacket/lengthHalfRacket);
+            double newSpeedVectorX = positionCollision.x > positionMiddleRacket.x ?
+                    Math.cos(angleNewSpeedVector)*lengthSpeedVector :
+                    - (Math.cos(angleNewSpeedVector)*lengthSpeedVector);
+            double newSpeedVectorY = - (Math.sin(angleNewSpeedVector)*lengthSpeedVector);
+            Speed2D newSpeedVector = new Speed2D(newSpeedVectorX, newSpeedVectorY);
+            active.setSpeed(newSpeedVector);
+        }
     }
 }
