@@ -163,58 +163,26 @@ public abstract class IngameObject {
         protected void addDefaultBehaviuor(CollisionBehaviour cb) {
             _defaultColBehaviour.add(cb);
         }
-	/**
-	 * Добавить специальное поведение при столкновении
-	 * @param c Класс объектов
-	 * @param cb Поведение, определяемое при столкновении с этим классом объектов
-	 * @param checkDerived Если true, то будут также проверяться наследники класса объектов.
-	 *                     Игнорируется, если для класса уже задано какое-либо поведение.
-	 TO DO ПЕРЕНЕСТИ В КЛАССЫ*/
-	/*public void addSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb, boolean checkDerived) {
-		
-		if (!c.isInstance(IngameObject.class)) {
-			// TODO: Выброс исключения, ибо нечего
-		}
-		
-		if (!_specialColBehaviours.containsKey(c)) {
-			
-			BehaviourContainer newsb = new BehaviourContainer(cb);
-			newsb._flagCheckDerived = checkDerived;
-			_specialColBehaviours.put(c, newsb);
-		}
-		else {
-			_specialColBehaviours.get(c)._behaviours.add(cb);
-		}
-	}*/
+	
 	
     /**
      * Добавить специальное поведение при столкновении
-     * @param c Класс объектов
-     * @param cb Поведение, определяемое при столкновении с этим классом объектов
-     *TO DO/
-	/*public void addSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb) {
+     * @param className
+     * @param behaviour
+     */
+	public void addSpecificCollisionBehaviour(Class<?> className, CollisionBehaviour behaviour) {
 	    
-	    this.addSpecificCollisionBehaviour(c, cb, false);
-	}*/
+	    this._specialColBehaviours.addBehaviour(className, behaviour);
+	}
 	
 	/**
 	 * Удалить специальное поведение при столкновении
 	 * @param c Класс объектов
 	 * @param cb Поведение, определённое при столкновении с этим классом объектов
-	 *TO DO/
-	/*public void removeSpecificCollisionBehaviour(Class<?> c, CollisionBehaviour cb) {
-		
-		if (!c.isInstance(IngameObject.class)) {
-			// TODO: Выброс исключения, ибо нечего
-		}
-		
-		if (_specialColBehaviours.containsKey(c)) {
-			_specialColBehaviours.get(c)._behaviours.remove(cb);
-			if (_specialColBehaviours.get(c)._behaviours.isEmpty()) {
-			    _specialColBehaviours.remove(c);
-			}
-		}
-	}*/
+	 */
+	public void removeSpecificCollisionBehaviour(Class<?> className, CollisionBehaviour behaviour) {
+		this._specialColBehaviours.removeBehaviour(className, behaviour);
+	}
 	
 	/**
 	 * Очистить список поведений при столкновении по умолчанию

@@ -7,11 +7,7 @@ import java.util.Iterator;
 public class BehaviourContainer {
     private HashMap<Class<?>, ArrayList<CollisionBehaviour>> _specialColBehaviours 
 		= new HashMap<>();
-    
-    /**
-     * Если флаг установлен, то поведение применяется не только при столкновении с объектом данного класса, но и его потомками.
-     */
-    //public boolean _flagCheckDerived = false;
+   
     
     public BehaviourContainer() {
         
