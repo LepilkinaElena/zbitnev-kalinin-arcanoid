@@ -101,4 +101,12 @@ public class Speed2D {
         }
         return result;
     }
+    
+    /**
+     * Высчитать длину вектора скорости
+     * @return длина вектора скорости
+     */
+    public double value() {
+        return Math.sqrt(Math.pow(_x, 2) + Math.pow(_y, 2));
+    }
 }
