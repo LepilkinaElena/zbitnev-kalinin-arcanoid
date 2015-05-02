@@ -38,7 +38,7 @@ public class GameController {
 		
 	    // Управление мышью.
 	    if (_input.getMouseDX() != 0) {
-                _model.proccessPlayerAction(new Speed2D(_input.getMouseDX()/l, 0));
+                //_model.proccessPlayerAction(new Speed2D(_input.getMouseDX()/l, 0));
 	    }
 	    
 	    if (_input.isMousePressed(MouseEvent.BUTTON1)) {
