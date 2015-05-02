@@ -142,7 +142,7 @@ public abstract class IngameObject {
      */
     void processCollision(IngameObject with) {
 
-        if (!_specialColBehaviours.isEmpty()) {
+        if (_specialColBehaviours.contains(with.getClass())) {
             processCollision(with, _specialColBehaviours);
         } else {
             processCollision(with, _defaultColBehaviour);

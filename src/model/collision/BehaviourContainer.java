@@ -65,4 +65,8 @@ public class BehaviourContainer {
         }
         return null;
     }
+    
+    public boolean contains(Class<?> className) {
+        return _specialColBehaviours.containsKey(className);
+    }
 }
