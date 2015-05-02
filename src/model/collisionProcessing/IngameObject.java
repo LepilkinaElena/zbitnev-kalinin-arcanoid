@@ -20,7 +20,7 @@ import service.PublishingSprite;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public abstract class IngameObject {
+public abstract class IngameObject implements Cloneable{
 
     protected Boolean _isDestroyed = false;
 
@@ -265,6 +265,7 @@ public abstract class IngameObject {
         _geneventListeners.remove(l);
     }
 
+    @Override
     public IngameObject clone() {
 
         IngameObject clone = null;
