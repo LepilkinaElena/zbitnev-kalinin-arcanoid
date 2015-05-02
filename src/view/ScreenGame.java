@@ -18,6 +18,7 @@ import com.golden.gamedev.object.background.ImageBackground;
 
 import controller.GameController;
 import model.ball.Ball;
+import model.collisionProcessing.ObjectCollisionManager;
 import model.paddle.Paddle;
 import service.IngameObjectFactory;
 
@@ -53,7 +54,7 @@ public class ScreenGame extends GameObject {
         g.setColor(Color.black);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         _fieldView.setBackground(new ImageBackground(fieldBg));
-
+        
         // Фабрика представлений
         IngameObjectFactory factory = new IngameObjectFactory(_fieldView, field);
 
@@ -66,7 +67,7 @@ public class ScreenGame extends GameObject {
         // Контроллер и игрок.
         
         _controller = new GameController(_model, bsInput);
-
+        
         // ЭКСПЕРИМЕНТ
        // paddle.addBall(newball);
 

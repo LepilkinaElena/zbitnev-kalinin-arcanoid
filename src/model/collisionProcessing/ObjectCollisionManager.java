@@ -31,14 +31,22 @@ import model.interaction.CollisionListener;
  */
 public class ObjectCollisionManager {
     private PublishingCollisionManager _objectManager;
-    private BoundaryCollisionManager _boundaManager;
+    private BoundaryCollisionManager _boundaryManager;
     
     public ObjectCollisionManager(GameField field) {
         CollisionOccuredListener listener = new CollisionOccuredListener();
         _objectManager = new PublishingCollisionManager(field);
-        _boundaManager = new BoundaryCollisionManager(0, 0, field.getSize().width, field.getSize().height, field);
+        _boundaryManager = new BoundaryCollisionManager(0, 0, field.getSize().width, field.getSize().height, field);
         _objectManager.addCollisionListener(listener);
-        _boundaManager.addCollisionListener(listener);
+        _boundaryManager.addCollisionListener(listener);
+    }
+
+    public CollisionManager getObjectManager() {
+        return _objectManager;
+    }
+
+    public CollisionManager getBoundaryManager() {
+        return _boundaryManager;
     }
     
     private class CollisionOccuredListener implements CollisionListener {

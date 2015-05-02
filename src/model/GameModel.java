@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import model.ball.Ball;
 import model.brick.BreakableBrick;
 import model.brick.UnbreakableBrick;
+import model.collisionProcessing.ObjectCollisionManager;
 import model.paddle.Paddle;
 import service.IngameObjectFactory;
 
@@ -66,6 +67,7 @@ public class GameModel {
 	}
         
     public void initLevel(IngameObjectFactory factory) {
+        
         Ball newball = factory.createBall();
         newball.setPosition(new Point2D.Float(40, 160));
         newball.setSpeed(new Speed2D(0.03, -0.01));
@@ -73,7 +75,7 @@ public class GameModel {
         BreakableBrick newbrick = factory.createBreakableBrick();
         newbrick.setPosition(new Point2D.Float(180, 120));
         BreakableBrick newbrick2 = factory.createBreakableBrick();
-        newbrick2.setPosition(new Point2D.Float(276, 120));
+        newbrick2.setPosition(new Point2D.Float(228, 120));
         UnbreakableBrick newbrick3 = factory.createUnbreakableBrick();
         newbrick3.setPosition(new Point2D.Float(276, 120));
         newbrick.initSpecialBehaviours();
@@ -83,6 +85,7 @@ public class GameModel {
         paddle.setPosition(new Point2D.Float(0, 584));
         _player = new Player(paddle);
         paddle.addBall(newball);
+        //ObjectCollisionManager manager = new ObjectCollisionManager(_field);
     }
 
     public void startGame() {

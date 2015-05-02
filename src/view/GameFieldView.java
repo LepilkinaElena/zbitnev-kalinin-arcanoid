@@ -13,6 +13,7 @@ import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.GenericEventListener;
 import model.collision.PublishingCollisionManager;
+import model.collisionProcessing.ObjectCollisionManager;
 import model.interaction.GenericEvent;
 
 /**
@@ -26,16 +27,18 @@ public class GameFieldView extends PlayField {
 	private HashMap <Integer, IngameObjectView> _objects;
         private SpriteGroup _spriteGroup;
         private ObjectGenericListener _listener;
+        private ObjectCollisionManager _manager;
 	
-	public GameFieldView(GameField field) {
-            _spriteGroup = new SpriteGroup("objects");
-            _objects = new HashMap<>();
-            _listener = new ObjectGenericListener();
-		this.addGroup(this._spriteGroup);
-		
-		// Добавить на поле менеджеры коллизий для обработки столкновений
-		this.addCollisionGroup(this._spriteGroup, this._spriteGroup, new PublishingCollisionManager(field));
-	}
+    public GameFieldView(GameField field) {
+        _spriteGroup = new SpriteGroup("objects");
+        _objects = new HashMap<>();
+        _listener = new ObjectGenericListener();
+        this.addGroup(this._spriteGroup);
+        _manager = new ObjectCollisionManager(field);
+        // Добавить на поле менеджеры коллизий для обработки столкновений
+        this.addCollisionGroup(this._spriteGroup, this._spriteGroup, _manager.getObjectManager());
+        addCollisionGroup(_spriteGroup, null, _manager.getBoundaryManager());
+    }
 
 	/**
 	 * Добавляет представление объекта на это поле. Этот метод добавляет объект в соответствующую группу спрайтов.
