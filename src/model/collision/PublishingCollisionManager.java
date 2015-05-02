@@ -13,6 +13,7 @@ import model.interaction.CollisionListener;
 
 /**
  * Менеджер столкновений, сообщающий о коллизиях между объектами
+ *
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
@@ -65,12 +66,12 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
     public void addCollisionListener(CollisionListener element) {
         _collisionListener.add(element);
     }
-    
+
     /**
      * Испустить событие о том, что столкнулись игровые объекты
      */
     private void fireIngameObjectCollided() {
-        for (CollisionListener listener: _collisionListener) {
+        for (CollisionListener listener : _collisionListener) {
             listener.collisionOccured(new CollisionEvent(this, _storage));
         }
     }

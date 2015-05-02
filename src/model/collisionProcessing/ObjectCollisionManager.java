@@ -24,15 +24,15 @@ import model.collision.PublishingCollisionManager;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
 
-
 /**
  *
  * @author Елена
  */
 public class ObjectCollisionManager {
+
     private PublishingCollisionManager _objectManager;
     private BoundaryCollisionManager _boundaryManager;
-    
+
     public ObjectCollisionManager(GameField field) {
         CollisionOccuredListener listener = new CollisionOccuredListener();
         _objectManager = new PublishingCollisionManager(field);
@@ -48,30 +48,31 @@ public class ObjectCollisionManager {
     public CollisionManager getBoundaryManager() {
         return _boundaryManager;
     }
-    
+
     private class CollisionOccuredListener implements CollisionListener {
+
         @Override
         public void collisionOccured(CollisionEvent event) {
             ArrayList<IngameObject> system;
             HashMap<IngameObject, ArrayList<IngameObject>> storage = event.getStorage();
-            
+
             Set<IngameObject> keys = storage.keySet();
-            
+
             system = getSystem(storage);
-                    // Если есть система
-                    if (!system.isEmpty()) {
-                        // Обработать столкновения внутри системы
-                        handleSystem(system);
-                        // Удалить спрайты, входящие в систему
-                        for ( Object keyObject : storage.keySet()) {
-                            if (system.contains((IngameObject)keyObject)) {
-                                storage.remove((IngameObject)keyObject);
-                            }
-                        }
+            // Если есть система
+            if (!system.isEmpty()) {
+                // Обработать столкновения внутри системы
+                handleSystem(system);
+                // Удалить спрайты, входящие в систему
+                for (Object keyObject : storage.keySet()) {
+                    if (system.contains((IngameObject) keyObject)) {
+                        storage.remove((IngameObject) keyObject);
                     }
-            
+                }
+            }
+
             for (IngameObject key : keys) {
-                
+
                 if (storage.get(key).isEmpty()) {
                     //столкновение с границей
                 } else {
@@ -82,17 +83,17 @@ public class ObjectCollisionManager {
                         object.processCollision(cloneKey);
                     }
                     for (IngameObject object : objectsClone) {
-                        key.processCollision(object);                        
+                        key.processCollision(object);
                     }
                 }
             }
         }
-        
+
     }
-    
+
     /**
      * Обработать столкновение с системой
-     * 
+     *
      * @param system система
      */
     private void handleSystem(ArrayList<IngameObject> system) {
@@ -100,13 +101,13 @@ public class ObjectCollisionManager {
         // Карта элемент-> клоны, столкнувшихся элементов, которые должнв рассматриваться как один элемент
         HashMap<IngameObject, ArrayList<IngameObject>> elementsAsOne = new HashMap<>();
         // Получение элементов и клонов
-        for (IngameObject element :system) {
+        for (IngameObject element : system) {
             cloneElements.add((IngameObject) element.clone());
         }
         // Создание карты
-        for (IngameObject element:system) {
+        for (IngameObject element : system) {
             ArrayList<IngameObject> elementArray = new ArrayList<>();
-            for (IngameObject other:cloneElements) {
+            for (IngameObject other : cloneElements) {
                 if (system.indexOf(element) != cloneElements.indexOf(other)) {
                     elementArray.add(other);
                 }
@@ -120,14 +121,14 @@ public class ObjectCollisionManager {
                 ArrayList<IngameObject> values = entrySet.getValue();
                 // Создание элемента на основе нескольких
                 Class classElement = values.get(0).getClass();
-                Constructor[] construct =  classElement.getDeclaredConstructors();
+                Constructor[] construct = classElement.getDeclaredConstructors();
                 Object otherElement = construct[0].newInstance();
                 Speed2D resultSpeed = new Speed2D();
-                for (IngameObject value: values) {
+                for (IngameObject value : values) {
                     resultSpeed = resultSpeed.sum(value.getSpeed());
                 }
-                ((IngameObject)otherElement).setSpeed(resultSpeed);
-                key.processCollision((IngameObject)otherElement);
+                ((IngameObject) otherElement).setSpeed(resultSpeed);
+                key.processCollision((IngameObject) otherElement);
             } catch (InstantiationException ex) {
                 Logger.getLogger(ObjectCollisionManager.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalAccessException ex) {
@@ -139,19 +140,19 @@ public class ObjectCollisionManager {
             }
         }
     }
-    
+
     /**
      * Получить систему, образованную несколькими соударившимися элементами
-     * 
+     *
      * @param storage хранилище соударений
      * @return список, содержащий элементы, входящие в систему
      */
     private ArrayList<IngameObject> getSystem(Map storage) {
         ArrayList<IngameObject> result = new ArrayList<>();
         // Создание системы связанных соударившихся элементов
-        for ( Object keyObject: storage.keySet()) {
-            result.add((IngameObject)keyObject);
-            formListForElement((IngameObject)keyObject, storage, result);
+        for (Object keyObject : storage.keySet()) {
+            result.add((IngameObject) keyObject);
+            formListForElement((IngameObject) keyObject, storage, result);
             // Есть система, а не простое соударение
             if (result.size() >= 3) {
                 return result;
@@ -159,12 +160,13 @@ public class ObjectCollisionManager {
                 result = new ArrayList<>();
             }
         }
-        
+
         return result;
     }
-    
+
     /**
      * Сформировать список элементов, с которыми стокнулся по цепочке
+     *
      * @param sprite спрайт, для которого определяем
      * @param storage хранилище со столкновениями
      * @param list список, куда заносится цепочка столкновений
@@ -173,7 +175,7 @@ public class ObjectCollisionManager {
         Set keySet = storage.keySet();
         if (keySet.contains(object)) {
             IngameObject[] valueSprites = (IngameObject[]) storage.get(object);
-            for (IngameObject value:valueSprites) {
+            for (IngameObject value : valueSprites) {
                 if (!list.contains(value)) {
                     list.add(value);
                     formListForElement(value, storage, list);

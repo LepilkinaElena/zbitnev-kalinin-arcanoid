@@ -11,19 +11,20 @@ import service.PublishingSprite;
 
 /**
  * Модель неразрушаемого кирпича.
+ *
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
 public class UnbreakableBrick extends Brick {
 
-	public UnbreakableBrick (PublishingSprite sprite) {
-            super(sprite);
-            super.addDefaultBehaviuor(CollisionBehaviour.getInstance());
-        }
-    
+    public UnbreakableBrick(PublishingSprite sprite) {
+        super(sprite);
+        super.addDefaultBehaviuor(CollisionBehaviour.getInstance());
+    }
+
     public UnbreakableBrick clone() {
-    	UnbreakableBrick clone = (UnbreakableBrick) super.clone();
-    	return clone;
+        UnbreakableBrick clone = (UnbreakableBrick) super.clone();
+        return clone;
     }
 
 }

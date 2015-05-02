@@ -10,6 +10,7 @@ import service.IngameObjectFactory;
 
 /**
  * Модель игры.
+ *
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
@@ -17,57 +18,60 @@ public class GameModel {
 
     protected GameField _field = null;
     protected Player _player = new Player();
-    
-	
 
-	/**
-	 * Назначить игровое поле
-	 * @param field
-	 */
-	public void setField(GameField field) {
-		
-		if (field == null) {
-		    throw new NullPointerException();
-		}
-		_field = field;
-	}
-	
-	/**
-	 * Получить игровое поле
-	 * @return Текущее поле
-	 */
-	public GameField getField() {
-		
-		return _field;
-	}
-	
-	/**
-	 * Установить модели нового игрока
-	 * @param player
-	 */
-	public void setPlayer(Player player) {
-            _player = player;
-	}
-	
-	/**
-	 * Полуить игроков модели
-	 * @return
-	 */
-	public Player getPlayer() {
-		
-		return (Player) _player.clone();
-	}
-	
-	/**
-	 * Обновляет модель. В реализации данного класса ничего не делает.
-	 * @param arg Аргумент.
-	 */
-	public void update(Object arg) {
-	    
-	}
-        
+    /**
+     * Назначить игровое поле
+     *
+     * @param field
+     */
+    public void setField(GameField field) {
+
+        if (field == null) {
+            throw new NullPointerException();
+        }
+        _field = field;
+    }
+
+    /**
+     * Получить игровое поле
+     *
+     * @return Текущее поле
+     */
+    public GameField getField() {
+
+        return _field;
+    }
+
+    /**
+     * Установить модели нового игрока
+     *
+     * @param player
+     */
+    public void setPlayer(Player player) {
+        _player = player;
+    }
+
+    /**
+     * Полуить игроков модели
+     *
+     * @return
+     */
+    public Player getPlayer() {
+
+        return (Player) _player.clone();
+    }
+
+    /**
+     * Обновляет модель. В реализации данного класса ничего не делает.
+     *
+     * @param arg Аргумент.
+     */
+    public void update(Object arg) {
+
+    }
+
     public void initLevel(IngameObjectFactory factory) {
-        
+
         Ball newball = factory.createBall();
         newball.setPosition(new Point2D.Float(40, 160));
         newball.setSpeed(new Speed2D(0.03, -0.01));
@@ -95,7 +99,7 @@ public class GameModel {
     public void proccessPlayerAction(Speed2D speed2D) {
         _player.processAction(speed2D);
     }
-    
+
     public void proccessPlayerAction(Direction direction) {
         _player.processAction(direction);
     }

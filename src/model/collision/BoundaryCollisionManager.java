@@ -19,6 +19,7 @@ import model.interaction.CollisionListener;
  * @author Елена
  */
 public class BoundaryCollisionManager extends CollisionBounds {
+
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage = new HashMap<>();
     private GameField _field;
     /**
@@ -26,18 +27,18 @@ public class BoundaryCollisionManager extends CollisionBounds {
      */
     private ArrayList<CollisionListener> _collisionListener = new ArrayList<>();
 
-    public BoundaryCollisionManager (int x, int y, int width, int height, GameField field) {
+    public BoundaryCollisionManager(int x, int y, int width, int height, GameField field) {
         super(x, y, width, height);
         _field = field;
     }
-    
+
     @Override
     public void collided(Sprite sprite) {
         _storage.clear();
         _storage.put(_field.getObject(sprite.getID()), null);
         fireIngameObjectCollided();
     }
-    
+
     //-------------------------------------
     /**
      * Добавление слушателей события о том, что столкнулись игровые объекты
@@ -47,12 +48,12 @@ public class BoundaryCollisionManager extends CollisionBounds {
     public void addCollisionListener(CollisionListener element) {
         _collisionListener.add(element);
     }
-    
+
     /**
      * Испустить событие о том, что столкнулись игровые объекты
      */
     private void fireIngameObjectCollided() {
-        for (CollisionListener listener: _collisionListener) {
+        for (CollisionListener listener : _collisionListener) {
             listener.collisionOccured(new CollisionEvent(this, _storage));
         }
     }

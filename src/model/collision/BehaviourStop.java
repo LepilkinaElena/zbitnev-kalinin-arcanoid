@@ -13,31 +13,33 @@ import model.collisionProcessing.IngameObject;
  * @author Елена
  */
 public class BehaviourStop extends CollisionBehaviour {
+
     /**
-	 * Экзмепляр синглтона.
-	 */
-	private static BehaviourStop _instance = null;
-	
-	private BehaviourStop() {
-	}
-	
-	/**
-	 * Возвращает экземпляр поведения поглощения.
-	 * @return
-	 */
-	public static BehaviourStop getInstance() {
-		
-		if (_instance == null) {
-			_instance = new BehaviourStop();
-		}
-		
-		return _instance;
-	}
-	
-	@Override
-	public void invoke(IngameObject active, IngameObject passive) {
-            if (passive.getAxis() == Speed2D.Axis.Y) {
-                active.setSpeed(new Speed2D());
-            }
-	}
+     * Экзмепляр синглтона.
+     */
+    private static BehaviourStop _instance = null;
+
+    private BehaviourStop() {
+    }
+
+    /**
+     * Возвращает экземпляр поведения поглощения.
+     *
+     * @return
+     */
+    public static BehaviourStop getInstance() {
+
+        if (_instance == null) {
+            _instance = new BehaviourStop();
+        }
+
+        return _instance;
+    }
+
+    @Override
+    public void invoke(IngameObject active, IngameObject passive) {
+        if (passive.getAxis() == Speed2D.Axis.Y) {
+            active.setSpeed(new Speed2D());
+        }
+    }
 }

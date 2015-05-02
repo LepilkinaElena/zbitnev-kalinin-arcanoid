@@ -17,5 +17,5 @@ public class PaddleView extends IngameObjectView {
     public PaddleView(IngameObject obj, PublishingSprite sprite) {
         super(obj, sprite);
     }
-    
+
 }

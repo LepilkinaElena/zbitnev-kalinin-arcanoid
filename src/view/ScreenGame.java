@@ -54,23 +54,21 @@ public class ScreenGame extends GameObject {
         g.setColor(Color.black);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         _fieldView.setBackground(new ImageBackground(fieldBg));
-        
+
         // Фабрика представлений
         IngameObjectFactory factory = new IngameObjectFactory(_fieldView, field);
 
         _model = new GameModel();
         _model.setField(field);
-		// Построение уровня
+        // Построение уровня
         // TODO: Загрузка уровня из файла (пока уровень захардкоден)
         _model.initLevel(factory);
 
         // Контроллер и игрок.
-        
         _controller = new GameController(_model, bsInput);
-        
-        // ЭКСПЕРИМЕНТ
-       // paddle.addBall(newball);
 
+        // ЭКСПЕРИМЕНТ
+        // paddle.addBall(newball);
         // Тестирование столкновения множества шаров
         /*BasicBall ball01 = new BasicBall(field, new Point2D.Float((float) 213.3975, 250), 16, new Speed2D(0.043, -0.025));
          BasicBall ball02 = new BasicBall(field, new Point2D.Float(400, 200), 16, new Speed2D(-0.05, 0));

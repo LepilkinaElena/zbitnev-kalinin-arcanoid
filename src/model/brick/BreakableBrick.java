@@ -16,30 +16,31 @@ import service.PublishingSprite;
 
 /**
  * Модель разрушаемого кирпича.
+ *
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
 public class BreakableBrick extends Brick {
 
-	public BreakableBrick (PublishingSprite sprite) {
-            super(sprite);
-        }
+    public BreakableBrick(PublishingSprite sprite) {
+        super(sprite);
+    }
 
     /**
-	 * Разрушает кирпич.
-	 */
-	@Override
-	public void destroy() {
-	    super.destroy();
-	}
-	
-	public BreakableBrick clone() {
-            BreakableBrick clone = null;
-            clone = (BreakableBrick) super.clone();
-            return clone;
-	}
-        
-        public void initSpecialBehaviours() {
-            addSpecificCollisionBehaviour(Ball.class, BehaviourDestroy.getInstance());
-        }
+     * Разрушает кирпич.
+     */
+    @Override
+    public void destroy() {
+        super.destroy();
+    }
+
+    public BreakableBrick clone() {
+        BreakableBrick clone = null;
+        clone = (BreakableBrick) super.clone();
+        return clone;
+    }
+
+    public void initSpecialBehaviours() {
+        addSpecificCollisionBehaviour(Ball.class, BehaviourDestroy.getInstance());
+    }
 }

@@ -27,6 +27,7 @@ import view.UnbreakableBrickView;
  * @author Елена
  */
 public class IngameObjectFactory {
+
     private GameFieldView _fieldView;
     private GameField _gameField;
     private PublishingSpriteFactory _publishingSpriteFactory;
@@ -37,19 +38,19 @@ public class IngameObjectFactory {
         _publishingSpriteFactory = new PublishingSpriteFactory(_fieldView);
         initResourses();
     }
-    
+
     public Ball createBall() {
         PublishingSprite sprite = _publishingSpriteFactory.newBasicBallPublishigSprite();
         Ball ball = new Ball(sprite);
         _gameField.addListenerToObject(ball);
         _gameField.addObject(ball);
-        
+
         BallView ballView = new BallView(ball, sprite);
         _fieldView.addObject(ballView);
         _fieldView.addListenerToObject(ball);
         return ball;
     }
-    
+
     public Paddle createPaddle() {
         PublishingSprite sprite = _publishingSpriteFactory.newBasicPaddlePublishingSprite();
         Paddle paddle = new Paddle(sprite);
@@ -60,7 +61,7 @@ public class IngameObjectFactory {
         _fieldView.addListenerToObject(paddle);
         return paddle;
     }
-    
+
     public UnbreakableBrick createUnbreakableBrick() {
         PublishingSprite sprite = _publishingSpriteFactory.newUnbreakableBrickPublishingSprite();
         UnbreakableBrick unbreakableBrick = new UnbreakableBrick(sprite);
@@ -71,7 +72,7 @@ public class IngameObjectFactory {
         _fieldView.addListenerToObject(unbreakableBrick);
         return unbreakableBrick;
     }
-    
+
     public BreakableBrick createBreakableBrick() {
         PublishingSprite sprite = _publishingSpriteFactory.newBreakableBrickPublishingSprite();
         BreakableBrick breakableBrick = new BreakableBrick(sprite);
@@ -81,8 +82,8 @@ public class IngameObjectFactory {
         _fieldView.addObject(breakableBrickView);
         _fieldView.addListenerToObject(breakableBrick);
         return breakableBrick;
-    } 
-    
+    }
+
     private void initResourses() {
         try {
             BufferedImage basicBallImage = ImageIO.read(new File("default/gfx/balls/basic.png"));
@@ -96,6 +97,6 @@ public class IngameObjectFactory {
         } catch (IOException ex) {
             Logger.getLogger(IngameObjectFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }

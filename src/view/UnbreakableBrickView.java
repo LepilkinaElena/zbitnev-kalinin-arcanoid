@@ -17,5 +17,5 @@ public class UnbreakableBrickView extends IngameObjectView {
     public UnbreakableBrickView(IngameObject obj, PublishingSprite sprite) {
         super(obj, sprite);
     }
-    
+
 }

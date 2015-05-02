@@ -14,12 +14,13 @@ import java.util.Iterator;
  * @author Елена
  */
 public class BehaviourIterator implements Iterator<CollisionBehaviour> {
+
     private Iterator<CollisionBehaviour> _iterator;
-    
-    public BehaviourIterator (ArrayList<CollisionBehaviour> list) {
+
+    public BehaviourIterator(ArrayList<CollisionBehaviour> list) {
         _iterator = list.iterator();
     }
-    
+
     @Override
     public boolean hasNext() {
         return _iterator.hasNext();
@@ -29,7 +30,7 @@ public class BehaviourIterator implements Iterator<CollisionBehaviour> {
     public CollisionBehaviour next() {
         return _iterator.next();
     }
-    
+
     public void remove() {
         _iterator.remove();
     }

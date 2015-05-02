@@ -9,10 +9,12 @@ import model.collisionProcessing.IngameObject;
 import service.PublishingSprite;
 
 /**
- * Класс для границ (сделан, чтобы можно было вызывать invoke для поведений одинаково)
+ * Класс для границ (сделан, чтобы можно было вызывать invoke для поведений
+ * одинаково)
+ *
  * @author Елена
  */
-public class Boundary extends IngameObject{
+public class Boundary extends IngameObject {
 
     public Boundary(Speed2D.Axis axis) {
         super();

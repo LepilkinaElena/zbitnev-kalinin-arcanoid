@@ -12,14 +12,14 @@ import java.util.EventObject;
  * @author Елена
  */
 public class GenericEvent extends EventObject {
-    
+
     private int elementId;
+
     public GenericEvent(Object source, int id) {
         super(source);
         elementId = id;
     }
-    
-    
+
     public int getElementId() {
         return elementId;
     }

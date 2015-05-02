@@ -17,5 +17,5 @@ public class BallView extends IngameObjectView {
     public BallView(IngameObject obj, PublishingSprite sprite) {
         super(obj, sprite);
     }
-    
+
 }

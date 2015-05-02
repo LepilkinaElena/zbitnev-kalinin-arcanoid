@@ -14,49 +14,52 @@ import model.Speed2D;
 
 /**
  * Слушает ввод и управляет игрой.
+ *
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
 public class GameController {
-	private BaseInput _input;
-        private GameModel _model;
-	
-	/**
-	 * Создаёт контроллер ввода
-	 * @param player Модель игрока, которой будет управлять контроллер.
-	 * @param input Менеджер ввода.
-	 */
-	public GameController(GameModel model,BaseInput input) {
-		_model = model;
-		_input = input;
-	}
-	
-	/**
-	 * Проверяет состояние ввода и управляет моделью игрока.
-	 */
-	public void update(long l) {
-		
-	    // Управление мышью.
-	    if (_input.getMouseDX() != 0) {
-                //_model.proccessPlayerAction(new Speed2D(_input.getMouseDX()/l, 0));
-	    }
-	    
-	    if (_input.isMousePressed(MouseEvent.BUTTON1)) {
-	        _model.startGame();
-	    }
 
-	    // Управление с клавиатуры.
-	    if (_input.isKeyPressed(KeyEvent.VK_LEFT)) {
-	        _model.proccessPlayerAction(Direction.west());
-	    }
-	    
-	    if (_input.isKeyPressed(KeyEvent.VK_RIGHT)) {
-	         _model.proccessPlayerAction(Direction.east());
-	    }
-	    
-	    if (_input.isKeyPressed(KeyEvent.VK_SPACE)) {
-	         _model.startGame();
-	    }
-	}
-        
+    private BaseInput _input;
+    private GameModel _model;
+
+    /**
+     * Создаёт контроллер ввода
+     *
+     * @param player Модель игрока, которой будет управлять контроллер.
+     * @param input Менеджер ввода.
+     */
+    public GameController(GameModel model, BaseInput input) {
+        _model = model;
+        _input = input;
+    }
+
+    /**
+     * Проверяет состояние ввода и управляет моделью игрока.
+     */
+    public void update(long l) {
+
+        // Управление мышью.
+        if (_input.getMouseDX() != 0) {
+            //_model.proccessPlayerAction(new Speed2D(_input.getMouseDX()/l, 0));
+        }
+
+        if (_input.isMousePressed(MouseEvent.BUTTON1)) {
+            _model.startGame();
+        }
+
+        // Управление с клавиатуры.
+        if (_input.isKeyPressed(KeyEvent.VK_LEFT)) {
+            _model.proccessPlayerAction(Direction.west());
+        }
+
+        if (_input.isKeyPressed(KeyEvent.VK_RIGHT)) {
+            _model.proccessPlayerAction(Direction.east());
+        }
+
+        if (_input.isKeyPressed(KeyEvent.VK_SPACE)) {
+            _model.startGame();
+        }
+    }
+
 }
