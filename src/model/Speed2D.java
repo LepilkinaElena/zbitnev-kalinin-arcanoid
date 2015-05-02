@@ -11,6 +11,16 @@ public class Speed2D {
 	private double _y;
 	
         /**
+    * Перечисление осей
+    * @author Елена
+    */
+    public enum Axis {
+        X,
+        Y,
+        Z;
+    }
+    
+        /**
 	 * Создаёт экземпляр вектора скорости на декартовой плоскости
 	 */
 	public Speed2D() {
@@ -63,5 +73,28 @@ public class Speed2D {
      */
     public Speed2D sum (Speed2D other) {
         return new Speed2D(this.x() + other.x(), this.y() + other.y());
+    }
+    
+    /**
+     * Отразить вектор
+     * 
+     * @param axis ось, относительно которой будет происходить отражение
+     * @return результирующий вектор
+     */
+    public Speed2D reflect (Axis axis) {
+        Speed2D result = this.clone();
+        switch (axis) {
+            case X: 
+                result._y = -this.y();
+                break;
+            case Y:
+                result._x = -this.x();
+                break;
+            case Z:
+                result._x = -this.x();
+                result._y = -this.y();
+                break;
+        }
+        return result;
     }
 }
