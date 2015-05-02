@@ -13,7 +13,7 @@ public class BehaviourDevour extends CollisionBehaviour {
 	 */
 	private static BehaviourDevour _instance = null;
 	
-	protected BehaviourDevour() {
+	private BehaviourDevour() {
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class BehaviourDevour extends CollisionBehaviour {
 	}
 	
 	@Override
-	public void invoke(CollidedObject from, CollidedObject to) {
+	public void invoke(IngameObject active, IngameObject passive) {
 		// TODO
 	}
 }

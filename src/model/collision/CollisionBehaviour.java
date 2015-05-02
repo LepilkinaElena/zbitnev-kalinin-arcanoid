@@ -32,10 +32,10 @@ public class CollisionBehaviour {
 	
 	/**
 	 * Осуществить поведение пассивного объекта в ответ на столкновение.
-	 * @param from Активный объект (не изменяется).
-	 * @param to Пассивный объект (изменяет состояние в ответ на столкновение).
+     * @param active
+     * @param passive
 	 */
-	public void invoke(IngameObject from) {
+	public void invoke(IngameObject active, IngameObject passive) {
 		
 	}
 }

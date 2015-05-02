@@ -14,7 +14,7 @@ public class BehaviourDestroy extends CollisionBehaviour {
 	 */
 	private static BehaviourDestroy _instance = null;
 	
-	public BehaviourDestroy() {
+	private BehaviourDestroy() {
 	}
 	
 	/**
@@ -31,8 +31,7 @@ public class BehaviourDestroy extends CollisionBehaviour {
 	}
 	
 	@Override
-	public void invoke(CollidedObject from, CollidedObject to) {
-		
-		to.object().destroy();
+	public void invoke(IngameObject active, IngameObject passive) {
+		active.destroy();
 	}
 }
