@@ -8,6 +8,7 @@ import model.interaction.CollisionListener;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import java.util.Set;
 import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.GenericEventListener;
@@ -68,6 +69,16 @@ public class GameFieldView extends PlayField {
         public void addListenerToObject(IngameObject object) {
             object.addGenericEventListener(_listener);
         }
+        
+        @Override
+	public void update(long timeElapsed) {
+	    
+	    super.update(timeElapsed);
+            Set<Integer> keys = _objects.keySet();
+	    for (Integer key : keys) {
+	        _objects.get(key).update(timeElapsed);
+	    }
+	}
         
     private class ObjectGenericListener implements GenericEventListener{
 
