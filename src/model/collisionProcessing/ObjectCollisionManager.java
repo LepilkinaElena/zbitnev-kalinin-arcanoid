@@ -7,6 +7,7 @@ package model.collisionProcessing;
 
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.collision.CollisionBounds;
 import com.golden.gamedev.object.collision.CollisionRect;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Boundary;
 import model.GameField;
 import model.Speed2D;
 import model.collision.BoundaryCollisionManager;
@@ -48,6 +50,22 @@ public class ObjectCollisionManager {
     public CollisionManager getBoundaryManager() {
         return _boundaryManager;
     }
+    
+    /**
+     * Получить ось для отскока от стороны
+     * 
+     * @param side сторона
+     * @return ось
+     */
+    private Speed2D.Axis getAxis(int side) {
+        Speed2D.Axis axis;
+        if (side == CollisionBounds.LEFT_COLLISION || side == CollisionBounds.RIGHT_COLLISION) {
+            axis = Speed2D.Axis.Y;
+        } else {
+            axis = Speed2D.Axis.X;
+        }
+        return axis;
+    }
 
     private class CollisionOccuredListener implements CollisionListener {
 
@@ -73,8 +91,9 @@ public class ObjectCollisionManager {
 
             for (IngameObject key : keys) {
 
-                if (storage.get(key).isEmpty()) {
+                if (storage.get(key) == null) {
                     //столкновение с границей
+                    key.processCollision(new Boundary(getAxis(event.side())));
                 } else {
                     ArrayList<IngameObject> objectsClone = new ArrayList<>();
                     IngameObject cloneKey = (IngameObject) key.clone();

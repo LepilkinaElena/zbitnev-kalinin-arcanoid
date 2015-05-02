@@ -17,7 +17,15 @@ import model.collisionProcessing.IngameObject;
 public class CollisionEvent extends EventObject {
 
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage;
-
+    /** Сторона столкновения*/
+    private int _side;
+    
+    public CollisionEvent(Object source, int side, HashMap<IngameObject, ArrayList<IngameObject>> storage) {
+        super(source);
+        _storage = storage;
+        _side = side;
+    }
+    
     public CollisionEvent(Object source, HashMap<IngameObject, ArrayList<IngameObject>> storage) {
         super(source);
         _storage = storage;
@@ -25,5 +33,13 @@ public class CollisionEvent extends EventObject {
 
     public HashMap<IngameObject, ArrayList<IngameObject>> getStorage() {
         return (HashMap<IngameObject, ArrayList<IngameObject>>) _storage.clone();
+    }
+    
+    /**
+     * Получить сторону столкновения
+     * @return сторона столкновения
+     */
+    public int side() {
+        return _side;
     }
 }

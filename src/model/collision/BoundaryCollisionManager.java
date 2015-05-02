@@ -55,7 +55,23 @@ public class BoundaryCollisionManager extends CollisionBounds {
      */
     private void fireIngameObjectCollided() {
         for (CollisionListener listener : _collisionListener) {
-            listener.collisionOccured(new CollisionEvent(this, _storage));
+            listener.collisionOccured(new CollisionEvent(this, getSide(), _storage));
         }
     }
+    
+    private int getSide() {
+        int side;
+        if(isCollisionSide(TOP_COLLISION)) {
+            side = TOP_COLLISION;
+        } else if(isCollisionSide(BOTTOM_COLLISION)) {
+            side = BOTTOM_COLLISION;
+        } else if(isCollisionSide(RIGHT_COLLISION)) {
+            side = RIGHT_COLLISION;
+        } else {
+            side = LEFT_COLLISION;
+        }
+        return side;
+    }
+    
+    
 }
