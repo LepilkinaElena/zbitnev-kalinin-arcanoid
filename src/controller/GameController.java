@@ -49,12 +49,14 @@ public class GameController {
         }
 
         // Управление с клавиатуры.
-        if (_input.isKeyPressed(KeyEvent.VK_LEFT)) {
+        if (_input.isKeyDown(KeyEvent.VK_LEFT)) {
             _model.proccessPlayerAction(Direction.west());
-        }
+        } 
 
-        if (_input.isKeyPressed(KeyEvent.VK_RIGHT)) {
+        else if (_input.isKeyDown(KeyEvent.VK_RIGHT)) {
             _model.proccessPlayerAction(Direction.east());
+        } else {
+            _model.proccessPlayerAction();
         }
 
         if (_input.isKeyPressed(KeyEvent.VK_SPACE)) {

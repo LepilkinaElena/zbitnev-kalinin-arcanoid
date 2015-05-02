@@ -103,4 +103,8 @@ public class GameModel {
     public void proccessPlayerAction(Direction direction) {
         _player.processAction(direction);
     }
+    
+    public void proccessPlayerAction() {
+        _player.processAction();
+    }
 }

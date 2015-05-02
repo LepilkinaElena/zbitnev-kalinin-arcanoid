@@ -58,9 +58,14 @@ public class Player {
     }
 
     void processAction(Direction direction) {
-        long delta = Math.round(_paddle.getSize().width / 3.0 * 2.0);
-        delta = direction.equals(Direction.west()) ? -delta : delta;
-
-        _paddle.setPosition(new Point2D.Float((float) (_paddle.getPosition().getX() + delta), (float) _paddle.getPosition().getY()));
+        if (direction.equals(Direction.west())) {
+            _paddle.setSpeed(new Speed2D(-0.4, 0));
+        } else {
+            _paddle.setSpeed(new Speed2D(0.4, 0));
+        }
+    }
+    
+    void processAction() {
+        _paddle.setSpeed(new Speed2D());
     }
 }
