@@ -13,7 +13,6 @@ import model.ball.Ball;
 import model.collision.BehaviourDestroy;
 import model.collision.BehaviourPaddleRebound;
 import service.PublishingSprite;
-import test.BehaviourDestroyTest;
 
 /**
  * Модель разрушаемого кирпича.

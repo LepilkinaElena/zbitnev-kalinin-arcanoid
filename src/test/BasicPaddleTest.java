@@ -2,7 +2,7 @@ package test;
 
 
 
-import java.awt.Dimension;
+/*import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
 import model.GameField;
@@ -142,4 +142,4 @@ public class BasicPaddleTest {
         paddle.setPosition(new Point2D.Float(10, 150));
         assertTrue(ball.getPosition().x == 50 && ball.getPosition().y == 134);
     }
-}
+}*/

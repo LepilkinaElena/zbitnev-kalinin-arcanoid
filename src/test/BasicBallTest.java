@@ -1,6 +1,6 @@
 package test;
 
-import java.awt.Dimension;
+/*import java.awt.Dimension;
 import java.awt.geom.Point2D;
 
 import model.GameField;
@@ -60,4 +60,4 @@ public class BasicBallTest {
         
         assertTrue(ball.getCenter().x == 70 && ball.getCenter().y == 37);
     }
-}
+}*/
