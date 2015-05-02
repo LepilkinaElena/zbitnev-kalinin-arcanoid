@@ -1,15 +1,11 @@
 package model.paddle;
 
-import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Float;
 import java.util.ArrayList;
 
-import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.ball.Ball;
-import model.collision.BehaviourPaddleRebound;
 import model.collision.BehaviourStop;
 import model.collision.CollisionBehaviour;
 import service.PublishingSprite;
@@ -43,6 +39,7 @@ public class Paddle extends IngameObject {
     public void addBall(Ball b) {
 
         b.setSpeed(new Speed2D(0, 0));
+        b.setPosition(new Point2D.Float(this.getPosition().x + this.getSize().width/2, this.getPosition().y - b.getSize().height));
         _balls.add(b);
     }
 
@@ -67,6 +64,18 @@ public class Paddle extends IngameObject {
         }
     }
 
+    @Override
+    public void setSpeed(Speed2D speed) {
+        if (!this.getSpeed().equals(new Speed2D())) {
+            for (Ball ball : _balls) {
+                ball.setSpeed(speed);
+            }
+        }
+        super.setSpeed(speed);
+        
+        
+    }
+    
     public void initSpecialBehaviours() {
         addSpecificCollisionBehaviour(Ball.class, CollisionBehaviour.getInstance());
     }
