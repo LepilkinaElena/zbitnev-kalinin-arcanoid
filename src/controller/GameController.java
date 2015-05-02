@@ -8,7 +8,9 @@ import com.golden.gamedev.engine.BaseInput;
 import com.golden.gamedev.engine.input.AWTInput;
 
 import model.Direction;
+import model.GameModel;
 import model.Player;
+import model.Speed2D;
 
 /**
  * Слушает ввод и управляет игрой.
@@ -16,50 +18,45 @@ import model.Player;
  *
  */
 public class GameController {
-
-	private Player _player;
 	private BaseInput _input;
+        private GameModel _model;
 	
 	/**
 	 * Создаёт контроллер ввода
 	 * @param player Модель игрока, которой будет управлять контроллер.
 	 * @param input Менеджер ввода.
 	 */
-	public GameController(Player player, BaseInput input) {
-		
-		if (player == null || input == null) {
-		    throw new NullPointerException();
-		}
-		
-		_player = player;
+	public GameController(GameModel model,BaseInput input) {
+		_model = model;
 		_input = input;
 	}
 	
 	/**
 	 * Проверяет состояние ввода и управляет моделью игрока.
 	 */
-	public void update() {
+	public void update(long l) {
 		
 	    // Управление мышью.
 	    if (_input.getMouseDX() != 0) {
-	        _player.setPaddlesPositionX(_input.getMouseX());
+                _model.proccessPlayerAction(new Speed2D(_input.getMouseDX()/l, 0));
 	    }
 	    
 	    if (_input.isMousePressed(MouseEvent.BUTTON1)) {
-	        _player.pushBalls();
+	        _model.startGame();
 	    }
 
 	    // Управление с клавиатуры.
 	    if (_input.isKeyPressed(KeyEvent.VK_LEFT)) {
-	        _player.movePaddles(Direction.west());
+	        _model.proccessPlayerAction(Direction.west());
 	    }
 	    
 	    if (_input.isKeyPressed(KeyEvent.VK_RIGHT)) {
-	        _player.movePaddles(Direction.east());
+	         _model.proccessPlayerAction(Direction.east());
 	    }
 	    
 	    if (_input.isKeyPressed(KeyEvent.VK_SPACE)) {
-	        _player.pushBalls();
+	         _model.startGame();
 	    }
 	}
+        
 }
