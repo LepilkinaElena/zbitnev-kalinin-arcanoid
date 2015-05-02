@@ -44,21 +44,18 @@ public class GameController {
             _model.proccessPlayerAction(new Speed2D(_input.getMouseDX()/l, 0));
         }
 
-        if (_input.isMousePressed(MouseEvent.BUTTON1)) {
-            _model.startGame();
-        }
-
         // Управление с клавиатуры.
-        if (_input.isKeyDown(KeyEvent.VK_LEFT)) {
+        else if (_input.isKeyDown(KeyEvent.VK_LEFT)) {
             _model.proccessPlayerAction(Direction.west());
-        } 
-
-        else if (_input.isKeyDown(KeyEvent.VK_RIGHT)) {
+        } else if (_input.isKeyDown(KeyEvent.VK_RIGHT)) {
             _model.proccessPlayerAction(Direction.east());
         } else {
             _model.proccessPlayerAction();
         }
-
+        
+        if (_input.isMousePressed(MouseEvent.BUTTON1)) {
+            _model.startGame();
+        }
         if (_input.isKeyPressed(KeyEvent.VK_SPACE)) {
             _model.startGame();
         }
