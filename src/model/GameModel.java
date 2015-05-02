@@ -84,4 +84,16 @@ public class GameModel {
         _player = new Player(paddle);
         paddle.addBall(newball);
     }
+
+    public void startGame() {
+        _player.startAttempt();
+    }
+
+    public void proccessPlayerAction(Speed2D speed2D) {
+        _player.processAction(speed2D);
+    }
+    
+    public void proccessPlayerAction(Direction direction) {
+        _player.processAction(direction);
+    }
 }

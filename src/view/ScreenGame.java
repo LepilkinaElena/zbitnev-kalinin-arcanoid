@@ -59,14 +59,13 @@ public class ScreenGame extends GameObject {
 
         _model = new GameModel();
         _model.setField(field);
-
 		// Построение уровня
         // TODO: Загрузка уровня из файла (пока уровень захардкоден)
         
 
         // Контроллер и игрок.
         
-        //_controller = new GameController(player, bsInput);
+        _controller = new GameController(_model, bsInput);
 
         // ЭКСПЕРИМЕНТ
        // paddle.addBall(newball);
@@ -94,11 +93,11 @@ public class ScreenGame extends GameObject {
     }
 
     @Override
-    public void update(long arg0) {
+    public void update(long l) {
 
         // Апдейтим всё
-        _fieldView.update(arg0);
-        _controller.update();
+        _fieldView.update(l);
+        _controller.update(l);
     }
 
 }
