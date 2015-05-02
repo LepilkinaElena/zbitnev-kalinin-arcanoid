@@ -86,7 +86,7 @@ public class GameModel {
         newbrick2.initSpecialBehaviours();
         Paddle paddle = factory.createPaddle();
         paddle.initSpecialBehaviours();
-        paddle.setPosition(new Point2D.Float(0, 584));
+        paddle.setPosition(new Point2D.Float(352, 584));
         _player = new Player(paddle);
         //paddle.addBall(newball);
         //ObjectCollisionManager manager = new ObjectCollisionManager(_field);

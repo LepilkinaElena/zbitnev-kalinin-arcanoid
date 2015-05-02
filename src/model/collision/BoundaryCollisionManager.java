@@ -23,6 +23,7 @@ public class BoundaryCollisionManager extends CollisionBounds {
 
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage = new HashMap<>();
     private GameField _field;
+    private int position;
     /**
      * Список слушателей события
      */
@@ -31,11 +32,13 @@ public class BoundaryCollisionManager extends CollisionBounds {
     public BoundaryCollisionManager(int x, int y, int width, int height, GameField field) {
         super(x, y, width, height);
         _field = field;
+        
     }
 
     @Override
     public void collided(Sprite sprite) {
         _storage.clear();
+        position = (int) sprite.getOldX();
         _storage.put(_field.getObject(((UniqSprite)sprite).getId()), null);
         fireIngameObjectCollided();
     }
@@ -55,7 +58,7 @@ public class BoundaryCollisionManager extends CollisionBounds {
      */
     private void fireIngameObjectCollided() {
         for (CollisionListener listener : _collisionListener) {
-            listener.collisionOccured(new CollisionEvent(this, getSide(), _storage));
+            listener.collisionOccured(new CollisionEvent(this, getSide(), position, _storage));
         }
     }
     

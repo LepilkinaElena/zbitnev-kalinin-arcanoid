@@ -9,6 +9,7 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
 import com.golden.gamedev.object.collision.CollisionRect;
+import java.awt.geom.Point2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -93,6 +94,7 @@ public class ObjectCollisionManager {
 
                 if (storage.get(key) == null) {
                     //столкновение с границей
+                    key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
                     key.processCollision(new Boundary(getAxis(event.side())));
                 } else {
                     ArrayList<IngameObject> objectsClone = new ArrayList<>();

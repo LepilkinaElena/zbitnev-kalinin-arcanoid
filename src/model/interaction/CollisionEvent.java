@@ -19,11 +19,14 @@ public class CollisionEvent extends EventObject {
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage;
     /** Сторона столкновения*/
     private int _side;
+    /** Граница по оси*/
+    private int _xBound;
     
-    public CollisionEvent(Object source, int side, HashMap<IngameObject, ArrayList<IngameObject>> storage) {
+    public CollisionEvent(Object source, int side, int xBound, HashMap<IngameObject, ArrayList<IngameObject>> storage) {
         super(source);
         _storage = storage;
         _side = side;
+        _xBound = xBound;
     }
     
     public CollisionEvent(Object source, HashMap<IngameObject, ArrayList<IngameObject>> storage) {
@@ -41,5 +44,13 @@ public class CollisionEvent extends EventObject {
      */
     public int side() {
         return _side;
+    }
+    
+    /**
+     * Получит границу по оси
+     * @return граница по оси
+     */
+    public int xBound() {
+        return _xBound;
     }
 }
