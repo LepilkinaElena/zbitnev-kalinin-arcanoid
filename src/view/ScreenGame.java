@@ -61,7 +61,7 @@ public class ScreenGame extends GameObject {
         _model.setField(field);
 		// Построение уровня
         // TODO: Загрузка уровня из файла (пока уровень захардкоден)
-        
+        _model.initLevel(factory);
 
         // Контроллер и игрок.
         
