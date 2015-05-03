@@ -39,7 +39,7 @@ public class Paddle extends IngameObject {
     public void addBall(Ball b) {
 
         b.setSpeed(new Speed2D(0, 0));
-        b.setPosition(new Point2D.Float(this.getPosition().x + this.getSize().width/2, this.getPosition().y - b.getSize().height));
+        b.setPosition(new Point2D.Float((float) (this.getPosition().x + this.getSize().width/2 - b.getSize().getWidth()/2), this.getPosition().y - b.getSize().height));
         _balls.add(b);
     }
 
@@ -66,14 +66,18 @@ public class Paddle extends IngameObject {
 
     @Override
     public void setSpeed(Speed2D speed) {
-        if (!this.getSpeed().equals(new Speed2D())) {
-            for (Ball ball : _balls) {
-                ball.setSpeed(speed);
-            }
+        for (Ball ball : _balls) {
+            ball.setSpeed(speed);
         }
         super.setSpeed(speed);
-        
-        
+
+    }
+    
+    public void setPosition(Point2D.Float position) {
+        super.setPosition(position);
+        for (Ball ball : _balls) {
+            ball.setPosition(new Point2D.Float((float)(position.getX() + getSize().getWidth()/2 - ball.getSize().getWidth()/2), (float) ball.getPosition().getY()));
+        }
     }
     
     public void initSpecialBehaviours() {
