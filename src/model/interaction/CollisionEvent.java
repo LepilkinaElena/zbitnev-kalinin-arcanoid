@@ -53,4 +53,8 @@ public class CollisionEvent extends EventObject {
     public int xBound() {
         return _xBound;
     }
+
+    public void clearStorage() {
+        _storage.clear();
+    }
 }
