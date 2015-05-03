@@ -34,15 +34,15 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
 
     @Override
     public void collided(Sprite arg0, Sprite arg1) {
-        /*Map map = getStorage();
-        createIngameObjectMap(map);*/
-        ArrayList<IngameObject> array1 = new ArrayList<IngameObject>();
+        Map map = getStorage();
+        createIngameObjectMap(map);
+        /*ArrayList<IngameObject> array1 = new ArrayList<IngameObject>();
         array1.add(_field.getObject(((UniqSprite)arg1).getId()));
         _storage.put(_field.getObject(((UniqSprite)arg0).getId()), array1);
         
         ArrayList<IngameObject> array2 = new ArrayList<IngameObject>();
         array2.add(_field.getObject(((UniqSprite)arg0).getId()));
-        _storage.put(_field.getObject(((UniqSprite)arg1).getId()), array2);
+        _storage.put(_field.getObject(((UniqSprite)arg1).getId()), array2);*/
         fireIngameObjectCollided();
     }
 
@@ -50,20 +50,21 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
         Set keySet = storage.keySet();
         for (Object keySprite : keySet) {
             // Нет такого ключа
-            if (_storage.get(keySprite) == null) {
+            //if (storage.get(keySprite) == null) {
                 Sprite[] valueSprites = (Sprite[]) storage.get(keySprite);
                 ArrayList<IngameObject> list = new ArrayList<>();
                 for (Sprite value : valueSprites) {
                     // Добавляется найденный в игровом поле объект
                     list.add(_field.getObject(((UniqSprite)value).getId()));
                 }
-            }
+                _storage.put(_field.getObject(((UniqSprite)keySprite).getId()), list);
+            //}
         }
     }
 
-    public HashMap<IngameObject, ArrayList<IngameObject>> getStorage() {
+    /*public HashMap<IngameObject, ArrayList<IngameObject>> getStorage() {
         return (HashMap<IngameObject, ArrayList<IngameObject>>) _storage.clone();
-    }
+    }*/
 
     //-------------------------------------
     /**

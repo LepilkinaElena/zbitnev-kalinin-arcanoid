@@ -76,7 +76,7 @@ public class ObjectCollisionManager {
 
             Set<IngameObject> keys = storage.keySet();
 
-            system = getSystem(storage);
+             system = getSystem(storage);
             // Если есть система
             if (!system.isEmpty()) {
                 // Обработать столкновения внутри системы
@@ -93,7 +93,7 @@ public class ObjectCollisionManager {
                 if (storage.get(key) == null) {
                     //столкновение с границей
                     if (key instanceof Ball && getAxis(event.side()) == Axis.X && event.side() == CollisionBounds.BOTTOM_COLLISION) {
-                       key.destroy();
+                       //TO DO мяч улетел. если нет больше мячей - проигрыш, начать заново
                     } 
                     else {
                         key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
