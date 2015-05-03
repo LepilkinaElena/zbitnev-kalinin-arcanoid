@@ -90,25 +90,31 @@ public class ObjectCollisionManager {
             }
 
             for (IngameObject key : keys) {
-                if (storage.get(key) == null) {
-                    //столкновение с границей
-                    if (key instanceof Ball && getAxis(event.side()) == Axis.X && event.side() == CollisionBounds.BOTTOM_COLLISION) {
-                       //TO DO мяч улетел. если нет больше мячей - проигрыш, начать заново
-                    } 
-                    else {
-                        key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
-                        key.processCollision(new Boundary(getAxis(event.side())));
-                    }
-                } else {
-                    ArrayList<IngameObject> objectsClone = new ArrayList<>();
-                    for (IngameObject object : storage.get(key)) {
-                        objectsClone.add((IngameObject) object.clone());
-                    }
-                    for (IngameObject object : objectsClone) {
-                        key.processCollision(object);
+                if (key != null) {
+                    if (storage.get(key) == null) {
+                        //столкновение с границей
+                        if (key instanceof Ball && getAxis(event.side()) == Axis.X && event.side() == CollisionBounds.BOTTOM_COLLISION) {
+                           key.destroy();
+                        } 
+                        else {
+                            key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
+                            key.processCollision(new Boundary(getAxis(event.side())));
+                        }
+                    } else {
+                        ArrayList<IngameObject> objectsClone = new ArrayList<>();
+                        for (IngameObject object : storage.get(key)) {
+                            if (object != null) {
+                                objectsClone.add((IngameObject) object.clone());
+                            }
+                        }
+                        for (IngameObject object : objectsClone) {
+                            key.processCollision(object);
+                        }
                     }
                 }
             }
+            storage.clear();
+            system.clear();
         }
 
     }
@@ -173,13 +179,15 @@ public class ObjectCollisionManager {
         ArrayList<IngameObject> result = new ArrayList<>();
         // Создание системы связанных соударившихся элементов
         for (Object keyObject : storage.keySet()) {
-            result.add((IngameObject) keyObject);
-            formListForElement((IngameObject) keyObject, storage, result);
-            // Есть система, а не простое соударение
-            if (result.size() >= 3) {
-                return result;
-            } else {
-                result = new ArrayList<>();
+            if (keyObject != null) {
+                result.add((IngameObject) keyObject);
+                formListForElement((IngameObject) keyObject, storage, result);
+                // Есть система, а не простое соударение
+                if (result.size() >= 3) {
+                    return result;
+                } else {
+                    result = new ArrayList<>();
+                }
             }
         }
 
@@ -199,7 +207,7 @@ public class ObjectCollisionManager {
             if (storage.get(object) != null) {
                 ArrayList<IngameObject> valueSprites = (ArrayList<IngameObject>) storage.get(object);
                 for (IngameObject value : valueSprites) {
-                    if (!list.contains(value)) {
+                    if (!list.contains(value) && value != null) {
                         list.add(value);
                         formListForElement(value, storage, list);
                     }

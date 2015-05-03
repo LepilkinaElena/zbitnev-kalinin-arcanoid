@@ -34,6 +34,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
 
     @Override
     public void collided(Sprite arg0, Sprite arg1) {
+        _storage.clear();
         Map map = getStorage();
         createIngameObjectMap(map);
         /*ArrayList<IngameObject> array1 = new ArrayList<IngameObject>();
@@ -50,7 +51,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
         Set keySet = storage.keySet();
         for (Object keySprite : keySet) {
             // Нет такого ключа
-            //if (storage.get(keySprite) == null) {
+            if (keySprite != null) {
                 Sprite[] valueSprites = (Sprite[]) storage.get(keySprite);
                 ArrayList<IngameObject> list = new ArrayList<>();
                 for (Sprite value : valueSprites) {
@@ -58,7 +59,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
                     list.add(_field.getObject(((UniqSprite)value).getId()));
                 }
                 _storage.put(_field.getObject(((UniqSprite)keySprite).getId()), list);
-            //}
+            }
         }
     }
 
