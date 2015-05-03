@@ -20,6 +20,7 @@ import model.Boundary;
 import model.GameField;
 import model.Speed2D;
 import model.Speed2D.Axis;
+import model.ball.Ball;
 import model.collision.BoundaryCollisionManager;
 import model.collision.PublishingCollisionManager;
 import model.interaction.CollisionEvent;
@@ -89,12 +90,12 @@ public class ObjectCollisionManager {
             }
 
             for (IngameObject key : keys) {
-
                 if (storage.get(key) == null) {
                     //столкновение с границей
-                    if (getAxis(event.side()) == Axis.X && key.getSpeed().y() > 0) {
-                        key.destroy();
-                    } else {
+                    if (key instanceof Ball && getAxis(event.side()) == Axis.X && event.side() == CollisionBounds.BOTTOM_COLLISION) {
+                       key.destroy();
+                    } 
+                    else {
                         key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
                         key.processCollision(new Boundary(getAxis(event.side())));
                     }
