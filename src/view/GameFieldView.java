@@ -53,7 +53,19 @@ public class GameFieldView extends PlayField {
      * @param ov Представление.
      */
     private void removeObjectView(int ov) {
-        _objects.get(ov).removeFromSpriteGroup(_spriteGroup);
+        SpriteGroup clone = new SpriteGroup("clone");
+        for (Sprite sprite:_spriteGroup.getSprites()) {
+            if (sprite != null) {
+                clone.add(sprite);
+            }
+        }
+        _objects.get(ov).removeFromSpriteGroup(clone);
+        _spriteGroup.clear();
+        for (Sprite sprite:clone.getSprites()) {
+            if (sprite != null) {
+                addToSpriteGroup(sprite);
+            }
+        }
         _objects.remove(ov);
     }
 
