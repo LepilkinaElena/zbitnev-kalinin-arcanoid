@@ -32,6 +32,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
     public PublishingCollisionManager(GameField field) {
         super();
         _field = field;
+        pixelPerfectCollision = false;
     }
 
     @Override
@@ -55,11 +56,14 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
         for (Object keySprite : keySet) {
             // Нет такого ключа
             if (keySprite != null) {
+                
                 Sprite[] valueSprites = (Sprite[]) storage.get(keySprite);
                 ArrayList<IngameObject> list = new ArrayList<>();
                 for (Sprite value : valueSprites) {
                     // Добавляется найденный в игровом поле объект
-                    list.add(_field.getObject(((UniqSprite)value).getId()).clone());
+                    if (_field.getObject(((UniqSprite)value).getId()) != null) {
+                        list.add(_field.getObject(((UniqSprite)value).getId()).clone());
+                    }
                 }
                 _storage.put(_field.getObject(((UniqSprite)keySprite).getId()), list);
             }
