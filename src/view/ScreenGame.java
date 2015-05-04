@@ -3,23 +3,15 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import model.GameField;
 import model.GameModel;
-import model.Player;
-import model.Speed2D;
-import model.brick.BreakableBrick;
-import model.brick.UnbreakableBrick;
 
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
 import com.golden.gamedev.object.background.ImageBackground;
 
 import controller.GameController;
-import model.ball.Ball;
-import model.collisionProcessing.ObjectCollisionManager;
-import model.paddle.Paddle;
 import service.IngameObjectFactory;
 
 /**
@@ -30,9 +22,9 @@ import service.IngameObjectFactory;
  */
 public class ScreenGame extends GameObject {
 
-    GameModel _model;
-    GameFieldView _fieldView;
-    GameController _controller;
+    private GameModel _gameModel;
+    private GameFieldView _gameFieldView;
+    private GameController _gameController;
 
     public ScreenGame(GameEngine arg0) {
         super(arg0);
@@ -42,30 +34,30 @@ public class ScreenGame extends GameObject {
     public void initResources() {
 
         // Инициализация уровня
-        GameField field = new GameField(this.bsGraphics.getSize());
+        GameField field = new GameField(bsGraphics.getSize());
 
         // Инициализация представления уровня
-        _fieldView = new GameFieldView(field);
+        _gameFieldView = new GameFieldView(field);
 
         // Задать фон уровня.
-        BufferedImage fieldBg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        //fieldBg.getGraphics().drawImage(bgImage, 0, 0, this.getWidth(), this.getHeight(), null);
+        BufferedImage fieldBg = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        //fieldBg.getGraphics().drawImage(bgImage, 0, 0, getWidth(), getHeight(), null);
         Graphics g = fieldBg.getGraphics();
         g.setColor(Color.black);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        _fieldView.setBackground(new ImageBackground(fieldBg));
+        g.fillRect(0, 0, getWidth(), getHeight());
+        _gameFieldView.setBackground(new ImageBackground(fieldBg));
 
         // Фабрика представлений
-        IngameObjectFactory factory = new IngameObjectFactory(_fieldView, field);
+        IngameObjectFactory factory = new IngameObjectFactory(_gameFieldView, field);
 
-        _model = new GameModel();
-        _model.setField(field);
+        _gameModel = new GameModel();
+        _gameModel.setField(field);
         // Построение уровня
         // TODO: Загрузка уровня из файла (пока уровень захардкоден)
-        _model.initLevel(factory);
+        _gameModel.initLevel(factory);
 
         // Контроллер и игрок.
-        _controller = new GameController(_model, bsInput);
+        _gameController = new GameController(_gameModel, bsInput);
 
         // ЭКСПЕРИМЕНТ
         // paddle.addBall(newball);
@@ -80,13 +72,13 @@ public class ScreenGame extends GameObject {
          _fieldView.addObjectView(ball01_view);
          _fieldView.addObjectView(ball02_view);*/
         // Инициализация закончена. Спрятать курсор мыши перед началом игры.
-        this.hideCursor();
+        hideCursor();
     }
 
     @Override
     public void render(Graphics2D arg0) {
 
-        _fieldView.render(arg0);
+        _gameFieldView.render(arg0);
 
         // TODO: Рендер кол-ва очков, другой инофрмации (сейчас игра на весь экран)
     }
@@ -95,8 +87,8 @@ public class ScreenGame extends GameObject {
     public void update(long l) {
 
         // Апдейтим всё
-        _fieldView.update(l);
-        _controller.update(l);
+        _gameFieldView.update(l);
+        _gameController.update(l);
     }
 
 }

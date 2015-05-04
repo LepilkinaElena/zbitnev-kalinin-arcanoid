@@ -22,39 +22,39 @@ import model.interaction.GenericEvent;
  */
 public class GameFieldView extends PlayField {
 
-    private HashMap<Integer, IngameObjectView> _objects;
+    private HashMap<Integer, IngameObjectView> _ingameObjectsView;
     private SpriteGroup _spriteGroup;
-    private ObjectGenericListener _listener;
-    private ObjectCollisionManager _manager;
+    private ObjectGenericListener _objGenericListener;
+    private ObjectCollisionManager _objCollisionManager;
 
     public GameFieldView(GameField field) {
         _spriteGroup = new SpriteGroup("objects");
-        _objects = new HashMap<>();
-        _listener = new ObjectGenericListener();
-        this.addGroup(this._spriteGroup);
-        _manager = new ObjectCollisionManager(field);
+        _ingameObjectsView = new HashMap<>();
+        _objGenericListener = new ObjectGenericListener();
+        addGroup(_spriteGroup);
+        _objCollisionManager = new ObjectCollisionManager(field);
         // Добавить на поле менеджеры коллизий для обработки столкновений
-        this.addCollisionGroup(this._spriteGroup, this._spriteGroup, _manager.getObjectManager());
-        addCollisionGroup(_spriteGroup, null, _manager.getBoundaryManager());
+        addCollisionGroup(_spriteGroup, _spriteGroup, _objCollisionManager.getObjectManager());
+        addCollisionGroup(_spriteGroup, null, _objCollisionManager.getBoundaryManager());
     }
 
     /**
      * Добавляет представление объекта на это поле. Этот метод добавляет объект
      * в соответствующую группу спрайтов.
      *
-     * @param ov Представление.
+     * @param ingameObjectView Представление.
      */
-    public void addObject(IngameObjectView ov) {
-        _objects.put(ov.getId(), ov);
+    public void addObject(IngameObjectView ingameObjectView) {
+        _ingameObjectsView.put(ingameObjectView.getId(), ingameObjectView);
     }
 
     /**
      * Удаляет представление объекта с этого представления поля и из группы
      * спрайтов.
      *
-     * @param ov Представление.
+     * @param ingameObjectViewID Представление.
      */
-    private void removeObjectView(int ov) {
+    private void removeObjectView(int ingameObjectViewID) {
         SpriteGroup clone = new SpriteGroup("clone");
         ArrayList<Sprite> list = new ArrayList<Sprite>();
         for (Sprite sprite:_spriteGroup.getSprites()) {
@@ -66,14 +66,14 @@ public class GameFieldView extends PlayField {
                 }
             }
         }
-        _objects.get(ov).removeFromSpriteGroup(clone);
+        _ingameObjectsView.get(ingameObjectViewID).removeFromSpriteGroup(clone);
         _spriteGroup.clear();
         for (Sprite sprite:clone.getSprites()) {
             if (sprite != null) {
                 addToSpriteGroup(sprite);
             }
         }
-        _objects.remove(ov);
+        _ingameObjectsView.remove(ingameObjectViewID);
     }
 
     public void addToSpriteGroup(Sprite sprite) {
@@ -87,11 +87,11 @@ public class GameFieldView extends PlayField {
      */
     public HashMap<Integer, IngameObjectView> getObjectViews() {
 
-        return (HashMap<Integer, IngameObjectView>) _objects.clone();
+        return (HashMap<Integer, IngameObjectView>) _ingameObjectsView.clone();
     }
 
     public void addListenerToObject(IngameObject object) {
-        object.addGenericEventListener(_listener);
+        object.addGenericEventListener(_objGenericListener);
     }
 
     private class ObjectGenericListener implements GenericEventListener {

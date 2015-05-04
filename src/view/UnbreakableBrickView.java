@@ -14,8 +14,8 @@ import service.PublishingSprite;
  */
 public class UnbreakableBrickView extends IngameObjectView {
 
-    public UnbreakableBrickView(IngameObject obj, PublishingSprite sprite) {
-        super(obj, sprite);
+    public UnbreakableBrickView(IngameObject ingameObject, PublishingSprite publishingSprite) {
+        super(ingameObject, publishingSprite);
     }
 
 }

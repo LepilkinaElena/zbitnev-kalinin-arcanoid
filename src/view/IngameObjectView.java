@@ -13,30 +13,30 @@ import model.collisionProcessing.IngameObject;
  */
 public abstract class IngameObjectView {
 
-    protected final IngameObject ingameObject;
+    protected final IngameObject _ingameObject;
 
-    protected PublishingSprite _sprite = null;
+    protected PublishingSprite _publishingSprite = null;
 
     /**
      * Создает представление объекта на основе его модели и спрайта. Этот метод
      * автоматически согласует слушателей и связывает спрайт с объектом
      * представления, которому он принадлежит.
      *
-     * @param obj Модель игрового объекта.
-     * @param sprite Спрайт, которым он будет отображен.
+     * @param ingameObject Модель игрового объекта.
+     * @param publishingSprite Спрайт, которым он будет отображен.
      */
-    public IngameObjectView(IngameObject obj, PublishingSprite sprite) {
+    public IngameObjectView(IngameObject ingameObject, PublishingSprite publishingSprite) {
 
-        this.ingameObject = obj;
-        this._sprite = sprite;
+        _ingameObject = ingameObject;
+        _publishingSprite = publishingSprite;
     }
 
     public int getId() {
-        return _sprite.getId();
+        return _publishingSprite.getId();
     }
 
     void removeFromSpriteGroup(SpriteGroup spriteGroup) {
-        _sprite.removeFromSpriteGroup(spriteGroup);
+        _publishingSprite.removeFromSpriteGroup(spriteGroup);
     }
 
 }

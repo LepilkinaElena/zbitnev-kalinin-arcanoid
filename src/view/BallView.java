@@ -14,8 +14,8 @@ import service.PublishingSprite;
  */
 public class BallView extends IngameObjectView {
 
-    public BallView(IngameObject obj, PublishingSprite sprite) {
-        super(obj, sprite);
+    public BallView(IngameObject ingameObject, PublishingSprite publishingSprite) {
+        super(ingameObject, publishingSprite);
     }
 
 }
