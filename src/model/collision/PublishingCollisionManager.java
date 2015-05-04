@@ -59,7 +59,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
                 ArrayList<IngameObject> list = new ArrayList<>();
                 for (Sprite value : valueSprites) {
                     // Добавляется найденный в игровом поле объект
-                    list.add(_field.getObject(((UniqSprite)value).getId()));
+                    list.add(_field.getObject(((UniqSprite)value).getId()).clone());
                 }
                 _storage.put(_field.getObject(((UniqSprite)keySprite).getId()), list);
             }
