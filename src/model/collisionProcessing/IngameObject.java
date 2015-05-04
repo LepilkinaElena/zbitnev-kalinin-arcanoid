@@ -31,6 +31,7 @@ public abstract class IngameObject implements Cloneable{
     protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
     protected BehaviourContainer _specialColBehaviours = new BehaviourContainer();
     private ArrayList<GenericEventListener> _geneventListeners = new ArrayList<>();
+    private double _weight = 0.0;
 
     /**
      * Создает игровой объект
@@ -68,6 +69,14 @@ public abstract class IngameObject implements Cloneable{
         if (sprite == null) {
             _axis = axis;
         }
+    }
+    
+    protected void setWeight(double weight) {
+        _weight = weight;
+    }
+    
+    public double getWeight() {
+        return _weight;
     }
 
     public Speed2D.Axis getAxis() {
@@ -275,5 +284,7 @@ public abstract class IngameObject implements Cloneable{
     public int getId() {
         return sprite.getId();
     }
+
+
 
 }
