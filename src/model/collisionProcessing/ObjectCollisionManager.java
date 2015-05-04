@@ -107,7 +107,19 @@ public class ObjectCollisionManager {
                                 objectsClone.add((IngameObject) object.clone());
                             }
                         }
-                        for (IngameObject object : objectsClone) {
+                        /*for (IngameObject object : objectsClone) {
+                            key.processCollision(object);
+                        }*/
+                        storage.put(key, objectsClone);
+                    }
+                }
+            }
+            
+            for (IngameObject key : keys) {
+                if (key != null) {
+                    if (storage.get(key) != null) {
+
+                        for (IngameObject object : storage.get(key)) {
                             key.processCollision(object);
                         }
                     }
