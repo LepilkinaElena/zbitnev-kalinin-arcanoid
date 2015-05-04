@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.ball.Ball;
 import model.interaction.GenericEvent;
@@ -71,6 +74,36 @@ public class GameField {
         object.addGenericEventListener(_listener);
     }
 
+    /**
+     * Получить все элементы поля заданного класса
+     * 
+     * @param className имя класса
+     * @return список элементов данного класса
+     */
+    public ArrayList<IngameObject> getElements(String className) {
+        Class foundClass;
+        ArrayList<IngameObject> elements = new ArrayList<>();
+        try {
+            Set<Integer> keys = _objects.keySet();
+            foundClass = Class.forName(className);
+            for (Integer key : keys) {
+                if (_objects.get(key).getClass() == foundClass) {
+                    elements.add(_objects.get(key));
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GameField.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return elements;
+    }
+
+    void clear() {
+        Set<Integer> keys = _objects.keySet();
+        for (Integer key : keys) {
+            _objects.get(key).destroy();
+        }
+    }
+    
     private class ObjectGenericListener implements GenericEventListener {
 
         @Override
