@@ -1,9 +1,13 @@
 package model;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import model.ball.Ball;
 import model.brick.BreakableBrick;
 import model.brick.UnbreakableBrick;
+import model.collisionProcessing.IngameObject;
+import model.interaction.BallFailEvent;
+import model.interaction.BallFailListener;
 import model.paddle.Paddle;
 import service.IngameObjectFactory;
 
@@ -17,6 +21,8 @@ public class GameModel {
 
     protected GameField _field = null;
     protected Player _player = new Player();
+    private EndGame _listener = new EndGame();
+    private IngameObjectFactory _factory;
 
     /**
      * Назначить игровое поле
@@ -70,34 +76,36 @@ public class GameModel {
     }
 
     public void initLevel(IngameObjectFactory factory) {
-
+        _factory = factory;
         Ball newball = factory.createBall();
         newball.setPosition(new Point2D.Float(40, 160));
         newball.setSpeed(new Speed2D(0.3, -0.3));
         newball.initSpecialBehaviours();
+        newball.addBallFailListener(_listener);
         Ball newball1 = factory.createBall();
-        newball1.setPosition(new Point2D.Float(70, 110));
-        newball1.setSpeed(new Speed2D(0.15, 0.15));
+        newball1.setPosition(new Point2D.Float(300, 100));
+        newball1.setSpeed(new Speed2D(-0.15, 0.15));
         newball1.initSpecialBehaviours();
-        Ball newball2 = factory.createBall();
+        newball1.addBallFailListener(_listener);
+        /*Ball newball2 = factory.createBall();
         newball2.setPosition(new Point2D.Float(100, 300));
         newball2.setSpeed(new Speed2D(-0.15, 0.15));
         newball2.initSpecialBehaviours();
         Ball newball3 = factory.createBall();
         newball3.setPosition(new Point2D.Float(300, 300));
         newball3.setSpeed(new Speed2D(-0.15, -0.15));
-        newball3.initSpecialBehaviours();
-        BreakableBrick newbrick = factory.createBreakableBrick();
+        newball3.initSpecialBehaviours();*/
+        /*BreakableBrick newbrick = factory.createBreakableBrick();
         newbrick.setPosition(new Point2D.Float(180, 120));
         BreakableBrick newbrick2 = factory.createBreakableBrick();
         newbrick2.setPosition(new Point2D.Float(228, 120));
         UnbreakableBrick newbrick3 = factory.createUnbreakableBrick();
         newbrick3.setPosition(new Point2D.Float(276, 120));
         newbrick.initSpecialBehaviours();
-        newbrick2.initSpecialBehaviours();
+        newbrick2.initSpecialBehaviours();*/
         Paddle paddle = factory.createPaddle();
         paddle.initSpecialBehaviours();
-        paddle.setPosition(new Point2D.Float(352, 584));
+        paddle.setPosition(new Point2D.Float(230, 584));
         _player = new Player(paddle);
         paddle.addBall(newball);
     }
@@ -116,5 +124,17 @@ public class GameModel {
     
     public void proccessPlayerAction() {
         _player.processAction();
+    }
+
+    private class EndGame implements BallFailListener {
+        @Override
+        public void endGame(BallFailEvent ballFailEvent) {
+            ArrayList<IngameObject> objects = _field.getElements("model.ball.Ball");
+            if (objects.isEmpty()) {
+                _field.clear();
+                initLevel(_factory);
+            }
+        }
+        
     }
 }
