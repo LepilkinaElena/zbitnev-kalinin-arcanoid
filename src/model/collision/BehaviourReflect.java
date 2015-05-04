@@ -39,6 +39,16 @@ public class BehaviourReflect extends CollisionBehaviour {
 
     @Override
     public void invoke(IngameObject active, IngameObject passive) {
-        active.setSpeed(active.getSpeed().reflect(passive.getAxis()));
+        Speed2D.Axis axis;
+        if (passive.getAxis() == null) {
+            if ((active.getPosition().getY() + active.getSize().getHeight()) > passive.getPosition().getY() && (active.getPosition().getY()+ active.getSize().getHeight()) < passive.getPosition().getY() + passive.getSize().getHeight()) {
+                axis = Speed2D.Axis.Y;
+            } else {
+                axis = Speed2D.Axis.X;
+            }
+        } else {
+            axis = passive.getAxis();
+        }
+        active.setSpeed(active.getSpeed().reflect(axis));
     }
 }

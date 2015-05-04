@@ -26,7 +26,7 @@ public abstract class IngameObject implements Cloneable{
 
     private PublishingSprite sprite;
 
-    private Speed2D.Axis _axis = Speed2D.Axis.X;
+    private Speed2D.Axis _axis = null;
 
     protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
     protected BehaviourContainer _specialColBehaviours = new BehaviourContainer();
@@ -67,14 +67,6 @@ public abstract class IngameObject implements Cloneable{
     protected void setAxis(Speed2D.Axis axis) {
         if (sprite == null) {
             _axis = axis;
-        } else {
-            if (getSize().getWidth() > getSize().getHeight()) {
-                _axis = Speed2D.Axis.X;
-            } else if (getSize().getWidth() == getSize().getHeight()) {
-                _axis = Speed2D.Axis.Z;
-            } else {
-                _axis = Speed2D.Axis.Y;
-            }
         }
     }
 
