@@ -39,6 +39,8 @@ public class BehaviourRebound extends CollisionBehaviour {
         if (!passive.getSpeed().equals(new Speed2D())) {
             ArrayList<Speed2D> countSpeed = countSpeed(active, passive);
             active.setSpeed(countSpeed.get(0));
+        } else {
+            active.setSpeed(active.getSpeed().flipHorizontal().flipVertical());
         }
     }
     
