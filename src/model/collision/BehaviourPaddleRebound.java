@@ -61,10 +61,8 @@ public class BehaviourPaddleRebound extends CollisionBehaviour {
                 collisionLeftConer && active.getSpeed().x() < 0) { 
             active.setSpeed (active.getSpeed().reflect(Axis.Y));
         // Мячик летит на угол элемента под прямым углом
-        } else if (collisionRightConer && active.getSpeed().x() == 0) {
-            active.setSpeed(new Speed2D(0.3, -0.3));
-        } else if (collisionLeftConer && active.getSpeed().x() == 0) {
-            active.setSpeed(new Speed2D(-0.3, -0.3));
+        } else if ((collisionRightConer || collisionLeftConer) && active.getSpeed().x() == 0) {
+            active.setSpeed(active.getSpeed().flipHorizontal().flipVertical());
         // Мячик попадает на поверхность элемента
         } else if (positionCollision.x > passive.getPosition().x &&
                 positionCollision.x < passive.getPosition().x + passive.getSize().width) {
