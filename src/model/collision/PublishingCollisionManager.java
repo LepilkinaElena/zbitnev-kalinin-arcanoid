@@ -21,6 +21,8 @@ import service.UniqSprite;
 public class PublishingCollisionManager extends AdvanceCollisionGroup {
 
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage = new HashMap<>();
+    private HashMap<IngameObject, ArrayList<IngameObject>> _oldStorage = null;
+
     /**
      * Список слушателей события
      */
@@ -36,17 +38,18 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
     public void collided(Sprite arg0, Sprite arg1) {
         _storage.clear();
         Map map = getStorage();
-        createIngameObjectMap(map);
-        /*ArrayList<IngameObject> array1 = new ArrayList<IngameObject>();
-        array1.add(_field.getObject(((UniqSprite)arg1).getId()));
-        _storage.put(_field.getObject(((UniqSprite)arg0).getId()), array1);
-        
-        ArrayList<IngameObject> array2 = new ArrayList<IngameObject>();
-        array2.add(_field.getObject(((UniqSprite)arg0).getId()));
-        _storage.put(_field.getObject(((UniqSprite)arg1).getId()), array2);*/
-        fireIngameObjectCollided();
-    }
 
+        createIngameObjectMap(map);
+        if (!_storage.equals(_oldStorage))
+        {
+            _oldStorage = (HashMap<IngameObject, ArrayList<IngameObject>>) _storage.clone();
+            fireIngameObjectCollided();
+            
+        } else {
+            _oldStorage = null;
+        }
+    }
+    
     private void createIngameObjectMap(Map storage) {
         Set keySet = storage.keySet();
         for (Object keySprite : keySet) {
