@@ -36,7 +36,7 @@ public class BehaviourRebound extends CollisionBehaviour {
 
     @Override
     public void invoke(IngameObject active, IngameObject passive) {
-        if (!passive.getSpeed().equals(new Speed2D())) {
+        if (passive.getSpeed().y() != 0.0) {
             ArrayList<Speed2D> countSpeed = countSpeed(active, passive);
             active.setSpeed(countSpeed.get(0));
         } else {
