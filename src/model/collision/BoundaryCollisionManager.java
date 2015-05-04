@@ -7,6 +7,7 @@ package model.collision;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import model.GameField;
@@ -23,7 +24,7 @@ public class BoundaryCollisionManager extends CollisionBounds {
 
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage = new HashMap<>();
     private GameField _field;
-    private int position;
+    private Point2D.Float position;
     /**
      * Список слушателей события
      */
@@ -38,7 +39,7 @@ public class BoundaryCollisionManager extends CollisionBounds {
     @Override
     public void collided(Sprite sprite) {
         _storage.clear();
-        position = (int) sprite.getOldX();
+        position = new Point2D.Float((float)sprite.getOldX(), (float) sprite.getOldY());
         _storage.put(_field.getObject(((UniqSprite)sprite).getId()), null);
         fireIngameObjectCollided();
     }

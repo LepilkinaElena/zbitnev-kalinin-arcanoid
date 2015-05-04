@@ -5,6 +5,7 @@
  */
 package model.interaction;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.HashMap;
@@ -20,9 +21,9 @@ public class CollisionEvent extends EventObject {
     /** Сторона столкновения*/
     private int _side;
     /** Граница по оси*/
-    private int _xBound;
+    private Point2D.Float _xBound;
     
-    public CollisionEvent(Object source, int side, int xBound, HashMap<IngameObject, ArrayList<IngameObject>> storage) {
+    public CollisionEvent(Object source, int side, Point2D.Float xBound, HashMap<IngameObject, ArrayList<IngameObject>> storage) {
         super(source);
         _storage = storage;
         _side = side;
@@ -50,7 +51,7 @@ public class CollisionEvent extends EventObject {
      * Получит границу по оси
      * @return граница по оси
      */
-    public int xBound() {
+    public Point2D.Float xBound() {
         return _xBound;
     }
 

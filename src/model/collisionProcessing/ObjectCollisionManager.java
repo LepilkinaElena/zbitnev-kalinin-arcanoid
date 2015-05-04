@@ -97,7 +97,13 @@ public class ObjectCollisionManager {
                            key.destroy();
                         } 
                         else {
-                            key.setPosition(new Point2D.Float(event.xBound(), (float)(key.getPosition().getY())));
+                            if (getAxis(event.side()) == Speed2D.Axis.X) {
+                                key.setPosition(new Point2D.Float((float)key.getPosition().getX(), (float)(event.xBound().getY())));
+                            } else if (getAxis(event.side()) == Speed2D.Axis.Y) {
+                                key.setPosition(new Point2D.Float((float)event.xBound().getX(), (float)(key.getPosition().getY())));
+                            } else {
+                                key.setPosition(new Point2D.Float((float)event.xBound().getX(), (float)(event.xBound().getY())));
+                            }
                             key.processCollision(new Boundary(getAxis(event.side())));
                         }
                     } else {
