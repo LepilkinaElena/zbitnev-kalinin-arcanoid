@@ -26,14 +26,6 @@ public class BreakableBrick extends Brick {
         super(sprite);
     }
 
-    /**
-     * Разрушает кирпич.
-     */
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
-
     public BreakableBrick clone() {
         BreakableBrick clone = null;
         clone = (BreakableBrick) super.clone();

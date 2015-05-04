@@ -77,7 +77,7 @@ public class GameModel {
         newball.initSpecialBehaviours();
         Ball newball1 = factory.createBall();
         newball1.setPosition(new Point2D.Float(70, 110));
-        newball1.setSpeed(new Speed2D(0.3, 0));
+        newball1.setSpeed(new Speed2D(0.03, 0));
         newball1.initSpecialBehaviours();
         BreakableBrick newbrick = factory.createBreakableBrick();
         newbrick.setPosition(new Point2D.Float(180, 120));

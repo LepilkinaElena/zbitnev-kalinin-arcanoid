@@ -5,6 +5,8 @@ import java.util.HashMap;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import java.util.ArrayList;
+import java.util.Collection;
 import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.GenericEventListener;
@@ -54,9 +56,14 @@ public class GameFieldView extends PlayField {
      */
     private void removeObjectView(int ov) {
         SpriteGroup clone = new SpriteGroup("clone");
+        ArrayList<Sprite> list = new ArrayList<Sprite>();
         for (Sprite sprite:_spriteGroup.getSprites()) {
             if (sprite != null) {
-                clone.add(sprite);
+                
+                if (!list.contains(sprite)) {
+                    list.add(sprite);
+                    clone.add(sprite);
+                }
             }
         }
         _objects.get(ov).removeFromSpriteGroup(clone);

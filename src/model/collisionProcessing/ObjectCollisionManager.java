@@ -113,9 +113,9 @@ public class ObjectCollisionManager {
                     }
                 }
             }
-            storage.clear();
+            //storage.clear();
             system.clear();
-            event.clearStorage();
+            //event.clearStorage();
         }
 
     }
