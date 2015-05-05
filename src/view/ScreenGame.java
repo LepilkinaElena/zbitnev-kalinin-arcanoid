@@ -9,7 +9,6 @@ import model.GameModel;
 
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
-import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ImageBackground;
 
 import controller.GameController;
@@ -73,7 +72,6 @@ public class ScreenGame extends GameObject {
 
     @Override
     public void update(long l) {
-        l = 10;
         // Апдейтим всё
         _gameFieldView.update(l);
         _gameController.update(l);

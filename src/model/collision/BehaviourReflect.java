@@ -42,7 +42,7 @@ public class BehaviourReflect extends CollisionBehaviour {
         Speed2D.Axis axis;
         if (passive.getAxis() == null) {
             if ((active.getPosition().getY() + active.getSize().getHeight()) > passive.getPosition().getY() && (active.getPosition().getY()+ active.getSize().getHeight()) < passive.getPosition().getY() + passive.getSize().getHeight() + active.getSize().getHeight()
-                    && (active.getPosition().getX() < passive.getPosition().getX() || active.getPosition().getX() > passive.getPosition().getX() + passive.getSize().getWidth())) {
+                    && (active.getPosition().getX() < passive.getPosition().getX() - active.getSize().getWidth()|| active.getPosition().getX() > passive.getPosition().getX() + passive.getSize().getWidth()+active.getSize().getWidth())) {
                 axis = Speed2D.Axis.Y;
             } else {
                 axis = Speed2D.Axis.X;
