@@ -206,15 +206,16 @@ public class ObjectCollisionManager {
                             chosenConstructor = constr; 
                         }
                     }
-                    Object otherElement = chosenConstructor.newInstance(axis);
-                    
-                    
-                    ((IngameObject) otherElement).setSpeed(resultSpeed);
-                    key.processCollision((IngameObject) otherElement);
-                    for (IngameObject value : values) {
-                        value.processCollision(key.clone());
+                    if (chosenConstructor != null) {
+                        Object otherElement = chosenConstructor.newInstance(axis);
+
+                        ((IngameObject) otherElement).setSpeed(resultSpeed);
+                        key.processCollision((IngameObject) otherElement);
+                        for (IngameObject value : values) {
+                            value.processCollision(key.clone());
+                        }
+                        return true;
                     }
-                    return true;
                 }
             } catch (InstantiationException ex) {
                 Logger.getLogger(ObjectCollisionManager.class.getName()).log(Level.SEVERE, null, ex);
