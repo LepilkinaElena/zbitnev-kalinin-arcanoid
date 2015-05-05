@@ -37,6 +37,13 @@ public class Ball extends IngameObject {
         setWeight(1);
         super.addDefaultBehaviuor(BehaviourReflect.getInstance());
     }
+    
+    public Ball(Speed2D.Axis axis) {
+        super(null);
+        setAxis(axis);
+        setWeight(1);
+        super.addDefaultBehaviuor(BehaviourReflect.getInstance());
+    }
 
     public Ball(PublishingSprite sprite, Speed2D speed2D) {
         super(sprite, speed2D);
