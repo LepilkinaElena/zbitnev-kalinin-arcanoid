@@ -29,6 +29,7 @@ public class UniqSprite extends Sprite {
     public UniqSprite clone() {
         UniqSprite sprite = new UniqSprite(getImage());
         sprite.id = id;
+        nextid--;
         return sprite;
     }
 }

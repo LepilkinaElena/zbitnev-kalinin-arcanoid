@@ -154,7 +154,7 @@ public class ObjectCollisionManager {
         HashMap<IngameObject, ArrayList<IngameObject>> elementsAsOne = new HashMap<>();
         // Получение элементов и клонов
         for (IngameObject element : system) {
-            cloneElements.add((IngameObject) element.clone());
+            cloneElements.add((IngameObject) element);
         }
         // Создание карты
         for (IngameObject element : system) {

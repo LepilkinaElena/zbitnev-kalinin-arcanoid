@@ -68,9 +68,13 @@ public class GameFieldView extends PlayField {
         }
         _ingameObjectsView.get(ingameObjectViewID).removeFromSpriteGroup(clone);
         _spriteGroup.clear();
+        list.clear();
         for (Sprite sprite:clone.getSprites()) {
             if (sprite != null) {
-                addToSpriteGroup(sprite);
+                if (!list.contains(sprite)) {
+                    list.add(sprite);
+                    addToSpriteGroup(sprite);
+                }
             }
         }
         _ingameObjectsView.remove(ingameObjectViewID);
