@@ -54,7 +54,7 @@ public class PublishingSprite {
     }
 
     public PublishingSprite clone() {
-        UniqSprite cloneSprite = new UniqSprite(sprite.getImage());
+        UniqSprite cloneSprite = sprite.clone();
         cloneSprite.setX(sprite.getX());
         cloneSprite.setY(sprite.getY());
         cloneSprite.setVerticalSpeed(sprite.getVerticalSpeed());

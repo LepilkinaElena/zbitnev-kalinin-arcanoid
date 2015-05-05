@@ -89,7 +89,9 @@ public abstract class IngameObject implements Cloneable{
      * @param speed Новая скорость.
      */
     public void setSpeed(Speed2D speed) {
-        sprite.setSpeed(speed);
+        if (sprite != null) {
+            sprite.setSpeed(speed);
+        }
     }
 
     /**

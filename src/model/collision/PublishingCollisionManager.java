@@ -22,7 +22,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
 
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage = new HashMap<>();
     private HashMap<IngameObject, ArrayList<IngameObject>> _oldStorage = null;
-
+    private int countCollisions = 0;
     /**
      * Список слушателей события
      */
@@ -47,7 +47,11 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
             fireIngameObjectCollided();
             
         } else {
-            _oldStorage = null;
+            
+            if (_oldStorage.size() == 2) {
+                _oldStorage = null;
+                
+            }
         }
     }
     

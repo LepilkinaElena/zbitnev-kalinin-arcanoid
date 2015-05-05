@@ -26,8 +26,9 @@ public class BreakableBrick extends Brick {
         super(sprite);
     }
     
-    public BreakableBrick() {
+    public BreakableBrick(Speed2D.Axis axis) {
         super(null);
+        setAxis(axis);
     }
 
     public BreakableBrick clone() {

@@ -21,6 +21,12 @@ public class UnbreakableBrick extends Brick {
         super(sprite);
         super.addDefaultBehaviuor(CollisionBehaviour.getInstance());
     }
+    
+    public UnbreakableBrick(Speed2D.Axis axis) {
+        super(null);
+        setAxis(axis);
+        super.addDefaultBehaviuor(CollisionBehaviour.getInstance());
+    }
 
     public UnbreakableBrick clone() {
         UnbreakableBrick clone = (UnbreakableBrick) super.clone();

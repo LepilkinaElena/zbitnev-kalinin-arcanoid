@@ -88,6 +88,7 @@ public class ObjectCollisionManager {
                 for (int i = 0; i < keyList.size() && wasProccessed; i++) {
                     if (system.contains((IngameObject) keyList.get(i))) {
                         storage.remove((IngameObject) keyList.get(i));
+                        keyList.remove(i);
                         i--;
                     }
                 }
@@ -187,19 +188,32 @@ public class ObjectCollisionManager {
                 if (isSameClass) {
                     Class classElement = values.get(0).getClass();
                     Constructor[] construct = classElement.getDeclaredConstructors();
+                    Speed2D resultSpeed = new Speed2D();
+                    IngameObject firstObject = values.get(0);
+                    Speed2D.Axis axis = Speed2D.Axis.X;
+                    for (IngameObject value : values) {
+                        if (value.getPosition().getY() == firstObject.getPosition().getY()) {
+                            axis = Speed2D.Axis.X;
+                        } else {
+                            axis = Speed2D.Axis.Y;
+                        }
+                        resultSpeed = resultSpeed.sum(value.getSpeed());
+                        
+                    }
                     Constructor chosenConstructor = null;
                     for (Constructor constr:construct) {
-                        if (constr.getGenericParameterTypes().length == 0) {
+                        if (constr.getGenericParameterTypes().length == 1 && constr.getGenericParameterTypes()[0] == Speed2D.Axis.class) {
                             chosenConstructor = constr; 
                         }
                     }
-                    Object otherElement = chosenConstructor.newInstance();
-                    Speed2D resultSpeed = new Speed2D();
-                    for (IngameObject value : values) {
-                        resultSpeed = resultSpeed.sum(value.getSpeed());
-                    }
+                    Object otherElement = chosenConstructor.newInstance(axis);
+                    
+                    
                     ((IngameObject) otherElement).setSpeed(resultSpeed);
                     key.processCollision((IngameObject) otherElement);
+                    for (IngameObject value : values) {
+                        value.processCollision(key.clone());
+                    }
                     return true;
                 }
             } catch (InstantiationException ex) {

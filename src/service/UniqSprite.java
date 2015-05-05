@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  */
 public class UniqSprite extends Sprite {
     private static int nextid = 0;
-    private final int id;
+    private int id;
     
     public UniqSprite(BufferedImage image) {
         super(image);
@@ -24,5 +24,11 @@ public class UniqSprite extends Sprite {
     
     public int getId() {
         return id;
+    }
+    
+    public UniqSprite clone() {
+        UniqSprite sprite = new UniqSprite(getImage());
+        sprite.id = id;
+        return sprite;
     }
 }
