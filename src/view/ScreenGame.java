@@ -9,6 +9,7 @@ import model.GameModel;
 
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
+import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ImageBackground;
 
 import controller.GameController;
@@ -25,7 +26,6 @@ public class ScreenGame extends GameObject {
     private GameModel _gameModel;
     private GameFieldView _gameFieldView;
     private GameController _gameController;
-
     public ScreenGame(GameEngine arg0) {
         super(arg0);
     }
@@ -59,18 +59,6 @@ public class ScreenGame extends GameObject {
         // Контроллер и игрок.
         _gameController = new GameController(_gameModel, bsInput);
 
-        // ЭКСПЕРИМЕНТ
-        // paddle.addBall(newball);
-        // Тестирование столкновения множества шаров
-        /*BasicBall ball01 = new BasicBall(field, new Point2D.Float((float) 213.3975, 250), 16, new Speed2D(0.043, -0.025));
-         BasicBall ball02 = new BasicBall(field, new Point2D.Float(400, 200), 16, new Speed2D(-0.05, 0));
-         ball01.addDefaultCollisionBehaviour(BehaviourRebound.getInstance());
-         ball02.addDefaultCollisionBehaviour(BehaviourRebound.getInstance());
-        
-         IngameObjectView ball01_view = viewfact.newBasicBallView(ball01);
-         IngameObjectView ball02_view = viewfact.newBasicBallView(ball02);
-         _fieldView.addObjectView(ball01_view);
-         _fieldView.addObjectView(ball02_view);*/
         // Инициализация закончена. Спрятать курсор мыши перед началом игры.
         hideCursor();
     }
@@ -85,7 +73,7 @@ public class ScreenGame extends GameObject {
 
     @Override
     public void update(long l) {
-
+        l = 10;
         // Апдейтим всё
         _gameFieldView.update(l);
         _gameController.update(l);
