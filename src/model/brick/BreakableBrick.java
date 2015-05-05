@@ -25,6 +25,10 @@ public class BreakableBrick extends Brick {
     public BreakableBrick(PublishingSprite sprite) {
         super(sprite);
     }
+    
+    public BreakableBrick() {
+        super(null);
+    }
 
     public BreakableBrick clone() {
         BreakableBrick clone = null;

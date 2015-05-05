@@ -21,6 +21,7 @@ import model.GameField;
 import model.Speed2D;
 import model.Speed2D.Axis;
 import model.ball.Ball;
+import model.brick.Brick;
 import model.collision.BoundaryCollisionManager;
 import model.collision.PublishingCollisionManager;
 import model.interaction.CollisionEvent;
@@ -80,11 +81,14 @@ public class ObjectCollisionManager {
             // Если есть система
             if (!system.isEmpty()) {
                 // Обработать столкновения внутри системы
-                handleSystem(system);
+                boolean wasProccessed = handleSystem(system);
                 // Удалить спрайты, входящие в систему
-                for (Object keyObject : storage.keySet()) {
-                    if (system.contains((IngameObject) keyObject)) {
-                        storage.remove((IngameObject) keyObject);
+                ArrayList<Object> keyList = new ArrayList<>();
+                keyList.addAll(keys);
+                for (int i = 0; i < keyList.size() && wasProccessed; i++) {
+                    if (system.contains((IngameObject) keyList.get(i))) {
+                        storage.remove((IngameObject) keyList.get(i));
+                        i--;
                     }
                 }
             }
@@ -143,7 +147,7 @@ public class ObjectCollisionManager {
      *
      * @param system система
      */
-    private void handleSystem(ArrayList<IngameObject> system) {
+    private boolean handleSystem(ArrayList<IngameObject> system) {
         ArrayList<IngameObject> cloneElements = new ArrayList<>();
         // Карта элемент-> клоны, столкнувшихся элементов, которые должнв рассматриваться как один элемент
         HashMap<IngameObject, ArrayList<IngameObject>> elementsAsOne = new HashMap<>();
@@ -166,16 +170,38 @@ public class ObjectCollisionManager {
             try {
                 IngameObject key = entrySet.getKey();
                 ArrayList<IngameObject> values = entrySet.getValue();
-                // Создание элемента на основе нескольких
-                Class classElement = values.get(0).getClass();
-                Constructor[] construct = classElement.getDeclaredConstructors();
-                Object otherElement = construct[0].newInstance();
-                Speed2D resultSpeed = new Speed2D();
-                for (IngameObject value : values) {
-                    resultSpeed = resultSpeed.sum(value.getSpeed());
+                IngameObject firstElement = values.get(0);
+                if (firstElement.equals(key)) {
+                    firstElement = values.get(1);
                 }
-                ((IngameObject) otherElement).setSpeed(resultSpeed);
-                key.processCollision((IngameObject) otherElement);
+                boolean isSameClass = true;
+                for (IngameObject value: values) {
+                    if (!value.equals(key)) {
+                        if (!(firstElement instanceof Brick && value instanceof Brick)) {
+                            isSameClass = isSameClass && firstElement.getClass() == value.getClass();
+                        }
+                    
+                    }
+                }
+                // Создание элемента на основе нескольких
+                if (isSameClass) {
+                    Class classElement = values.get(0).getClass();
+                    Constructor[] construct = classElement.getDeclaredConstructors();
+                    Constructor chosenConstructor = null;
+                    for (Constructor constr:construct) {
+                        if (constr.getGenericParameterTypes().length == 0) {
+                            chosenConstructor = constr; 
+                        }
+                    }
+                    Object otherElement = chosenConstructor.newInstance();
+                    Speed2D resultSpeed = new Speed2D();
+                    for (IngameObject value : values) {
+                        resultSpeed = resultSpeed.sum(value.getSpeed());
+                    }
+                    ((IngameObject) otherElement).setSpeed(resultSpeed);
+                    key.processCollision((IngameObject) otherElement);
+                    return true;
+                }
             } catch (InstantiationException ex) {
                 Logger.getLogger(ObjectCollisionManager.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalAccessException ex) {
@@ -186,6 +212,7 @@ public class ObjectCollisionManager {
                 Logger.getLogger(ObjectCollisionManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return false;
     }
 
     /**
