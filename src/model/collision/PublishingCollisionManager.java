@@ -10,6 +10,7 @@ import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
+import model.paddle.Paddle;
 import service.UniqSprite;
 
 /**
@@ -22,7 +23,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
 
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage = new HashMap<>();
     private HashMap<IngameObject, ArrayList<IngameObject>> _oldStorage = null;
-    private int countCollisions = 0;
+
     /**
      * Список слушателей события
      */
@@ -47,9 +48,16 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
             fireIngameObjectCollided();
             
         } else {
-            
+            boolean isFind = false;
             if (_oldStorage.size() == 2) {
-                _oldStorage = null;
+                for (IngameObject object:_oldStorage.keySet()) {
+                    if (object.getClass() == Paddle.class) {
+                        isFind = true;
+                    }
+                }
+                if (isFind) {
+                    _oldStorage = null;
+                }
                 
             }
         }
