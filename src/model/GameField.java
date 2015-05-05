@@ -99,8 +99,14 @@ public class GameField {
 
     void clear() {
         Set<Integer> keys = _objects.keySet();
-        for (Integer key : keys) {
-            _objects.get(key).destroy();
+        ArrayList<Integer> arrayKeys = new ArrayList<>();
+        arrayKeys.addAll(keys);
+        for (int i = 0; i < arrayKeys.size(); i++) {    
+            if (_objects.get(arrayKeys.get(i))!= null)
+            {
+                _objects.get(arrayKeys.get(i)).destroy();
+                i--;
+            }
         }
     }
     

@@ -87,22 +87,24 @@ public class GameModel {
         newball1.setSpeed(new Speed2D(-0.15, 0.15));
         newball1.initSpecialBehaviours();
         newball1.addBallFailListener(_listener);
-        /*Ball newball2 = factory.createBall();
+        Ball newball2 = factory.createBall();
         newball2.setPosition(new Point2D.Float(100, 300));
         newball2.setSpeed(new Speed2D(-0.15, 0.15));
         newball2.initSpecialBehaviours();
+        newball2.addBallFailListener(_listener);
         Ball newball3 = factory.createBall();
         newball3.setPosition(new Point2D.Float(300, 300));
         newball3.setSpeed(new Speed2D(-0.15, -0.15));
-        newball3.initSpecialBehaviours();*/
-        /*BreakableBrick newbrick = factory.createBreakableBrick();
+        newball3.initSpecialBehaviours();
+        newball3.addBallFailListener(_listener);
+        BreakableBrick newbrick = factory.createBreakableBrick();
         newbrick.setPosition(new Point2D.Float(180, 120));
         BreakableBrick newbrick2 = factory.createBreakableBrick();
         newbrick2.setPosition(new Point2D.Float(228, 120));
         UnbreakableBrick newbrick3 = factory.createUnbreakableBrick();
         newbrick3.setPosition(new Point2D.Float(276, 120));
         newbrick.initSpecialBehaviours();
-        newbrick2.initSpecialBehaviours();*/
+        newbrick2.initSpecialBehaviours();
         Paddle paddle = factory.createPaddle();
         paddle.initSpecialBehaviours();
         paddle.setPosition(new Point2D.Float(230, 584));
