@@ -19,10 +19,10 @@ import service.IngameObjectFactory;
  */
 public class GameModel {
 
-    protected GameField _field = null;
+    protected GameField _gameField = null;
     protected Player _player = new Player();
     private EndGame _listener = new EndGame();
-    private IngameObjectFactory _factory;
+    private IngameObjectFactory _ingameObjectfactory;
 
     /**
      * Назначить игровое поле
@@ -34,7 +34,7 @@ public class GameModel {
         if (field == null) {
             throw new NullPointerException();
         }
-        _field = field;
+        _gameField = field;
     }
 
     /**
@@ -44,7 +44,7 @@ public class GameModel {
      */
     public GameField getField() {
 
-        return _field;
+        return _gameField;
     }
 
     /**
@@ -75,37 +75,37 @@ public class GameModel {
 
     }
 
-    public void initLevel(IngameObjectFactory factory) {
-        _factory = factory;
-        Ball newball = factory.createBall();
+    public void initLevel(IngameObjectFactory ingameObjectFactory) {
+        _ingameObjectfactory = ingameObjectFactory;
+        Ball newball = ingameObjectFactory.createBall();
         newball.setPosition(new Point2D.Float(40, 160));
         newball.setSpeed(new Speed2D(0.3, -0.3));
         newball.initSpecialBehaviours();
         newball.addBallFailListener(_listener);
-        Ball newball1 = factory.createBall();
+        Ball newball1 = ingameObjectFactory.createBall();
         newball1.setPosition(new Point2D.Float(300, 100));
         newball1.setSpeed(new Speed2D(-0.15, 0.15));
         newball1.initSpecialBehaviours();
         newball1.addBallFailListener(_listener);
-        Ball newball2 = factory.createBall();
+        Ball newball2 = ingameObjectFactory.createBall();
         newball2.setPosition(new Point2D.Float(100, 300));
         newball2.setSpeed(new Speed2D(-0.15, 0.15));
         newball2.initSpecialBehaviours();
         newball2.addBallFailListener(_listener);
-        Ball newball3 = factory.createBall();
+        Ball newball3 = ingameObjectFactory.createBall();
         newball3.setPosition(new Point2D.Float(300, 300));
         newball3.setSpeed(new Speed2D(-0.15, -0.15));
         newball3.initSpecialBehaviours();
         newball3.addBallFailListener(_listener);
-        BreakableBrick newbrick = factory.createBreakableBrick();
+        BreakableBrick newbrick = ingameObjectFactory.createBreakableBrick();
         newbrick.setPosition(new Point2D.Float(180, 120));
-        BreakableBrick newbrick2 = factory.createBreakableBrick();
+        BreakableBrick newbrick2 = ingameObjectFactory.createBreakableBrick();
         newbrick2.setPosition(new Point2D.Float(228, 120));
-        UnbreakableBrick newbrick3 = factory.createUnbreakableBrick();
+        UnbreakableBrick newbrick3 = ingameObjectFactory.createUnbreakableBrick();
         newbrick3.setPosition(new Point2D.Float(276, 120));
         newbrick.initSpecialBehaviours();
         newbrick2.initSpecialBehaviours();
-        Paddle paddle = factory.createPaddle();
+        Paddle paddle = ingameObjectFactory.createPaddle();
         paddle.initSpecialBehaviours();
         paddle.setPosition(new Point2D.Float(230, 584));
         _player = new Player(paddle);
@@ -131,10 +131,10 @@ public class GameModel {
     private class EndGame implements BallFailListener {
         @Override
         public void endGame(BallFailEvent ballFailEvent) {
-            ArrayList<IngameObject> objects = _field.getElements("model.ball.Ball");
+            ArrayList<IngameObject> objects = _gameField.getElements("model.ball.Ball");
             if (objects.isEmpty()) {
-                _field.clear();
-                initLevel(_factory);
+                _gameField.clear();
+                initLevel(_ingameObjectfactory);
             }
         }
         

@@ -1,11 +1,7 @@
 package model.brick;
 
-import java.awt.Dimension;
-import java.awt.geom.Point2D.Float;
 
-import model.GameField;
 import model.Speed2D;
-import model.collision.BehaviourDestroy;
 import model.collision.CollisionBehaviour;
 import service.PublishingSprite;
 
@@ -17,8 +13,8 @@ import service.PublishingSprite;
  */
 public class UnbreakableBrick extends Brick {
 
-    public UnbreakableBrick(PublishingSprite sprite) {
-        super(sprite);
+    public UnbreakableBrick(PublishingSprite publishingSprite) {
+        super(publishingSprite);
         super.addDefaultBehaviuor(CollisionBehaviour.getInstance());
     }
     

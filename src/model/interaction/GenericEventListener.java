@@ -1,7 +1,5 @@
 package model.interaction;
 
-import model.collisionProcessing.IngameObject;
-
 /**
  * Интерфейс слушателя событий создания, удаления.
  *

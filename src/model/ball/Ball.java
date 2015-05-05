@@ -45,8 +45,8 @@ public class Ball extends IngameObject {
         super.addDefaultBehaviuor(BehaviourReflect.getInstance());
     }
 
-    public Ball(PublishingSprite sprite, Speed2D speed2D) {
-        super(sprite, speed2D);
+    public Ball(PublishingSprite publishingSprite, Speed2D speed2D) {
+        super(publishingSprite, speed2D);
         setWeight(1);
         super.addDefaultBehaviuor(BehaviourReflect.getInstance());
     }

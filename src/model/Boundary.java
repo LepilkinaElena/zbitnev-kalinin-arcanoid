@@ -6,7 +6,6 @@
 package model;
 
 import model.collisionProcessing.IngameObject;
-import service.PublishingSprite;
 
 /**
  * Класс для границ (сделан, чтобы можно было вызывать invoke для поведений

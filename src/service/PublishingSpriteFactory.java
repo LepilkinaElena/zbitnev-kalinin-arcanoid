@@ -14,15 +14,15 @@ import view.GameFieldView;
  */
 public class PublishingSpriteFactory {
 
-    private GameFieldView _field;
+    private GameFieldView _gameFieldView;
 
     private BufferedImage _basicBallImage = null;
     private BufferedImage _breakableBrickImage = null;
     private BufferedImage _unbreakableBrickImage = null;
     private BufferedImage _basicPaddleImage = null;
 
-    public PublishingSpriteFactory(GameFieldView field) {
-        _field = field;
+    public PublishingSpriteFactory(GameFieldView gameFieldView) {
+        _gameFieldView = gameFieldView;
     }
 
     public void setBasicBallImage(BufferedImage image) {
@@ -64,7 +64,7 @@ public class PublishingSpriteFactory {
         if (this.is_valid()) {
             UniqSprite sprite = new UniqSprite(image);
             publSprite = new PublishingSprite(sprite);
-            _field.addToSpriteGroup(sprite);
+            _gameFieldView.addToSpriteGroup(sprite);
         }
         return publSprite;
 

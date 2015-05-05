@@ -2,17 +2,14 @@ package model;
 
 import model.collisionProcessing.IngameObject;
 import java.awt.Dimension;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import model.ball.Ball;
 import model.interaction.GenericEvent;
 import model.interaction.GenericEventListener;
-import view.GameFieldView;
 
 /**
  * Модель игрового поля.
@@ -22,7 +19,7 @@ import view.GameFieldView;
  */
 public class GameField {
 
-    private HashMap<Integer, IngameObject> _objects;
+    private HashMap<Integer, IngameObject> _ingameObjects;
     private Dimension _dimensions;
     private ObjectGenericListener _listener;
 
@@ -33,7 +30,7 @@ public class GameField {
      */
     public GameField(Dimension size) {
 
-        _objects = new HashMap<>();
+        _ingameObjects = new HashMap<>();
         _dimensions = size;
         _listener = new ObjectGenericListener();
     }
@@ -44,7 +41,8 @@ public class GameField {
      * @param object Объект для добавления
      */
     public void addObject(IngameObject object) {
-        _objects.put(object.getId(), object);
+        
+        _ingameObjects.put(object.getId(), object);
     }
 
     /**
@@ -53,7 +51,8 @@ public class GameField {
      * @param object Объект для удаления
      */
     private void removeObject(int object) {
-        _objects.remove(object);
+        
+        _ingameObjects.remove(object);
     }
 
     /**
@@ -62,15 +61,17 @@ public class GameField {
      * @return Размеры поля.
      */
     public Dimension getSize() {
-
+        
         return _dimensions;
     }
 
     public IngameObject getObject(int id) {
-        return _objects.get(id);
+        
+        return _ingameObjects.get(id);
     }
 
     public void addListenerToObject(IngameObject object) {
+        
         object.addGenericEventListener(_listener);
     }
 
@@ -81,14 +82,15 @@ public class GameField {
      * @return список элементов данного класса
      */
     public ArrayList<IngameObject> getElements(String className) {
+        
         Class foundClass;
         ArrayList<IngameObject> elements = new ArrayList<>();
         try {
-            Set<Integer> keys = _objects.keySet();
+            Set<Integer> keys = _ingameObjects.keySet();
             foundClass = Class.forName(className);
             for (Integer key : keys) {
-                if (_objects.get(key).getClass() == foundClass) {
-                    elements.add(_objects.get(key));
+                if (_ingameObjects.get(key).getClass() == foundClass) {
+                    elements.add(_ingameObjects.get(key));
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -98,13 +100,14 @@ public class GameField {
     }
 
     void clear() {
-        Set<Integer> keys = _objects.keySet();
+        
+        Set<Integer> keys = _ingameObjects.keySet();
         ArrayList<Integer> arrayKeys = new ArrayList<>();
         arrayKeys.addAll(keys);
         for (int i = 0; i < arrayKeys.size(); i++) {    
-            if (_objects.get(arrayKeys.get(i))!= null)
+            if (_ingameObjects.get(arrayKeys.get(i))!= null)
             {
-                _objects.get(arrayKeys.get(i)).destroy();
+                _ingameObjects.get(arrayKeys.get(i)).destroy();
                 i--;
             }
         }

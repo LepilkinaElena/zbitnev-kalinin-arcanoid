@@ -1,6 +1,5 @@
 package service;
 
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
@@ -15,56 +14,56 @@ import model.Speed2D;
  */
 public class PublishingSprite {
 
-    private static int nextid = 0;
-    private final UniqSprite sprite;
-    private final int id;
+    private static int _nextid = 0;
+    private final UniqSprite _uniqSpriteubiq;
+    private final int _id;
 
-    public PublishingSprite(UniqSprite sprite) {
-        this.sprite = sprite;
-        this.id = nextid;
-        nextid++;
+    public PublishingSprite(UniqSprite uniqSprite) {
+        _uniqSpriteubiq = uniqSprite;
+        _id = _nextid;
+        _nextid++;
     }
 
     public int getId() {
-        if (sprite != null) {
-            return sprite.getId();
+        if (_uniqSpriteubiq != null) {
+            return _uniqSpriteubiq.getId();
         }
         return -1;
     }
 
     public void setSpeed(Speed2D speed) {
-        sprite.setSpeed(speed.x(), speed.y());
+        _uniqSpriteubiq.setSpeed(speed.x(), speed.y());
     }
 
     public Speed2D getSpeed() {
-        return new Speed2D(sprite.getHorizontalSpeed(), sprite.getVerticalSpeed());
+        return new Speed2D(_uniqSpriteubiq.getHorizontalSpeed(), _uniqSpriteubiq.getVerticalSpeed());
     }
 
     public void setPosition(Point2D.Float point) {
-        sprite.setX(point.x);
-        sprite.setY(point.y);
+        _uniqSpriteubiq.setX(point.x);
+        _uniqSpriteubiq.setY(point.y);
     }
 
     public Point2D.Float getPosition() {
-        return new Point2D.Float((float) sprite.getX(), (float) sprite.getY());
+        return new Point2D.Float((float) _uniqSpriteubiq.getX(), (float) _uniqSpriteubiq.getY());
     }
 
     public Dimension getSize() {
-        return new Dimension(sprite.getWidth(), sprite.getHeight());
+        return new Dimension(_uniqSpriteubiq.getWidth(), _uniqSpriteubiq.getHeight());
     }
 
     public PublishingSprite clone() {
-        UniqSprite cloneSprite = sprite.clone();
-        cloneSprite.setX(sprite.getX());
-        cloneSprite.setY(sprite.getY());
-        cloneSprite.setVerticalSpeed(sprite.getVerticalSpeed());
-        cloneSprite.setHorizontalSpeed(sprite.getHorizontalSpeed());
+        UniqSprite cloneSprite = _uniqSpriteubiq.clone();
+        cloneSprite.setX(_uniqSpriteubiq.getX());
+        cloneSprite.setY(_uniqSpriteubiq.getY());
+        cloneSprite.setVerticalSpeed(_uniqSpriteubiq.getVerticalSpeed());
+        cloneSprite.setHorizontalSpeed(_uniqSpriteubiq.getHorizontalSpeed());
         PublishingSprite clone = new PublishingSprite(cloneSprite);
         return clone;
     }
 
     public void removeFromSpriteGroup(SpriteGroup spriteGroup) {
-        spriteGroup.remove(sprite);
+        spriteGroup.remove(_uniqSpriteubiq);
     }
 
 }

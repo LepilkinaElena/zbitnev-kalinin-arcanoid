@@ -21,35 +21,35 @@ public class Paddle extends IngameObject {
     protected ArrayList<Ball> _balls = new ArrayList<>();
     protected final Speed2D _startedSpeed = new Speed2D(0, -0.2);
 
-    public Paddle(PublishingSprite sprite) {
-        super(sprite);
+    public Paddle(PublishingSprite publishingSprite) {
+        super(publishingSprite);
         super.addDefaultBehaviuor(BehaviourStop.getInstance());
     }
 
-    public Paddle(PublishingSprite sprite, Speed2D speed2D) {
-        super(sprite, speed2D);
+    public Paddle(PublishingSprite publishingSprite, Speed2D speed2D) {
+        super(publishingSprite, speed2D);
         super.addDefaultBehaviuor(BehaviourStop.getInstance());
     }
 
     /**
      * Поместить шар на ракетку.
      *
-     * @param b Шар.
+     * @param ball Шар.
      */
-    public void addBall(Ball b) {
+    public void addBall(Ball ball) {
 
-        b.setSpeed(new Speed2D(0, 0));
-        b.setPosition(new Point2D.Float((float) (this.getPosition().x + this.getSize().width/2 - b.getSize().getWidth()/2), this.getPosition().y - b.getSize().height));
-        _balls.add(b);
+        ball.setSpeed(new Speed2D(0, 0));
+        ball.setPosition(new Point2D.Float((float) (getPosition().x + this.getSize().width/2 - ball.getSize().getWidth()/2), this.getPosition().y - ball.getSize().height));
+        _balls.add(ball);
     }
 
     /**
      * Убрать шар с ракетки.
      *
-     * @param b Шар.
+     * @param b Шарball
      */
-    public void removeBall(Ball b) {
-        _balls.remove(b);
+    public void removeBall(Ball ball) {
+        _balls.remove(ball);
     }
 
     /**

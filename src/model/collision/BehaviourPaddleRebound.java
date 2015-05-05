@@ -1,6 +1,5 @@
 package model.collision;
 
-import java.awt.Point;
 import model.collisionProcessing.IngameObject;
 import java.awt.geom.Point2D;
 import model.Speed2D;

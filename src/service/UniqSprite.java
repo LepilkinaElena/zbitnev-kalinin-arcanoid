@@ -13,23 +13,23 @@ import java.awt.image.BufferedImage;
  * @author Елена
  */
 public class UniqSprite extends Sprite {
-    private static int nextid = 0;
-    private int id;
+    private static int _nextid = 0;
+    private int _id;
     
     public UniqSprite(BufferedImage image) {
         super(image);
-        this.id = nextid;
-        nextid++;
+        _id = _nextid;
+        _nextid++;
     }
     
     public int getId() {
-        return id;
+        return _id;
     }
     
     public UniqSprite clone() {
         UniqSprite sprite = new UniqSprite(getImage());
-        sprite.id = id;
-        nextid--;
+        sprite._id = _id;
+        _nextid--;
         return sprite;
     }
 }

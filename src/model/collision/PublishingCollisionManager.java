@@ -28,11 +28,11 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
      * Список слушателей события
      */
     private ArrayList<CollisionListener> _collisionListener = new ArrayList<>();
-    private GameField _field;
+    private GameField _gameField;
 
-    public PublishingCollisionManager(GameField field) {
+    public PublishingCollisionManager(GameField gameField) {
         super();
-        _field = field;
+        _gameField = gameField;
         pixelPerfectCollision = false;
     }
 
@@ -73,9 +73,9 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
                 ArrayList<IngameObject> list = new ArrayList<>();
                 for (Sprite value : valueSprites) {
                     // Добавляется найденный в игровом поле объект
-                    list.add(_field.getObject(((UniqSprite)value).getId()));
+                    list.add(_gameField.getObject(((UniqSprite)value).getId()));
                 }
-                _storage.put(_field.getObject(((UniqSprite)keySprite).getId()), list);
+                _storage.put(_gameField.getObject(((UniqSprite)keySprite).getId()), list);
             }
         }
     }

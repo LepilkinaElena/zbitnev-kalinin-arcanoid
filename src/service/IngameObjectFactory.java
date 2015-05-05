@@ -28,59 +28,59 @@ import view.UnbreakableBrickView;
  */
 public class IngameObjectFactory {
 
-    private GameFieldView _fieldView;
+    private GameFieldView _gameFieldView;
     private GameField _gameField;
     private PublishingSpriteFactory _publishingSpriteFactory;
 
-    public IngameObjectFactory(GameFieldView fieldView, GameField field) {
-        _fieldView = fieldView;
-        _gameField = field;
-        _publishingSpriteFactory = new PublishingSpriteFactory(_fieldView);
+    public IngameObjectFactory(GameFieldView gameFieldView, GameField gameField) {
+        _gameFieldView = gameFieldView;
+        _gameField = gameField;
+        _publishingSpriteFactory = new PublishingSpriteFactory(_gameFieldView);
         initResourses();
     }
 
     public Ball createBall() {
-        PublishingSprite sprite = _publishingSpriteFactory.newBasicBallPublishigSprite();
-        Ball ball = new Ball(sprite);
+        PublishingSprite publishingSprite = _publishingSpriteFactory.newBasicBallPublishigSprite();
+        Ball ball = new Ball(publishingSprite);
         _gameField.addListenerToObject(ball);
         _gameField.addObject(ball);
 
-        BallView ballView = new BallView(ball, sprite);
-        _fieldView.addObject(ballView);
-        _fieldView.addListenerToObject(ball);
+        BallView ballView = new BallView(ball, publishingSprite);
+        _gameFieldView.addObject(ballView);
+        _gameFieldView.addListenerToObject(ball);
         return ball;
     }
 
     public Paddle createPaddle() {
-        PublishingSprite sprite = _publishingSpriteFactory.newBasicPaddlePublishingSprite();
-        Paddle paddle = new Paddle(sprite);
+        PublishingSprite publishingSprite = _publishingSpriteFactory.newBasicPaddlePublishingSprite();
+        Paddle paddle = new Paddle(publishingSprite);
         _gameField.addObject(paddle);
         _gameField.addListenerToObject(paddle);
-        PaddleView paddleView = new PaddleView(paddle, sprite);
-        _fieldView.addObject(paddleView);
-        _fieldView.addListenerToObject(paddle);
+        PaddleView paddleView = new PaddleView(paddle, publishingSprite);
+        _gameFieldView.addObject(paddleView);
+        _gameFieldView.addListenerToObject(paddle);
         return paddle;
     }
 
     public UnbreakableBrick createUnbreakableBrick() {
-        PublishingSprite sprite = _publishingSpriteFactory.newUnbreakableBrickPublishingSprite();
-        UnbreakableBrick unbreakableBrick = new UnbreakableBrick(sprite);
+        PublishingSprite publishingSprite = _publishingSpriteFactory.newUnbreakableBrickPublishingSprite();
+        UnbreakableBrick unbreakableBrick = new UnbreakableBrick(publishingSprite);
         _gameField.addObject(unbreakableBrick);
         _gameField.addListenerToObject(unbreakableBrick);
-        UnbreakableBrickView unbreakableBrickView = new UnbreakableBrickView(unbreakableBrick, sprite);
-        _fieldView.addObject(unbreakableBrickView);
-        _fieldView.addListenerToObject(unbreakableBrick);
+        UnbreakableBrickView unbreakableBrickView = new UnbreakableBrickView(unbreakableBrick, publishingSprite);
+        _gameFieldView.addObject(unbreakableBrickView);
+        _gameFieldView.addListenerToObject(unbreakableBrick);
         return unbreakableBrick;
     }
 
     public BreakableBrick createBreakableBrick() {
-        PublishingSprite sprite = _publishingSpriteFactory.newBreakableBrickPublishingSprite();
-        BreakableBrick breakableBrick = new BreakableBrick(sprite);
+        PublishingSprite publishingSprite = _publishingSpriteFactory.newBreakableBrickPublishingSprite();
+        BreakableBrick breakableBrick = new BreakableBrick(publishingSprite);
         _gameField.addObject(breakableBrick);
         _gameField.addListenerToObject(breakableBrick);
-        BreakableBrickView breakableBrickView = new BreakableBrickView(breakableBrick, sprite);
-        _fieldView.addObject(breakableBrickView);
-        _fieldView.addListenerToObject(breakableBrick);
+        BreakableBrickView breakableBrickView = new BreakableBrickView(breakableBrick, publishingSprite);
+        _gameFieldView.addObject(breakableBrickView);
+        _gameFieldView.addListenerToObject(breakableBrick);
         return breakableBrick;
     }
 

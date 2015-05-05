@@ -20,11 +20,11 @@ import service.PublishingSprite;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public abstract class IngameObject implements Cloneable{
+public abstract class IngameObject implements Cloneable {
 
     protected Boolean _isDestroyed = false;
 
-    private PublishingSprite sprite;
+    private PublishingSprite _publPublishingSprite;
 
     private Speed2D.Axis _axis = null;
 
@@ -36,8 +36,8 @@ public abstract class IngameObject implements Cloneable{
     /**
      * Создает игровой объект
      */
-    public IngameObject(PublishingSprite sprite) {
-        this.sprite = sprite;
+    public IngameObject(PublishingSprite publishingSprite) {
+        _publPublishingSprite = publishingSprite;
         setAxis(_axis);
     }
 
@@ -46,9 +46,9 @@ public abstract class IngameObject implements Cloneable{
      *
      * @param speed Скорость объекта.
      */
-    public IngameObject(PublishingSprite sprite, Speed2D speed) {
-        this(sprite);
-        this.setSpeed(speed);
+    public IngameObject(PublishingSprite publishingSprite, Speed2D speed) {
+        this(publishingSprite);
+        setSpeed(speed);
     }
 
     protected IngameObject() {
@@ -62,11 +62,11 @@ public abstract class IngameObject implements Cloneable{
      */
     public Speed2D getSpeed() {
 
-        return (Speed2D) sprite.getSpeed().clone();
+        return (Speed2D) _publPublishingSprite.getSpeed().clone();
     }
 
     protected void setAxis(Speed2D.Axis axis) {
-        if (sprite == null) {
+        if (_publPublishingSprite == null) {
             _axis = axis;
         }
     }
@@ -89,8 +89,8 @@ public abstract class IngameObject implements Cloneable{
      * @param speed Новая скорость.
      */
     public void setSpeed(Speed2D speed) {
-        if (sprite != null) {
-            sprite.setSpeed(speed);
+        if (_publPublishingSprite != null) {
+            _publPublishingSprite.setSpeed(speed);
         }
     }
 
@@ -101,7 +101,7 @@ public abstract class IngameObject implements Cloneable{
      */
     public Point2D.Float getPosition() {
 
-        return (Point2D.Float) sprite.getPosition().clone();
+        return (Point2D.Float) _publPublishingSprite.getPosition().clone();
     }
 
     /**
@@ -110,7 +110,7 @@ public abstract class IngameObject implements Cloneable{
      * @param pos Новая позиция.
      */
     public void setPosition(Point2D.Float pos) {
-        sprite.setPosition(pos);
+        _publPublishingSprite.setPosition(pos);
     }
 
     /**
@@ -120,7 +120,7 @@ public abstract class IngameObject implements Cloneable{
      */
     public Dimension getSize() {
 
-        return (Dimension) sprite.getSize().clone();
+        return (Dimension) _publPublishingSprite.getSize().clone();
     }
 
     /**
@@ -175,8 +175,8 @@ public abstract class IngameObject implements Cloneable{
         return (BehaviourContainer) _specialColBehaviours.clone();
     }
 
-    protected void addDefaultBehaviuor(CollisionBehaviour cb) {
-        _defaultColBehaviour.add(cb);
+    protected void addDefaultBehaviuor(CollisionBehaviour collisionBehaviour) {
+        _defaultColBehaviour.add(collisionBehaviour);
     }
 
     /**
@@ -222,11 +222,11 @@ public abstract class IngameObject implements Cloneable{
      * Очистить список специальных поведений при столкновений для класса
      * объектов
      *
-     * @param cl Класс объектов, для которых очищается список поведений
+     * @param className Класс объектов, для которых очищается список поведений
      */
-    protected void cleanSpecificCollisionBehaviours(Class<?> cl) {
+    protected void cleanSpecificCollisionBehaviours(Class<?> className) {
 
-        _specialColBehaviours.removeBehaviour(cl);
+        _specialColBehaviours.removeBehaviour(className);
     }
 
     /**
@@ -234,8 +234,8 @@ public abstract class IngameObject implements Cloneable{
      */
     public void destroy() {
 
-        for (GenericEventListener l : _geneventListeners) {
-            l.destroyed(new GenericEvent(this, getId()));
+        for (GenericEventListener genericEventListener : _geneventListeners) {
+            genericEventListener.destroyed(new GenericEvent(this, getId()));
         }
     }
 
@@ -252,20 +252,20 @@ public abstract class IngameObject implements Cloneable{
     /**
      * Добавить слушателя событий жизни объекта.
      *
-     * @param l Добавляемый слушатель.
+     * @param  genericEventListener Добавляемый слушатель.
      */
-    public void addGenericEventListener(GenericEventListener l) {
+    public void addGenericEventListener(GenericEventListener genericEventListener) {
 
-        _geneventListeners.add(l);
+        _geneventListeners.add(genericEventListener);
     }
 
     /**
      * Удалить слушателя событий жизни объекта.
      *
-     * @param l Удаляемый слушатель.
+     * @param genericEventListener Удаляемый слушатель.
      */
-    public void removeGenericEventListener(GenericEventListener l) {
-        _geneventListeners.remove(l);
+    public void removeGenericEventListener(GenericEventListener genericEventListener) {
+        _geneventListeners.remove(genericEventListener);
     }
 
     @Override
@@ -274,7 +274,7 @@ public abstract class IngameObject implements Cloneable{
         IngameObject clone = null;
         try {
             clone = (IngameObject) super.clone();
-            clone.sprite = this.sprite.clone();
+            clone._publPublishingSprite = this._publPublishingSprite.clone();
             clone._isDestroyed = this._isDestroyed;
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
@@ -284,7 +284,7 @@ public abstract class IngameObject implements Cloneable{
     }
 
     public int getId() {
-        return sprite.getId();
+        return _publPublishingSprite.getId();
     }
 
 

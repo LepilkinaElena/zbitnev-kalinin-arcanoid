@@ -9,7 +9,7 @@ package model;
 public class Direction {
 
     // ------------------------------------------------------------------------
-    private final int angle;  // угол поворота в декартовой системе координат
+    private final int _angle;  // угол поворота в декартовой системе координат
     // соответствующий текущему направлению
 
     // ------------------------------------------------------------------------
@@ -23,7 +23,7 @@ public class Direction {
             angle -= 360;
         }
 
-        this.angle = angle;
+        _angle = angle;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Direction {
      * @return Противоположное направление
      */
     public Direction opposite() {
-        return new Direction(this.angle - 180);
+        return new Direction(_angle - 180);
     }
 
     /**
@@ -79,7 +79,7 @@ public class Direction {
      * @return Направление, развёрнутое на 90 градусов по часовой
      */
     public Direction turnClockwise() {
-        return new Direction(this.angle - 90);
+        return new Direction(_angle - 90);
     }
 
     /**
@@ -89,23 +89,23 @@ public class Direction {
      * @return Направление, развёрнутое на 90 градусов против часовой
      */
     public Direction turnAnticlockwise() {
-        return new Direction(this.angle + 90);
+        return new Direction(_angle + 90);
     }
 
     // ------------------------------------------------------------------------
     @Override
     public int hashCode() {
-        return angle;
+        return _angle;
     }
 
     @Override
     public boolean equals(Object obj) {
-        int otherangle = ((Direction) obj).angle;
-        return this.angle == otherangle;
+        int otherangle = ((Direction) obj)._angle;
+        return _angle == otherangle;
     }
 
     @Override
     public Direction clone() {
-        return new Direction(this.angle);
+        return new Direction(_angle);
     }
 }

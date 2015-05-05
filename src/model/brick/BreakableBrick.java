@@ -13,8 +13,8 @@ import service.PublishingSprite;
  */
 public class BreakableBrick extends Brick {
 
-    public BreakableBrick(PublishingSprite sprite) {
-        super(sprite);
+    public BreakableBrick(PublishingSprite publishingSprite) {
+        super(publishingSprite);
     }
     
     public BreakableBrick(Speed2D.Axis axis) {

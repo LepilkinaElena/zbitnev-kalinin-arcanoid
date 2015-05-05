@@ -14,23 +14,23 @@ import java.util.Iterator;
  */
 public class BehaviourIterator implements Iterator<CollisionBehaviour> {
 
-    private Iterator<CollisionBehaviour> _iterator;
+    private Iterator<CollisionBehaviour> _collisionBehaviouriterator;
 
     public BehaviourIterator(ArrayList<CollisionBehaviour> list) {
-        _iterator = list.iterator();
+        _collisionBehaviouriterator = list.iterator();
     }
 
     @Override
     public boolean hasNext() {
-        return _iterator.hasNext();
+        return _collisionBehaviouriterator.hasNext();
     }
 
     @Override
     public CollisionBehaviour next() {
-        return _iterator.next();
+        return _collisionBehaviouriterator.next();
     }
 
     public void remove() {
-        _iterator.remove();
+        _collisionBehaviouriterator.remove();
     }
 }

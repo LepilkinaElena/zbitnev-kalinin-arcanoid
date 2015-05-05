@@ -17,25 +17,25 @@ public class BehaviourContainer {
         return _specialColBehaviours.isEmpty();
     }
 
-    public BehaviourContainer(Class<?> className, CollisionBehaviour behaviour) {
+    public BehaviourContainer(Class<?> className, CollisionBehaviour collisionBehaviour) {
         ArrayList<CollisionBehaviour> list = new ArrayList<>();
-        list.add(behaviour);
+        list.add(collisionBehaviour);
         _specialColBehaviours.put(className, list);
     }
 
-    public void addBehaviour(Class<?> className, CollisionBehaviour behaviour) {
+    public void addBehaviour(Class<?> className, CollisionBehaviour collisionBehaviour) {
         ArrayList<CollisionBehaviour> list = new ArrayList<>();
         if (_specialColBehaviours.containsKey(className)) {
-            _specialColBehaviours.get(className).add(behaviour);
+            _specialColBehaviours.get(className).add(collisionBehaviour);
         } else {
-            list.add(behaviour);
+            list.add(collisionBehaviour);
             _specialColBehaviours.put(className, list);
         }
     }
 
-    public void removeBehaviour(Class<?> className, CollisionBehaviour behaviour) {
+    public void removeBehaviour(Class<?> className, CollisionBehaviour collisionBehaviour) {
         if (_specialColBehaviours.containsKey(className)) {
-            _specialColBehaviours.get(className).remove(behaviour);
+            _specialColBehaviours.get(className).remove(collisionBehaviour);
             if (_specialColBehaviours.get(className).isEmpty()) {
                 _specialColBehaviours.remove(className);
             }

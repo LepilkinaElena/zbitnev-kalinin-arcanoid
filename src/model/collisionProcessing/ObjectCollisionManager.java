@@ -258,19 +258,19 @@ public class ObjectCollisionManager {
     /**
      * Сформировать список элементов, с которыми стокнулся по цепочке
      *
-     * @param sprite спрайт, для которого определяем
+     * @param ingameObject объект, для которого определяем
      * @param storage хранилище со столкновениями
-     * @param list список, куда заносится цепочка столкновений
+     * @param ingameObjectList список, куда заносится цепочка столкновений
      */
-    private void formListForElement(IngameObject object, Map storage, ArrayList<IngameObject> list) {
+    private void formListForElement(IngameObject ingameObject, Map storage, ArrayList<IngameObject> ingameObjectList) {
         Set keySet = storage.keySet();
-        if (keySet.contains(object)) {
-            if (storage.get(object) != null) {
-                ArrayList<IngameObject> valueSprites = (ArrayList<IngameObject>) storage.get(object);
+        if (keySet.contains(ingameObject)) {
+            if (storage.get(ingameObject) != null) {
+                ArrayList<IngameObject> valueSprites = (ArrayList<IngameObject>) storage.get(ingameObject);
                 for (IngameObject value : valueSprites) {
-                    if (!list.contains(value) && value != null) {
-                        list.add(value);
-                        formListForElement(value, storage, list);
+                    if (!ingameObjectList.contains(value) && value != null) {
+                        ingameObjectList.add(value);
+                        formListForElement(value, storage, ingameObjectList);
                     }
                 }
             }

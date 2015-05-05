@@ -23,16 +23,16 @@ import service.UniqSprite;
 public class BoundaryCollisionManager extends CollisionBounds {
 
     private HashMap<IngameObject, ArrayList<IngameObject>> _storage = new HashMap<>();
-    private GameField _field;
+    private GameField _gameField;
     private Point2D.Float position;
     /**
      * Список слушателей события
      */
     private ArrayList<CollisionListener> _collisionListener = new ArrayList<>();
 
-    public BoundaryCollisionManager(int x, int y, int width, int height, GameField field) {
+    public BoundaryCollisionManager(int x, int y, int width, int height, GameField gameField) {
         super(x, y, width, height);
-        _field = field;
+        _gameField = gameField;
         
     }
 
@@ -40,7 +40,7 @@ public class BoundaryCollisionManager extends CollisionBounds {
     public void collided(Sprite sprite) {
         _storage.clear();
         position = new Point2D.Float((float)sprite.getOldX(), (float) sprite.getOldY());
-        _storage.put(_field.getObject(((UniqSprite)sprite).getId()), null);
+        _storage.put(_gameField.getObject(((UniqSprite)sprite).getId()), null);
         fireIngameObjectCollided();
     }
 
