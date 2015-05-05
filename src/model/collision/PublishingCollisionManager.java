@@ -51,7 +51,7 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
             boolean isFind = false;
             if (_oldStorage.size() == 2) {
                 for (IngameObject object:_oldStorage.keySet()) {
-                    if (object.getClass() == Paddle.class) {
+                    if (object != null &&  object.getClass() == Paddle.class) {
                         isFind = true;
                     }
                 }
