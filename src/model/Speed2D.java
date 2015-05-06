@@ -6,7 +6,7 @@ package model;
  * @author Gregory Zbitnev <zbitnev@hotmail.com>
  *
  */
-public class Speed2D {
+public final class Speed2D {
 
     private double _x;
     private double _y;

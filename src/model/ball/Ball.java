@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.collisionProcessing.IngameObject;
 import model.Speed2D;
 import model.collision.BehaviourPaddleRebound;
-import model.collision.BehaviourRebound;
+import model.collision.BehaviourBallRebound;
 import model.collision.BehaviourReflect;
 import model.interaction.BallFailEvent;
 import model.interaction.BallFailListener;
@@ -84,7 +84,7 @@ public class Ball extends IngameObject {
      */
     public void initSpecialBehaviours() {
         
-        addSpecificCollisionBehaviour(Ball.class, BehaviourRebound.getInstance());
+        addSpecificCollisionBehaviour(Ball.class, BehaviourBallRebound.getInstance());
         addSpecificCollisionBehaviour(Paddle.class, BehaviourPaddleRebound.getInstance());
     }
     

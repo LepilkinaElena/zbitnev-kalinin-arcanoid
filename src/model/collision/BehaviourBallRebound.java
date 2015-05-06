@@ -10,14 +10,14 @@ import model.collisionProcessing.IngameObject;
  * @author Nikita Kalinin <nixorv@gmail.com>
  *
  */
-public class BehaviourRebound extends CollisionBehaviour {
+public class BehaviourBallRebound extends CollisionBehaviour {
 
     /**
      * Экзмепляр синглтона.
      */
-    private static BehaviourRebound _instance = null;
+    private static BehaviourBallRebound _instance = null;
 
-    private BehaviourRebound() {
+    private BehaviourBallRebound() {
     }
 
     /**
@@ -25,10 +25,10 @@ public class BehaviourRebound extends CollisionBehaviour {
      *
      * @return
      */
-    public static BehaviourRebound getInstance() {
+    public static BehaviourBallRebound getInstance() {
 
         if (_instance == null) {
-            _instance = new BehaviourRebound();
+            _instance = new BehaviourBallRebound();
         }
 
         return _instance;
