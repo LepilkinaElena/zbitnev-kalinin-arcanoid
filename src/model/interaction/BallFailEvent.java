@@ -8,7 +8,8 @@ package model.interaction;
 import java.util.EventObject;
 
 /**
- *
+ * Класс падения мяча
+ * 
  * @author Мария
  */
 public class BallFailEvent extends EventObject {

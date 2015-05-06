@@ -22,21 +22,24 @@ import service.PublishingSprite;
  */
 public abstract class IngameObject implements Cloneable {
 
-    protected Boolean _isDestroyed = false;
-
+    /** Спрайт игрового объекта */
     private PublishingSprite _publPublishingSprite;
-
+    /** Ось игрового объекта */
     private Speed2D.Axis _axis = null;
-
+    /** Поведения по умолчанию игрового объекта */
     protected ArrayList<CollisionBehaviour> _defaultColBehaviour = new ArrayList<>();
+    /** Контейнер со специальными поведениями игрового объекта */
     protected BehaviourContainer _specialColBehaviours = new BehaviourContainer();
-    private ArrayList<GenericEventListener> _geneventListeners = new ArrayList<>();
+    /** Вес элемента */
     private double _weight = 0.0;
+    /** Слушатели события разрушения элемента */
+    private ArrayList<GenericEventListener> _geneventListeners = new ArrayList<>();
 
     /**
      * Создает игровой объект
      */
     public IngameObject(PublishingSprite publishingSprite) {
+        
         _publPublishingSprite = publishingSprite;
         setAxis(_axis);
     }
@@ -44,14 +47,20 @@ public abstract class IngameObject implements Cloneable {
     /**
      * Создает игровой объект.
      *
+     * @param publishingSprite спрайт объекта
      * @param speed Скорость объекта.
      */
     public IngameObject(PublishingSprite publishingSprite, Speed2D speed) {
+        
         this(publishingSprite);
         setSpeed(speed);
     }
 
+    /**
+     * Создать объект
+     */
     protected IngameObject() {
+        
         this(null);
     }
 
@@ -65,21 +74,45 @@ public abstract class IngameObject implements Cloneable {
         return (Speed2D) _publPublishingSprite.getSpeed().clone();
     }
 
+    /**
+     * Установить ось
+     * 
+     * @param axis ось
+     */
     protected void setAxis(Speed2D.Axis axis) {
+        
         if (_publPublishingSprite == null) {
             _axis = axis;
         }
     }
     
+    /**
+     * Установить вес
+     * 
+     * @param weight вес
+     */
     protected void setWeight(double weight) {
+        
         _weight = weight;
     }
     
+    /**
+     * Поучить вес 
+     * 
+     * @return  вес
+     */
     public double getWeight() {
+        
         return _weight;
     }
 
+    /**
+     * Получить ось
+     * 
+     * @return ось
+     */
     public Speed2D.Axis getAxis() {
+        
         return _axis;
     }
 
@@ -89,6 +122,7 @@ public abstract class IngameObject implements Cloneable {
      * @param speed Новая скорость.
      */
     public void setSpeed(Speed2D speed) {
+        
         if (_publPublishingSprite != null) {
             _publPublishingSprite.setSpeed(speed);
         }
@@ -110,13 +144,14 @@ public abstract class IngameObject implements Cloneable {
      * @param pos Новая позиция.
      */
     public void setPosition(Point2D.Float pos) {
+        
         _publPublishingSprite.setPosition(pos);
     }
 
     /**
      * Возвращает размер объекта в пикселях.
      *
-     * @return
+     * @return размер объекта в пикселях
      */
     public Dimension getSize() {
 
@@ -130,8 +165,9 @@ public abstract class IngameObject implements Cloneable {
      * @param specialBehaviours контейнер со специальными поведениями
      */
     private void processCollision(IngameObject with, BehaviourContainer specialBehaviours) {
+        
         Iterator<CollisionBehaviour> iterator = specialBehaviours.iterator(with.getClass());
-
+        // Выполнение всех специальных поведений
         while (iterator.hasNext()) {
             CollisionBehaviour currentBehavior = iterator.next();
             currentBehavior.invoke(this, with);
@@ -145,6 +181,7 @@ public abstract class IngameObject implements Cloneable {
      */
     void processCollision(IngameObject with) {
 
+        // Если есть специальные поведения, выполняются они
         if (_specialColBehaviours.contains(with.getClass())) {
             processCollision(with, _specialColBehaviours);
         } else {
@@ -165,25 +202,20 @@ public abstract class IngameObject implements Cloneable {
     }
 
     /**
-     * Получить словарь специальных поведений при столкновении
-     *
-     * @return Ключ -- класс объектов, значение -- флаги и список поведений,
-     * определённых при столкновении с этим объектом
+     * Добавить поведение по умолчанию
+     * 
+     * @param collisionBehaviour поведение
      */
-    public BehaviourContainer getSpecificCollisionBehaviours() {
-
-        return (BehaviourContainer) _specialColBehaviours.clone();
-    }
-
     protected void addDefaultBehaviuor(CollisionBehaviour collisionBehaviour) {
+        
         _defaultColBehaviour.add(collisionBehaviour);
     }
 
     /**
      * Добавить специальное поведение при столкновении
      *
-     * @param className
-     * @param behaviour
+     * @param className класс
+     * @param behaviour поведение
      */
     public void addSpecificCollisionBehaviour(Class<?> className, CollisionBehaviour behaviour) {
 
@@ -193,9 +225,8 @@ public abstract class IngameObject implements Cloneable {
     /**
      * Удалить специальное поведение при столкновении
      *
-     * @param c Класс объектов
-     * @param cb Поведение, определённое при столкновении с этим классом
-     * объектов
+     * @param className класс объектов
+     * @param behaviour поведение
      */
     public void removeSpecificCollisionBehaviour(Class<?> className, CollisionBehaviour behaviour) {
         this._specialColBehaviours.removeBehaviour(className, behaviour);
@@ -230,23 +261,44 @@ public abstract class IngameObject implements Cloneable {
     }
 
     /**
-     * Уничтожает объект. По умолчанию ничего не освобождает.
+     * Клонировать объект
+     * 
+     * @return клон объекта
+     */
+    @Override
+    public IngameObject clone() {
+
+        IngameObject clone = null;
+        try {
+            clone = (IngameObject) super.clone();
+            clone._publPublishingSprite = this._publPublishingSprite.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return clone;
+    }
+
+    /**
+     * Получить идентификатор игрового объекта
+     * 
+     * @return идентификатор
+     */
+    public int getId() {
+        
+        return _publPublishingSprite.getId();
+    }
+    
+    //------------------ Работа со слушателями -------------------
+    
+    /**
+     * Уничтожает объект.
      */
     public void destroy() {
 
         for (GenericEventListener genericEventListener : _geneventListeners) {
             genericEventListener.destroyed(new GenericEvent(this, getId()));
         }
-    }
-
-    /**
-     * Возвращает true, если объект считается уничтоженным.
-     *
-     * @return Уничтожен ли объект.
-     */
-    public boolean isDestroyed() {
-
-        return _isDestroyed;
     }
 
     /**
@@ -265,28 +317,8 @@ public abstract class IngameObject implements Cloneable {
      * @param genericEventListener Удаляемый слушатель.
      */
     public void removeGenericEventListener(GenericEventListener genericEventListener) {
+        
         _geneventListeners.remove(genericEventListener);
     }
-
-    @Override
-    public IngameObject clone() {
-
-        IngameObject clone = null;
-        try {
-            clone = (IngameObject) super.clone();
-            clone._publPublishingSprite = this._publPublishingSprite.clone();
-            clone._isDestroyed = this._isDestroyed;
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(IngameObject.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return clone;
-    }
-
-    public int getId() {
-        return _publPublishingSprite.getId();
-    }
-
-
 
 }

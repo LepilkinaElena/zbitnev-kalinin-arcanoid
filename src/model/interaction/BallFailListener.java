@@ -6,11 +6,17 @@
 package model.interaction;
 
 /**
- *
+ * Интерфейс слушателя падения мяча
+ * 
  * @author Мария
  */
 public interface BallFailListener {
 
+    /**
+     * Закончить игру
+     * 
+     * @param ballFailEvent событие падение мяча
+     */
     public void endGame(BallFailEvent ballFailEvent);
     
 }
