@@ -13,14 +13,13 @@ import model.collisionProcessing.IngameObject;
  */
 public abstract class IngameObjectView {
 
+    /** Модель игрового объекта */
     protected final IngameObject _ingameObject;
-
+    /** Спрайт объекта */
     protected PublishingSprite _publishingSprite = null;
 
     /**
-     * Создает представление объекта на основе его модели и спрайта. Этот метод
-     * автоматически согласует слушателей и связывает спрайт с объектом
-     * представления, которому он принадлежит.
+     * Создает представление объекта на основе его модели и спрайта.
      *
      * @param ingameObject Модель игрового объекта.
      * @param publishingSprite Спрайт, которым он будет отображен.
@@ -31,11 +30,23 @@ public abstract class IngameObjectView {
         _publishingSprite = publishingSprite;
     }
 
+    /**
+     * Получить идентификатор
+     * 
+     * @return идентификатор
+     */
     public int getId() {
+        
         return _publishingSprite.getId();
     }
 
+    /**
+     * Удалить из спрайт группы
+     * 
+     * @param spriteGroup группа спрайтов
+     */
     void removeFromSpriteGroup(SpriteGroup spriteGroup) {
+        
         _publishingSprite.removeFromSpriteGroup(spriteGroup);
     }
 

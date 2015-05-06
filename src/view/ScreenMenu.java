@@ -14,24 +14,28 @@ import com.golden.gamedev.GameObject;
 public class ScreenMenu extends GameObject {
 
     public ScreenMenu(GameEngine arg0) {
+        
         super(arg0);
         // TODO Auto-generated constructor stub
     }
 
     @Override
     public void initResources() {
+        
         // TODO Auto-generated method stub
 
     }
 
     @Override
     public void render(Graphics2D arg0) {
+        
         // TODO Auto-generated method stub
 
     }
 
     @Override
     public void update(long arg0) {
+        
         // TODO Auto-generated method stub
 
     }

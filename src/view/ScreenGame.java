@@ -22,10 +22,16 @@ import service.IngameObjectFactory;
  */
 public class ScreenGame extends GameObject {
 
+    /** Модель игры */
     private GameModel _gameModel;
+    /** Представление игрового поля */
     private GameFieldView _gameFieldView;
+    /** Контроллер */
     private GameController _gameController;
+    
+    
     public ScreenGame(GameEngine arg0) {
+        
         super(arg0);
     }
 
@@ -72,6 +78,7 @@ public class ScreenGame extends GameObject {
 
     @Override
     public void update(long l) {
+        
         // Апдейтим всё
         _gameFieldView.update(l);
         _gameController.update(l);

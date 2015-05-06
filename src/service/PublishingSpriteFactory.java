@@ -9,35 +9,71 @@ import java.awt.image.BufferedImage;
 import view.GameFieldView;
 
 /**
- *
+ * Класс фабрики спрайтов
+ * 
  * @author Елена
  */
 public class PublishingSpriteFactory {
 
+    /** Представление игрового поля */
     private GameFieldView _gameFieldView;
 
+    /** Изображение мяча */
     private BufferedImage _basicBallImage = null;
+    /** Изображение разрушаемого кирпича */
     private BufferedImage _breakableBrickImage = null;
+    /** Изображение неразрушаемого кирпича */
     private BufferedImage _unbreakableBrickImage = null;
+    /** Изображение ракетки */
     private BufferedImage _basicPaddleImage = null;
 
+    /**
+     * Создать фабрику
+     * 
+     * @param gameFieldView представление игрового поля
+     */
     public PublishingSpriteFactory(GameFieldView gameFieldView) {
+        
         _gameFieldView = gameFieldView;
     }
 
+    /**
+     * Установить изображение мяча
+     * 
+     * @param image изображение мяча
+     */
     public void setBasicBallImage(BufferedImage image) {
+        
         _basicBallImage = image;
     }
 
+    /**
+     * Установить изображение разрушаемого кирпича
+     * 
+     * @param image изображение разрушаемого кирпича
+     */
     public void setBreakableBrickImage(BufferedImage image) {
+        
         _breakableBrickImage = image;
     }
 
+    /**
+     * Установить изображение неразрушаемого кирпича
+     * 
+     * @param image изображение неразрушаемого кирпича
+     */
     public void setUnbreakableBrickImage(BufferedImage image) {
+        
         _unbreakableBrickImage = image;
     }
 
+    /**
+     * Установить изображение ракетки
+     * 
+     * @param image изображение ракетки
+     */
     public void setBasicPaddleImage(BufferedImage image) {
+        
         _basicPaddleImage = image;
     }
 
@@ -58,6 +94,12 @@ public class PublishingSpriteFactory {
         return valid;
     }
 
+    /**
+     * Создать новый спрайт
+     * 
+     * @param image изображение
+     * @return спрайт
+     */
     private PublishingSprite newPublishingSprite(BufferedImage image) {
 
         PublishingSprite publSprite = null;
@@ -71,7 +113,7 @@ public class PublishingSpriteFactory {
     }
 
     /**
-     * Создает спрайт для простого мяча.
+     * Создает спрайт для мяча.
      *
      * @return спрайт мяча.
      */

@@ -9,12 +9,14 @@ import model.collisionProcessing.IngameObject;
 import service.PublishingSprite;
 
 /**
- *
+ * Класс представления ракетки
+ * 
  * @author Елена
  */
 public class PaddleView extends IngameObjectView {
 
     public PaddleView(IngameObject ingameObject, PublishingSprite publishingSprite) {
+        
         super(ingameObject, publishingSprite);
     }
 

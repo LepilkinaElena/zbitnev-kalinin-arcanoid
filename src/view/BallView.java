@@ -9,12 +9,14 @@ import model.collisionProcessing.IngameObject;
 import service.PublishingSprite;
 
 /**
- *
+ * Класс представления мяча
+ * 
  * @author Елена
  */
 public class BallView extends IngameObjectView {
 
     public BallView(IngameObject ingameObject, PublishingSprite publishingSprite) {
+        
         super(ingameObject, publishingSprite);
     }
 

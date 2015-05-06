@@ -9,12 +9,14 @@ import model.collisionProcessing.IngameObject;
 import service.PublishingSprite;
 
 /**
- *
+ * Класс представления неразрушаемого кирпича
+ * 
  * @author Елена
  */
 public class UnbreakableBrickView extends IngameObjectView {
 
     public UnbreakableBrickView(IngameObject ingameObject, PublishingSprite publishingSprite) {
+        
         super(ingameObject, publishingSprite);
     }
 
