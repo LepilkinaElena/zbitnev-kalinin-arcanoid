@@ -10,7 +10,8 @@ import model.paddle.Paddle;
  */
 public class Player {
 
-    protected Paddle _paddle;
+    /** Ракетка */
+    private Paddle _paddle;
 
     /**
      * Инициализировать игрока
@@ -18,6 +19,7 @@ public class Player {
      * @param paddle Подконтрольная игроку ракетка
      */
     public Player(Paddle paddle) {
+        
         _paddle = paddle;
     }
 
@@ -25,7 +27,12 @@ public class Player {
 
     }
 
+    /**
+     * Клонировать игрока
+     * @return клон игрока
+     */
     public Player clone() {
+        
         Player clonePlaer = new Player((Paddle) _paddle.clone());
         return clonePlaer;
     }
@@ -36,25 +43,35 @@ public class Player {
      * @param paddle Ракетка для добавления
      */
     public void setPaddle(Paddle paddle) {
+        
         _paddle = paddle;
     }
 
     /**
-     * Заставляет подконтрольные ракетки задать скорость мячам.
+     * Начать попытку
      */
-    public void pushBalls() {
-        _paddle.pushBalls();
-    }
-
     void startAttempt() {
+        
         _paddle.pushBalls();
     }
 
+    /**
+     * Обработать действия игрока
+     * 
+     * @param speed2D скорость, которую игрок задал ракетке
+     */
     void processAction(Speed2D speed2D) {
+        
         _paddle.setSpeed(speed2D);
     }
 
+    /**
+     * Обработать действия игрока
+     * 
+     * @param direction Направление, которое игрок задал ракетке
+     */
     void processAction(Direction direction) {
+        
         if (direction.equals(Direction.west())) {
             _paddle.setSpeed(new Speed2D(-0.4, 0));
         } else {
@@ -62,7 +79,11 @@ public class Player {
         }
     }
     
+    /**
+     * Обработать действия игрока
+     */
     void processAction() {
+        
         _paddle.setSpeed(new Speed2D());
     }
 }

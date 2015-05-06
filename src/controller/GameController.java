@@ -16,8 +16,10 @@ import model.Speed2D;
  *
  */
 public class GameController {
-
+    
+    /** Ввод действий пользователя с помощью клавиатуры и мыши*/
     private BaseInput _baseInput;
+    /** Модель игры */
     private GameModel _gameModel;
 
     /**
@@ -49,7 +51,7 @@ public class GameController {
         } else {
             _gameModel.proccessPlayerAction();
         }
-        
+        // Запуск игры.
         if (_baseInput.isMousePressed(MouseEvent.BUTTON1)) {
             _gameModel.startGame();
         }

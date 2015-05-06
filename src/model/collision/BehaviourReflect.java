@@ -39,8 +39,13 @@ public class BehaviourReflect extends CollisionBehaviour {
 
     @Override
     public void invoke(IngameObject active, IngameObject passive) {
+        
+        // Ось отражения
         Speed2D.Axis axis;
+        
+        //Если ось не задана
         if (passive.getAxis() == null) {
+            // Получаем ось по позициям столкнувшихся объектов
             if ((active.getPosition().getY() + active.getSize().getHeight()) > passive.getPosition().getY() && (active.getPosition().getY()+ active.getSize().getHeight()) < passive.getPosition().getY() + passive.getSize().getHeight() + active.getSize().getHeight()
                     && (active.getPosition().getX() < passive.getPosition().getX() || active.getPosition().getX() > passive.getPosition().getX() + passive.getSize().getWidth())) {
                 axis = Speed2D.Axis.Y;
@@ -48,8 +53,11 @@ public class BehaviourReflect extends CollisionBehaviour {
                 axis = Speed2D.Axis.X;
             }
         } else {
+            // Получаем ось объекта
             axis = passive.getAxis();
         }
+        
+        // Отражаем скорость
         active.setSpeed(active.getSpeed().reflect(axis));
     }
 }

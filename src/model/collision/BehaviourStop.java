@@ -9,7 +9,8 @@ import model.Speed2D;
 import model.collisionProcessing.IngameObject;
 
 /**
- *
+ * Поведение остановки при столкновении с препятствием
+ * 
  * @author Елена
  */
 public class BehaviourStop extends CollisionBehaviour {
@@ -38,6 +39,7 @@ public class BehaviourStop extends CollisionBehaviour {
 
     @Override
     public void invoke(IngameObject active, IngameObject passive) {
+        
         if (passive.getAxis() == Speed2D.Axis.Y) {
             active.setSpeed(new Speed2D());
         }

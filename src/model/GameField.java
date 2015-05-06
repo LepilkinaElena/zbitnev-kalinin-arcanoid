@@ -19,8 +19,11 @@ import model.interaction.GenericEventListener;
  */
 public class GameField {
 
+    /** Игровые объекты */
     private HashMap<Integer, IngameObject> _ingameObjects;
+    /** Размеры поля */
     private Dimension _dimensions;
+    /** Слушатель удаления элемента с поля */
     private ObjectGenericListener _listener;
 
     /**
@@ -48,11 +51,11 @@ public class GameField {
     /**
      * Убрать объект с поля
      *
-     * @param object Объект для удаления
+     * @param object Идентификатор объект для удаления
      */
-    private void removeObject(int object) {
+    private void removeObject(int objectId) {
         
-        _ingameObjects.remove(object);
+        _ingameObjects.remove(objectId);
     }
 
     /**
@@ -65,14 +68,14 @@ public class GameField {
         return _dimensions;
     }
 
+    /**
+     * Получить игровой объект
+     * @param id идентификатор игрового объекта
+     * @return игровой объект
+     */
     public IngameObject getObject(int id) {
         
         return _ingameObjects.get(id);
-    }
-
-    public void addListenerToObject(IngameObject object) {
-        
-        object.addGenericEventListener(_listener);
     }
 
     /**
@@ -81,11 +84,14 @@ public class GameField {
      * @param className имя класса
      * @return список элементов данного класса
      */
-    public ArrayList<IngameObject> getElements(String className) {
+    public ArrayList<IngameObject> getObjects(String className) {
         
+        // Искомый класс
         Class foundClass;
+        // Объекты искомого класса
         ArrayList<IngameObject> elements = new ArrayList<>();
         try {
+            // Обход карты для поиска игровых объектов нужного класса.
             Set<Integer> keys = _ingameObjects.keySet();
             foundClass = Class.forName(className);
             for (Integer key : keys) {
@@ -99,8 +105,12 @@ public class GameField {
         return elements;
     }
 
+    /**
+     * Очистить поле
+     */
     void clear() {
         
+        // Удаление всех игровых объектов из хранилища.
         Set<Integer> keys = _ingameObjects.keySet();
         ArrayList<Integer> arrayKeys = new ArrayList<>();
         arrayKeys.addAll(keys);
@@ -113,10 +123,25 @@ public class GameField {
         }
     }
     
+    //--------------------- Работа со слушателями --------------------------
+    
+    /**
+     * Добавить себя в качестве слушателя удаления объектов
+     * @param object объект, об удалении которого поле должно знать
+     */
+    public void addListenerToObject(IngameObject object) {
+        
+        object.addGenericEventListener(_listener);
+    }
+    
+    /**
+     * Класс слушателя события разрушения объектов
+     */
     private class ObjectGenericListener implements GenericEventListener {
 
         @Override
         public void destroyed(GenericEvent event) {
+            
             removeObject(event.getElementId());
         }
 

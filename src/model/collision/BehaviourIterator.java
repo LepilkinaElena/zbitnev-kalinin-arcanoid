@@ -9,28 +9,43 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- *
+ * Класс итератора для кнтйнера с поведениями
+ * 
  * @author Елена
  */
 public class BehaviourIterator implements Iterator<CollisionBehaviour> {
 
-    private Iterator<CollisionBehaviour> _collisionBehaviouriterator;
+    /** Итератор для внутреннего массива*/
+    private Iterator<CollisionBehaviour> _collisionBehaviourIterator;
 
+    /**
+     * Создать итератор
+     * 
+     * @param list список с поведениями
+     */
     public BehaviourIterator(ArrayList<CollisionBehaviour> list) {
-        _collisionBehaviouriterator = list.iterator();
+        
+        _collisionBehaviourIterator = list.iterator();
     }
 
     @Override
     public boolean hasNext() {
-        return _collisionBehaviouriterator.hasNext();
+        
+        return _collisionBehaviourIterator.hasNext();
     }
 
     @Override
     public CollisionBehaviour next() {
-        return _collisionBehaviouriterator.next();
+        
+        return _collisionBehaviourIterator.next();
     }
 
+    /**
+     * Удалить элемент по итератору
+     * 
+     */
     public void remove() {
-        _collisionBehaviouriterator.remove();
+        
+        _collisionBehaviourIterator.remove();
     }
 }

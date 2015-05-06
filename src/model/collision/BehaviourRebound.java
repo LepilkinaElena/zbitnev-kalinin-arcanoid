@@ -36,6 +36,7 @@ public class BehaviourRebound extends CollisionBehaviour {
 
     @Override
     public void invoke(IngameObject active, IngameObject passive) {
+        
         if (passive.getSpeed().y() != 0.0) {
             ArrayList<Speed2D> countSpeed = countSpeed(active, passive);
             active.setSpeed(countSpeed.get(0));
@@ -45,11 +46,14 @@ public class BehaviourRebound extends CollisionBehaviour {
     }
     
     /**
-     * Высчитать скорость столкновения двух элементов
-     * @param element с которым столкнулся
-     * @return массив из двух значений новых скоростей
+     * Высчитать скорость после столкновения двух элементов
+     * @param active первый элемент
+     * @param passive второй элемент
+     * 
+     * @return массив скоростей для двух элементов
      */
     private ArrayList<Speed2D> countSpeed(IngameObject active, IngameObject passive) {
+        
         ArrayList<Speed2D> result = new ArrayList();
         double speedX1;
         double speedY1;

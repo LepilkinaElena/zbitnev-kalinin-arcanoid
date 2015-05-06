@@ -8,7 +8,7 @@ package model;
 import model.collisionProcessing.IngameObject;
 
 /**
- * Класс для границ (сделан, чтобы можно было вызывать invoke для поведений
+ * Класс для псевдо-границ (сделан, чтобы можно было вызывать invoke для поведений
  * одинаково)
  *
  * @author Елена
