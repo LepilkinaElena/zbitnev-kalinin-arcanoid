@@ -48,9 +48,11 @@ public final class Speed2D {
 
     @Override
     public boolean equals(Object other) {
-
-        Speed2D oth = (Speed2D) other;
-        return oth._x == this._x && oth._y == this._y;
+        if (other instanceof Speed2D) {
+            Speed2D oth = (Speed2D) other;
+            return oth._x == this._x && oth._y == this._y;
+        }
+        return false;        
     }
 
     public double x() {
