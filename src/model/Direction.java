@@ -100,8 +100,11 @@ public class Direction {
 
     @Override
     public boolean equals(Object obj) {
-        int otherangle = ((Direction) obj)._angle;
-        return _angle == otherangle;
+        if (obj instanceof Direction) {
+            int otherangle = ((Direction) obj)._angle;
+            return _angle == otherangle;
+        }
+        return false; 
     }
 
     @Override
