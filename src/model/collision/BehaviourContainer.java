@@ -3,6 +3,7 @@ package model.collision;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import model.collisionProcessing.IngameObject;
 
 /**
  * Класс контейнера специальных поведений
@@ -116,5 +117,15 @@ public class BehaviourContainer {
     public boolean contains(Class<?> className) {
         
         return _specialColBehaviours.containsKey(className);
+    }
+    
+    public void invoke(IngameObject collidedObject, IngameObject with) {
+        
+        Iterator<CollisionBehaviour> iterator = iterator(with.getClass());
+        // Выполнение всех специальных поведений
+        while (iterator.hasNext()) {
+            CollisionBehaviour currentBehavior = iterator.next();
+            currentBehavior.invoke(collidedObject, with);
+        }
     }
 }

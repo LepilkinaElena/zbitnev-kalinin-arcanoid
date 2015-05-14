@@ -162,42 +162,16 @@ public abstract class IngameObject implements Cloneable {
      * Обрабатывает столкновение с другим объектом.
      *
      * @param with Объект, столкнувшийся с данным.
-     * @param specialBehaviours контейнер со специальными поведениями
-     */
-    private void processCollision(IngameObject with, BehaviourContainer specialBehaviours) {
-        
-        Iterator<CollisionBehaviour> iterator = specialBehaviours.iterator(with.getClass());
-        // Выполнение всех специальных поведений
-        while (iterator.hasNext()) {
-            CollisionBehaviour currentBehavior = iterator.next();
-            currentBehavior.invoke(this, with);
-        }
-    }
-
-    /**
-     * Обрабатывает столкновение с другим объектом.
-     *
-     * @param with Объект, столкнувшийся с данным.
      */
     void processCollision(IngameObject with) {
 
         // Если есть специальные поведения, выполняются они
         if (_specialColBehaviours.contains(with.getClass())) {
-            processCollision(with, _specialColBehaviours);
+            _specialColBehaviours.invoke(this, with);
         } else {
-            processCollision(with, _defaultColBehaviour);
-        }
-    }
-
-    /**
-     * Обрабатывает столкновение с другим объектом.
-     *
-     * @param with Объект, столкнувшийся с данным.
-     */
-    private void processCollision(IngameObject with, ArrayList<CollisionBehaviour> defaultBehaviours) {
-
-        for (CollisionBehaviour behavior : defaultBehaviours) {
-            behavior.invoke(this, with);
+            for (CollisionBehaviour behavior : _defaultColBehaviour) {
+                behavior.invoke(this, with);
+            }
         }
     }
 
