@@ -104,9 +104,8 @@ public class PublishingSpriteFactory {
 
         PublishingSprite publSprite = null;
         if (this.is_valid()) {
-            UniqSprite sprite = new UniqSprite(image);
-            publSprite = new PublishingSprite(sprite);
-            _gameFieldView.addToSpriteGroup(sprite);
+            publSprite = new PublishingSprite(image);
+            publSprite.addToField(_gameFieldView);
         }
         return publSprite;
 

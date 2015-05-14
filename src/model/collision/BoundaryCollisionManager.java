@@ -14,7 +14,6 @@ import model.GameField;
 import model.collisionProcessing.IngameObject;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
-import service.UniqSprite;
 
 /**
  * Менеджер столкновений с границами (при изменении библиотеки заменить!)
@@ -53,7 +52,7 @@ public class BoundaryCollisionManager extends CollisionBounds {
         // Обработать случившуюся коллизию
         _storage.clear();
         _oldPosition = new Point2D.Float((float)sprite.getOldX(), (float) sprite.getOldY());
-        _storage.put(_gameField.getObject(((UniqSprite)sprite).getId()), null);
+        _storage.put(_gameField.getObject(sprite.getID()), null);
         fireIngameObjectCollided();
     }
 

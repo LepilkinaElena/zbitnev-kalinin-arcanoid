@@ -1,9 +1,13 @@
 package service;
 
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import model.GameField;
 import model.Speed2D;
+import view.GameFieldView;
 
 /**
  * Спрайт игрового объекта
@@ -12,18 +16,26 @@ import model.Speed2D;
  *
  */
 public class PublishingSprite {
+    
+    /** Следующий идентификатор */
+    private static int _nextid = 0;
+    /** Идентификатор спрайта */
+    private int _id;
 
     /** Спрайт GTGE (заменить в случае смены библиотеки) */
-    private final UniqSprite _uniqSpriteubiq;
+    private final Sprite _sprite;
 
     /**
      * Создать спрайт
      * 
      * @param uniqSprite спрайт
      */
-    public PublishingSprite(UniqSprite uniqSprite) {
+    public PublishingSprite(BufferedImage bufferedImage) {
         
-        _uniqSpriteubiq = uniqSprite;
+        _sprite = new Sprite(bufferedImage);
+        _id = _nextid;
+        _nextid++;
+        _sprite.setID(_id);
     }
 
     /**
@@ -32,11 +44,8 @@ public class PublishingSprite {
      * @return идентификатор спрайта
      */
     public int getId() {
-        
-        if (_uniqSpriteubiq != null) {
-            return _uniqSpriteubiq.getId();
-        }
-        return -1;
+              
+        return _sprite.getID();
     }
 
     /**
@@ -46,7 +55,7 @@ public class PublishingSprite {
      */
     public void setSpeed(Speed2D speed) {
         
-        _uniqSpriteubiq.setSpeed(speed.x(), speed.y());
+        _sprite.setSpeed(speed.x(), speed.y());
     }
 
     /**
@@ -56,7 +65,7 @@ public class PublishingSprite {
      */
     public Speed2D getSpeed() {
         
-        return new Speed2D(_uniqSpriteubiq.getHorizontalSpeed(), _uniqSpriteubiq.getVerticalSpeed());
+        return new Speed2D(_sprite.getHorizontalSpeed(), _sprite.getVerticalSpeed());
     }
 
     /**
@@ -66,8 +75,8 @@ public class PublishingSprite {
      */
     public void setPosition(Point2D.Float point) {
         
-        _uniqSpriteubiq.setX(point.x);
-        _uniqSpriteubiq.setY(point.y);
+        _sprite.setX(point.x);
+        _sprite.setY(point.y);
     }
 
     /**
@@ -77,7 +86,7 @@ public class PublishingSprite {
      */
     public Point2D.Float getPosition() {
         
-        return new Point2D.Float((float) _uniqSpriteubiq.getX(), (float) _uniqSpriteubiq.getY());
+        return new Point2D.Float((float) _sprite.getX(), (float) _sprite.getY());
     }
 
     /**
@@ -87,7 +96,7 @@ public class PublishingSprite {
      */
     public Dimension getSize() {
         
-        return new Dimension(_uniqSpriteubiq.getWidth(), _uniqSpriteubiq.getHeight());
+        return new Dimension(_sprite.getWidth(), _sprite.getHeight());
     }
 
     /**
@@ -97,12 +106,10 @@ public class PublishingSprite {
      */
     public PublishingSprite clone() {
         
-        UniqSprite cloneSprite = _uniqSpriteubiq.clone();
-        cloneSprite.setX(_uniqSpriteubiq.getX());
-        cloneSprite.setY(_uniqSpriteubiq.getY());
-        cloneSprite.setVerticalSpeed(_uniqSpriteubiq.getVerticalSpeed());
-        cloneSprite.setHorizontalSpeed(_uniqSpriteubiq.getHorizontalSpeed());
-        PublishingSprite clone = new PublishingSprite(cloneSprite);
+        PublishingSprite clone = new PublishingSprite(_sprite.getImage());
+        clone.setPosition(new Point2D.Float((float)_sprite.getX(), (float)_sprite.getY()));
+        clone.setSpeed(new Speed2D(_sprite.getHorizontalSpeed(), _sprite.getVerticalSpeed()));
+        
         return clone;
     }
 
@@ -113,7 +120,11 @@ public class PublishingSprite {
      */
     public void removeFromSpriteGroup(SpriteGroup spriteGroup) {
         
-        spriteGroup.remove(_uniqSpriteubiq);
+        spriteGroup.remove(_sprite);
+    }
+    
+    void addToField(GameFieldView gameFieldView) {
+        gameFieldView.addToSpriteGroup(_sprite);
     }
 
 }

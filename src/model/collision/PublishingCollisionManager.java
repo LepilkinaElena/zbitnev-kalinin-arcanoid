@@ -11,7 +11,6 @@ import model.collisionProcessing.IngameObject;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
 import model.paddle.Paddle;
-import service.UniqSprite;
 
 /**
  * Менеджер столкновений, сообщающий о коллизиях между объектами (При замене библиотеки заменить)
@@ -97,11 +96,11 @@ public class PublishingCollisionManager extends AdvanceCollisionGroup {
                 ArrayList<IngameObject> list = new ArrayList<>();
                 for (Sprite value : valueSprites) {
                     // Добавляется найденный в игровом поле объект
-                    list.add(_gameField.getObject(((UniqSprite)value).getId()));
+                    list.add(_gameField.getObject(value.getID()));
                 }
                 
                 // Записать столкнуышиеся игровые объекты в карту
-                _storage.put(_gameField.getObject(((UniqSprite)keySprite).getId()), list);
+                _storage.put(_gameField.getObject(((Sprite)keySprite).getID()), list);
             }
         }
     }
