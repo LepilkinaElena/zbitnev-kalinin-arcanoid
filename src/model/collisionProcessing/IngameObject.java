@@ -41,7 +41,6 @@ public abstract class IngameObject implements Cloneable {
     public IngameObject(PublishingSprite publishingSprite) {
         
         _publPublishingSprite = publishingSprite;
-        setAxis(_axis);
     }
 
     /**
@@ -135,7 +134,7 @@ public abstract class IngameObject implements Cloneable {
      */
     public Point2D.Float getPosition() {
 
-        return (Point2D.Float) _publPublishingSprite.getPosition().clone();
+        return (Point2D.Float) _publPublishingSprite.getPosition();
     }
 
     /**
@@ -155,7 +154,7 @@ public abstract class IngameObject implements Cloneable {
      */
     public Dimension getSize() {
 
-        return (Dimension) _publPublishingSprite.getSize().clone();
+        return (Dimension) _publPublishingSprite.getSize();
     }
 
     /**
