@@ -5,6 +5,8 @@
  */
 package service;
 
+import integrationGTGE.PublishingSpriteFactory;
+import integrationGTGE.PublishingSprite;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +20,7 @@ import model.brick.UnbreakableBrick;
 import model.paddle.Paddle;
 import view.BallView;
 import view.BreakableBrickView;
-import view.GameFieldView;
+import integrationGTGE.GameFieldView;
 import view.PaddleView;
 import view.UnbreakableBrickView;
 

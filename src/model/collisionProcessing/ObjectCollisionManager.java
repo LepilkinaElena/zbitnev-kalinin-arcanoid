@@ -5,7 +5,6 @@
  */
 package model.collisionProcessing;
 
-import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.collision.CollisionBounds;
 import java.awt.geom.Point2D;
 import java.lang.reflect.Constructor;
@@ -22,8 +21,9 @@ import model.Speed2D;
 import model.Speed2D.Axis;
 import model.ball.Ball;
 import model.brick.Brick;
-import model.collision.BoundaryCollisionManager;
-import model.collision.PublishingCollisionManager;
+import integrationGTGE.BoundaryCollisionManager;
+import integrationGTGE.GameFieldView;
+import integrationGTGE.PublishingCollisionManager;
 import model.interaction.CollisionEvent;
 import model.interaction.CollisionListener;
 
@@ -44,33 +44,15 @@ public class ObjectCollisionManager {
      * 
      * @param field поле, которому принадлежат объекты
      */
-    public ObjectCollisionManager(GameField field) {
+    public ObjectCollisionManager(GameField field, GameFieldView gameFieldView) {
         
         CollisionOccuredListener listener = new CollisionOccuredListener();
         _objectManager = new PublishingCollisionManager(field);
         _boundaryManager = new BoundaryCollisionManager(0, 0, field.getSize().width, field.getSize().height, field);
         _objectManager.addCollisionListener(listener);
         _boundaryManager.addCollisionListener(listener);
-    }
-
-    /**
-     * Получить менеджера столкновений объектов
-     * 
-     * @return  менеджер столкновений объектов
-     */
-    public CollisionManager getObjectManager() {
         
-        return _objectManager;
-    }
-
-    /**
-     * Получить менеджера столкновений объектов с границами
-     * 
-     * @return менеджер столкновений объектов с границами
-     */
-    public CollisionManager getBoundaryManager() {
-        
-        return _boundaryManager;
+        gameFieldView.connectWithSpriteGroup(_objectManager, _boundaryManager);
     }
     
     /**

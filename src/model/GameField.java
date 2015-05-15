@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import model.interaction.GenericEvent;
+import model.interaction.ObjectDestroiedEvent;
 import model.interaction.GenericEventListener;
 
 /**
@@ -140,7 +140,7 @@ public class GameField {
     private class ObjectGenericListener implements GenericEventListener {
 
         @Override
-        public void destroyed(GenericEvent event) {
+        public void destroyed(ObjectDestroiedEvent event) {
             
             removeObject(event.getElementId());
         }

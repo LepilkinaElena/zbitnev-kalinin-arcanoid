@@ -10,9 +10,9 @@ import model.Speed2D;
 
 import model.collision.CollisionBehaviour;
 import model.collision.BehaviourContainer;
-import model.interaction.GenericEvent;
+import model.interaction.ObjectDestroiedEvent;
 import model.interaction.GenericEventListener;
-import service.PublishingSprite;
+import integrationGTGE.PublishingSprite;
 
 /**
  * Класс игрового объекта.
@@ -270,7 +270,7 @@ public abstract class IngameObject implements Cloneable {
     public void destroy() {
 
         for (GenericEventListener genericEventListener : _geneventListeners) {
-            genericEventListener.destroyed(new GenericEvent(this, getId()));
+            genericEventListener.destroyed(new ObjectDestroiedEvent(this, getId()));
         }
     }
 

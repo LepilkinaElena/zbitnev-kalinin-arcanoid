@@ -1,7 +1,7 @@
 package model.brick;
 
 import model.collisionProcessing.IngameObject;
-import service.PublishingSprite;
+import integrationGTGE.PublishingSprite;
 
 /**
  * Модель абстрактного кирпича.

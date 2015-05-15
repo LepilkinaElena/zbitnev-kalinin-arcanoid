@@ -3,7 +3,7 @@ package model.brick;
 
 import model.Speed2D;
 import model.collision.CollisionBehaviour;
-import service.PublishingSprite;
+import integrationGTGE.PublishingSprite;
 
 /**
  * Модель неразрушаемого кирпича.

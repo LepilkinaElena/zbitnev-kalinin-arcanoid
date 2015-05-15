@@ -10,7 +10,7 @@ import model.collision.BehaviourReflect;
 import model.interaction.BallFailEvent;
 import model.interaction.BallFailListener;
 import model.paddle.Paddle;
-import service.PublishingSprite;
+import integrationGTGE.PublishingSprite;
 
 /**
  * Модель шарика

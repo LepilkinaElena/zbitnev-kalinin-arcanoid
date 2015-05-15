@@ -5,8 +5,9 @@
  */
 package view;
 
+import integrationGTGE.IngameObjectView;
 import model.collisionProcessing.IngameObject;
-import service.PublishingSprite;
+import integrationGTGE.PublishingSprite;
 
 /**
  * Класс представления ракетки

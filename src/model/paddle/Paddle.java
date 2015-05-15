@@ -8,7 +8,7 @@ import model.Speed2D;
 import model.ball.Ball;
 import model.collision.BehaviourStop;
 import model.collision.CollisionBehaviour;
-import service.PublishingSprite;
+import integrationGTGE.PublishingSprite;
 
 /**
  * Модель абстрактной ракетки.
