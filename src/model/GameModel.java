@@ -102,7 +102,7 @@ public class GameModel {
     
     public Player getPlayer() {
         
-        return _player.clone();
+        return _player;
     }
 
     /**
