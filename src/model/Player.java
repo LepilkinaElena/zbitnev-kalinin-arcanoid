@@ -60,30 +60,9 @@ public class Player {
      * 
      * @param speed2D скорость, которую игрок задал ракетке
      */
-    void processAction(Speed2D speed2D) {
+    public void processAction(Speed2D speed2D) {
         
         _paddle.setSpeed(speed2D);
     }
 
-    /**
-     * Обработать действия игрока
-     * 
-     * @param direction Направление, которое игрок задал ракетке
-     */
-    void processAction(Direction direction) {
-        
-        if (direction.equals(Direction.west())) {
-            _paddle.setSpeed(new Speed2D(-0.4, 0));
-        } else {
-            _paddle.setSpeed(new Speed2D(0.4, 0));
-        }
-    }
-    
-    /**
-     * Обработать действия игрока
-     */
-    void processAction() {
-        
-        _paddle.setSpeed(new Speed2D());
-    }
 }

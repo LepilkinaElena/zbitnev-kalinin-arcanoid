@@ -20,11 +20,11 @@ import model.interaction.GenericEventListener;
 public class GameField {
 
     /** Игровые объекты */
-    private HashMap<Integer, IngameObject> _ingameObjects;
+    private HashMap<Integer, IngameObject> _ingameObjects = new HashMap<>();
     /** Размеры поля */
     private Dimension _dimensions;
     /** Слушатель удаления элемента с поля */
-    private ObjectGenericListener _listener;
+    private ObjectGenericListener _listener = new ObjectGenericListener();
 
     /**
      * Инициализирует поле заданного размера.
@@ -33,9 +33,7 @@ public class GameField {
      */
     public GameField(Dimension size) {
 
-        _ingameObjects = new HashMap<>();
         _dimensions = size;
-        _listener = new ObjectGenericListener();
     }
 
     /**

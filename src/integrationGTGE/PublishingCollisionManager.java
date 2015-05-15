@@ -3,7 +3,6 @@ package integrationGTGE;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import java.util.Map;
 import java.util.Set;

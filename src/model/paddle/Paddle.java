@@ -82,10 +82,11 @@ public class Paddle extends IngameObject {
     @Override
     public void setSpeed(Speed2D speed) {
         
+        super.setSpeed(speed);
         for (Ball ball : _balls) {
             ball.setSpeed(speed);
         }
-        super.setSpeed(speed);
+        
 
     }
     

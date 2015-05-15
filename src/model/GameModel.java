@@ -99,33 +99,10 @@ public class GameModel {
         
         _player.startAttempt();
     }
-
-    /**
-     * Обработать действия игрока
-     * 
-     * @param speed2D скорость, заданная игроком ракетке
-     */
-    public void proccessPlayerAction(Speed2D speed2D) {
-        
-        _player.processAction(speed2D);
-    }
-
-    /**
-     * Обработать действия игрока
-     * 
-     * @param direction Направление, которое игрок задал ракетке
-     */
-    public void proccessPlayerAction(Direction direction) {
-        
-        _player.processAction(direction);
-    }
     
-    /**
-     * Обработать действия игрока
-     */
-    public void proccessPlayerAction() {
+    public Player getPlayer() {
         
-        _player.processAction();
+        return _player.clone();
     }
 
     /**

@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 
 import com.golden.gamedev.engine.BaseInput;
 
-import model.Direction;
 import model.GameModel;
 import model.Speed2D;
 
@@ -40,16 +39,16 @@ public class GameController {
 
         // Управление мышью.
         if (_baseInput.getMouseDX() != 0) {
-           _gameModel.proccessPlayerAction(new Speed2D(3*_baseInput.getMouseDX()/l, 0));
+           _gameModel.getPlayer().processAction(new Speed2D(3*_baseInput.getMouseDX()/l, 0));       
         }
 
         // Управление с клавиатуры.
         else if (_baseInput.isKeyDown(KeyEvent.VK_LEFT)) {
-            _gameModel.proccessPlayerAction(Direction.west());
+            _gameModel.getPlayer().processAction(new Speed2D(-0.4, 0));
         } else if (_baseInput.isKeyDown(KeyEvent.VK_RIGHT)) {
-            _gameModel.proccessPlayerAction(Direction.east());
+            _gameModel.getPlayer().processAction(new Speed2D(0.4, 0));
         } else {
-            _gameModel.proccessPlayerAction();
+            _gameModel.getPlayer().processAction(new Speed2D());
         }
         // Запуск игры.
         if (_baseInput.isMousePressed(MouseEvent.BUTTON1)) {
